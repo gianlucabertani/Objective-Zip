@@ -94,6 +94,7 @@
 		8C83F49410E7CBCB002FB3CB /* FileInZipInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FileInZipInfo.m; path = "Objective-Zip/FileInZipInfo.m"; sourceTree = "<group>"; };
 		8C8F2D3910EBC94B00F75833 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		8C8F2D9210EBCE0300F75833 /* ObjectiveZipIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ObjectiveZipIcon.png; sourceTree = "<group>"; };
+		8C9893AF16E5511500E1190A /* ARCHelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ARCHelper.h; sourceTree = "<group>"; };
 		8CBE431610E95FA300AC9ED3 /* ZipReadStream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ZipReadStream.h; path = "Objective-Zip/ZipReadStream.h"; sourceTree = "<group>"; };
 		8CBE431710E95FA300AC9ED3 /* ZipReadStream.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ZipReadStream.m; path = "Objective-Zip/ZipReadStream.m"; sourceTree = "<group>"; };
 		8CD230B1159DA6DC00603D19 /* gzclose.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = gzclose.c; path = ZLib/gzclose.c; sourceTree = "<group>"; };
@@ -145,6 +146,7 @@
 				8C6D353B10E56BA400B63EFA /* Objective-Zip */,
 				8C6D350110E56A4B00B63EFA /* MiniZip */,
 				8C6D350010E56A4500B63EFA /* ZLib */,
+				8C9893AE16E550E600E1190A /* ARC Helper */,
 				080E96DDFE201D6D7F000001 /* Classes */,
 				29B97315FDCFA39411CA2CEA /* Other Sources */,
 				29B97317FDCFA39411CA2CEA /* Resources */,
@@ -249,6 +251,15 @@
 				8CBE431710E95FA300AC9ED3 /* ZipReadStream.m */,
 			);
 			name = "Objective-Zip";
+			sourceTree = "<group>";
+		};
+		8C9893AE16E550E600E1190A /* ARC Helper */ = {
+			isa = PBXGroup;
+			children = (
+				8C9893AF16E5511500E1190A /* ARCHelper.h */,
+			);
+			name = "ARC Helper";
+			path = ARCHelper;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

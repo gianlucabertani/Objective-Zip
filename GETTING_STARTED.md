@@ -1,4 +1,5 @@
 
+
 Getting started with Objective-Zip
 ==================================
 
@@ -6,18 +7,22 @@ Objective-Zip exposes basic functionalities to read and write zip files,
 encapsulating both ZLib for the compression mechanism and MiniZip for
 the zip wrapping.
 
+
 Adding Objective-Zip to your project
 ------------------------------------
 
 The library is distributed as source only, so simply download the unit
 test application and copy-paste these directories in your own project:
-- ZLib,
-- MiniZip,
-- Objective-Zip.
+
+- ARCHelper
+- ZLib
+- MiniZip
+- Objective-Zip
 
 The first two are simply copies of the distribution of version 1.2.7 of
 ZLib and of version 1.1 of MiniZip (which is itself part of ZLib
 contributions), while the third is their Objective-C wrapper.
+
 
 Main concepts
 -------------
@@ -35,6 +40,7 @@ is a read-only modality. You can not request reading operations on a
 write-mode zip file, nor request writing operations on a read-mode zip
 file.
 
+
 Adding a file to a zip file
 ---------------------------
 
@@ -49,6 +55,7 @@ the file, and then must be closed:
 
 	[stream writeData:abcData];
 	[stream finishedWriting];
+
 
 Reading a file from a zip file
 ------------------------------
@@ -74,6 +81,7 @@ Note that the NSMutableData instance that acts as the read buffer must
 have been set with a length greater than 0: the readDataWithBuffer API
 will use that length to know how many bytes it can fetch from the zip
 file.
+
 
 Listing files in a zip file
 ---------------------------
@@ -102,8 +110,10 @@ zip and expand it:
 	}
 
 Note that the FileInZipInfo class provide two sizes:
-- length is the original (uncompressed) file size, while
-- size is the compressed file size.
+
+- **length** is the original (uncompressed) file size, while
+- **size** is the compressed file size.
+
 
 Closing the zip file
 --------------------
@@ -113,8 +123,10 @@ file corruption problems:
 
 	[zipFile close];
 
+
 Notes
 =====
+
 
 File/folder hierarchy inide the zip
 -----------------------------------
@@ -125,6 +137,7 @@ with a name like "x/y/z/file.txt"). It is up to the program that
 extracts the files to consider these file names as expressing a
 structure and rebuild it on the file system (and viceversa during
 creation). Common zippers/unzippers simply follow this rule.
+
 
 Memory management
 -----------------
@@ -161,6 +174,7 @@ you can do so using a read-then-write buffered loop like this:
 	[file closeFile];
 	[read finishedReading];
 	[buffer release];
+
 
 Exception handling
 ------------------

@@ -1,6 +1,6 @@
 //
 //  ZipFile.m
-//  Objective-Zip v. 0.8
+//  Objective-Zip v. 0.8.1
 //
 //  Created by Gianluca Bertani on 25/12/09.
 //  Copyright 2009-10 Flying Dolphin Studio. All rights reserved.
@@ -45,7 +45,7 @@
 
 - (id) initWithFileName:(NSString *)fileName mode:(ZipFileMode)mode {
 	if (self= [super init]) {
-		_fileName= [fileName retain];
+		_fileName= [fileName ah_retain];
 		_mode= mode;
 		
 		switch (mode) {
@@ -85,7 +85,8 @@
 
 - (void) dealloc {
 	[_fileName release];
-	[super dealloc];
+	
+	[super ah_dealloc];
 }
 
 - (ZipWriteStream *) writeFileInZipWithName:(NSString *)fileNameInZip compressionLevel:(ZipCompressionLevel)compressionLevel {

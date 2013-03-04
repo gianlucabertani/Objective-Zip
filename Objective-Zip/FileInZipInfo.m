@@ -1,6 +1,6 @@
 //
 //  FileInZipInfo.m
-//  Objective-Zip v. 0.8
+//  Objective-Zip v. 0.8.1
 //
 //  Created by Gianluca Bertani on 27/12/09.
 //  Copyright 2009-10 Flying Dolphin Studio. All rights reserved.
@@ -38,12 +38,12 @@
 
 - (id) initWithName:(NSString *)name length:(NSUInteger)length level:(ZipCompressionLevel)level crypted:(BOOL)crypted size:(NSUInteger)size date:(NSDate *)date crc32:(NSUInteger)crc32 {
 	if (self= [super init]) {
-		_name= [name retain];
+		_name= [name ah_retain];
 		_length= length;
 		_level= level;
 		_crypted= crypted;
 		_size= size;
-		_date= [date retain];
+		_date= [date ah_retain];
 		_crc32= crc32;
 	}
 	
@@ -53,7 +53,8 @@
 - (void) dealloc {
 	[_date release];
 	[_name release];
-	[super dealloc];
+	
+	[super ah_dealloc];
 }
 
 @synthesize name= _name;
