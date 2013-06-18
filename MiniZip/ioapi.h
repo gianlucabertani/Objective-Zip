@@ -21,7 +21,7 @@
 #ifndef _ZLIBIOAPI64_H
 #define _ZLIBIOAPI64_H
 
-#if (!defined(_WIN32)) && (!defined(WIN32))
+#if (!defined(_WIN32)) && (!defined(WIN32)) && (!defined(__APPLE__))
 
   // Linux needs this to support file operation on files larger then 4+GB
   // But might need better if/def to select just the platforms that needs them.
@@ -43,10 +43,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "zlib.h"
-
-#ifdef __APPLE__
-#  define USE_FILE32API
-#endif
 
 #if defined(USE_FILE32API)
 #define fopen64 fopen
