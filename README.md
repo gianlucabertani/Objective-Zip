@@ -18,8 +18,8 @@ The source repository contains a sample application with full
 sources for ZLib, MiniZip and Objective-Zip, together with a unit test
 UI. The versions included are:
 
-- 1.2.7 for ZLib;
-- 1.1 for MiniZip;
+- 1.2.8 for [ZLib](http://zlib.net)
+- 1.1 for [MiniZip](http://www.winimage.com/zLibDll/minizip.html)
 - latest version for Objective-Zip.
 
 Please note that ZLib and MiniZip are included here only to provide a
@@ -44,13 +44,18 @@ The library is distributed under the New BSD License.
 Version history
 ---------------
 
+Version 0.8.2:
+
+- Update ZLib to 1.2.8
+- Fixed use of 64 bit I/O in MiniZip (thanks [Sergio](http://mrsergio.com) for the suggestions)
+
 Version 0.8.1:
 
 - Added support for ARC through Nick Lockwood's [ARC Helper](https://gist.github.com/1563325)
 
 Version 0.8:
 
-- Updated ZLip to 1.2.7
+- Updated ZLib to 1.2.7
 - Updated MiniZip to 1.1
 - Added method to get file name from a ZipFile instance
 
