@@ -274,7 +274,7 @@
 		@throw [[[ZipException alloc] initWithReason:reason] autorelease];
 	}
 	
-	int err= unzLocateFile(_unzFile, [fileNameInZip cStringUsingEncoding:NSUTF8StringEncoding], 1);
+	int err= unzLocateFile(_unzFile, [fileNameInZip cStringUsingEncoding:NSUTF8StringEncoding], NULL);
 	if (err == UNZ_END_OF_LIST_OF_FILE)
 		return NO;
 

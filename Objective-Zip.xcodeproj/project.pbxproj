@@ -28,7 +28,6 @@
 		8C6D352110E56A8200B63EFA /* trees.c in Sources */ = {isa = PBXBuildFile; fileRef = 8C6D351110E56A8200B63EFA /* trees.c */; };
 		8C6D352210E56A8200B63EFA /* uncompr.c in Sources */ = {isa = PBXBuildFile; fileRef = 8C6D351310E56A8200B63EFA /* uncompr.c */; };
 		8C6D352D10E56A9000B63EFA /* ioapi.c in Sources */ = {isa = PBXBuildFile; fileRef = 8C6D352510E56A9000B63EFA /* ioapi.c */; };
-		8C6D352E10E56A9000B63EFA /* mztools.c in Sources */ = {isa = PBXBuildFile; fileRef = 8C6D352710E56A9000B63EFA /* mztools.c */; };
 		8C6D352F10E56A9000B63EFA /* unzip.c in Sources */ = {isa = PBXBuildFile; fileRef = 8C6D352910E56A9000B63EFA /* unzip.c */; };
 		8C6D353010E56A9000B63EFA /* zip.c in Sources */ = {isa = PBXBuildFile; fileRef = 8C6D352B10E56A9000B63EFA /* zip.c */; };
 		8C6D354010E56BD300B63EFA /* ZipFile.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C6D353F10E56BD300B63EFA /* ZipFile.m */; };
@@ -82,8 +81,6 @@
 		8C6D352410E56A9000B63EFA /* crypt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = crypt.h; path = MiniZip/crypt.h; sourceTree = "<group>"; };
 		8C6D352510E56A9000B63EFA /* ioapi.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = ioapi.c; path = MiniZip/ioapi.c; sourceTree = "<group>"; };
 		8C6D352610E56A9000B63EFA /* ioapi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ioapi.h; path = MiniZip/ioapi.h; sourceTree = "<group>"; };
-		8C6D352710E56A9000B63EFA /* mztools.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = mztools.c; path = MiniZip/mztools.c; sourceTree = "<group>"; };
-		8C6D352810E56A9000B63EFA /* mztools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = mztools.h; path = MiniZip/mztools.h; sourceTree = "<group>"; };
 		8C6D352910E56A9000B63EFA /* unzip.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = unzip.c; path = MiniZip/unzip.c; sourceTree = "<group>"; };
 		8C6D352A10E56A9000B63EFA /* unzip.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = unzip.h; path = MiniZip/unzip.h; sourceTree = "<group>"; };
 		8C6D352B10E56A9000B63EFA /* zip.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = zip.c; path = MiniZip/zip.c; sourceTree = "<group>"; };
@@ -232,8 +229,6 @@
 				8C6D352410E56A9000B63EFA /* crypt.h */,
 				8C6D352510E56A9000B63EFA /* ioapi.c */,
 				8C6D352610E56A9000B63EFA /* ioapi.h */,
-				8C6D352710E56A9000B63EFA /* mztools.c */,
-				8C6D352810E56A9000B63EFA /* mztools.h */,
 				8C6D352910E56A9000B63EFA /* unzip.c */,
 				8C6D352A10E56A9000B63EFA /* unzip.h */,
 				8C6D352B10E56A9000B63EFA /* zip.c */,
@@ -350,7 +345,6 @@
 				8C6D352110E56A8200B63EFA /* trees.c in Sources */,
 				8C6D352210E56A8200B63EFA /* uncompr.c in Sources */,
 				8C6D352D10E56A9000B63EFA /* ioapi.c in Sources */,
-				8C6D352E10E56A9000B63EFA /* mztools.c in Sources */,
 				8C6D352F10E56A9000B63EFA /* unzip.c in Sources */,
 				8C6D353010E56A9000B63EFA /* zip.c in Sources */,
 				8C6D354010E56BD300B63EFA /* ZipFile.m in Sources */,
