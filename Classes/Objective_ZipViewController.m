@@ -38,6 +38,9 @@
 #import "../Objective-Zip/ZipWriteStream.h"
 #import "../Objective-Zip/ZipReadStream.h"
 
+#define HUGE_TEST_BLOCK_LENGTH             (63000)
+#define HUGE_TEST_NUMBER_OF_BLOCKS         (68149)
+
 
 @implementation Objective_ZipViewController
 
@@ -208,6 +211,8 @@
 		NSString *documentsDir= [NSHomeDirectory() stringByAppendingPathComponent:@"Documents"];
 		NSString *filePath= [documentsDir stringByAppendingPathComponent:@"huge_test.zip"];
 		
+		[[NSFileManager defaultManager] removeItemAtPath:filePath error:NULL];
+
 		[self performSelectorOnMainThread:@selector(log:) withObject:@"Test 2: opening zip file for writing..." waitUntilDone:YES];
 		
 		ZipFile *zipFile= [[ZipFile alloc] initWithFileName:filePath mode:ZipFileModeCreate];
@@ -218,22 +223,18 @@
 		
 		[self performSelectorOnMainThread:@selector(log:) withObject:@"Test 2: writing to file's stream..." waitUntilDone:YES];
 		
-		NSString *line= @"0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ\n"; // 63 bytes
-
-		NSMutableString *buffer= [[NSMutableString alloc] init]; // 63000 bytes
-		for (int i= 0; i < 1000; i++)
-			[buffer appendString:line];
+		NSMutableData *data= [[NSMutableData alloc] initWithLength:HUGE_TEST_BLOCK_LENGTH];
+		SecRandomCopyBytes(kSecRandomDefault, [data length], [data mutableBytes]);
 		
-		NSData *bufferData= [buffer dataUsingEncoding:NSUTF8StringEncoding];
+		NSData *checkData= [data subdataWithRange:NSMakeRange(0, 100)];
 
-		NSMutableData *data= [[NSMutableData alloc] initWithLength:[buffer length]]; // For use later
-		NSData *lineData= [line dataUsingEncoding:NSUTF8StringEncoding]; // For use later
+		NSMutableData *buffer= [[NSMutableData alloc] initWithLength:HUGE_TEST_BLOCK_LENGTH]; // For use later
 
-		for (int i= 0; i < 100000; i++) { // 6300000000 bytes
-			[stream writeData:bufferData];
+		for (int i= 0; i < HUGE_TEST_NUMBER_OF_BLOCKS; i++) {
+			[stream writeData:data];
 			
 			if (i % 100 == 0) {
-				NSString *logLine= [[NSString alloc] initWithFormat:@"Test 2: written %d KB...", [line length] * (i +1)];
+				NSString *logLine= [[NSString alloc] initWithFormat:@"Test 2: written %d KB...", ([data length] / 1024) * (i +1)];
 				[self performSelectorOnMainThread:@selector(log:) withObject:logLine waitUntilDone:YES];
 				[logLine release];
 			}
@@ -259,24 +260,24 @@
 		
 		[self performSelectorOnMainThread:@selector(log:) withObject:@"Test 2: reading from file's stream..." waitUntilDone:YES];
 		
-		for (int i= 0; i < 100000; i++) {
-			int bytesRead= [read readDataWithBuffer:data];
+		for (int i= 0; i < HUGE_TEST_NUMBER_OF_BLOCKS; i++) {
+			int bytesRead= [read readDataWithBuffer:buffer];
 			
 			BOOL ok= NO;
-			if (bytesRead == [buffer length]) {
-				NSRange range= [data rangeOfData:lineData options:NSDataSearchBackwards range:NSMakeRange(0, [buffer length])];
-				if (range.location == [buffer length] - [line length])
+			if (bytesRead == [data length]) {
+				NSRange range= [buffer rangeOfData:checkData options:0 range:NSMakeRange(0, [buffer length])];
+				if (range.location == 0)
 					ok= YES;
 			}
 			
 			if (!ok) {
-				NSString *logLine= [[NSString alloc] initWithFormat:@"Test 2: content of file is WRONG at position %d000", [line length] * i];
+				NSString *logLine= [[NSString alloc] initWithFormat:@"Test 2: content of file is WRONG at position %d KB", ([buffer length] / 1024) * i];
 				[self performSelectorOnMainThread:@selector(log:) withObject:logLine waitUntilDone:YES];
 				[logLine release];
 			}
 			
 			if (i % 100 == 0) {
-				NSString *logLine= [[NSString alloc] initWithFormat:@"Test 2: read %d KB...", [line length] * (i +1)];
+				NSString *logLine= [[NSString alloc] initWithFormat:@"Test 2: read %d KB...", ([buffer length] / 1024) * (i +1)];
 				[self performSelectorOnMainThread:@selector(log:) withObject:logLine waitUntilDone:YES];
 				[logLine release];
 			}
@@ -297,8 +298,8 @@
 		
 		[self performSelectorOnMainThread:@selector(log:) withObject:@"Test 2: test terminated succesfully" waitUntilDone:YES];
 		
-		[buffer release];
 		[data release];
+		[buffer release];
 		
 	} @catch (ZipException *ze) {
 		[self performSelectorOnMainThread:@selector(log:) withObject:@"Test 2: caught a ZipException (see logs), terminating..." waitUntilDone:YES];
