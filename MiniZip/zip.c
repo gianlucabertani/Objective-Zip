@@ -830,6 +830,7 @@ extern zipFile ZEXPORT zipOpen4(const void *pathname, int append, ZPOS64_T disk_
 
         if (err != ZIP_OK)
         {
+			TRYFREE(zi);
             ZCLOSE64(ziinit.z_filefunc, ziinit.filestream);
             return NULL;
         }
@@ -1040,7 +1041,7 @@ extern int ZEXPORT zipOpenNewFileInZip4_64(zipFile file, const char* filename, c
     if (zi->disk_size > 0)
     {
         if ((zi->number_disk == 0) && (zi->number_entry == 0))
-            err = zip64local_putValue(&zi->z_filefunc, zi->filestream, (uLong)DISKHEADERMAGIC, 4);
+            /* err = */ zip64local_putValue(&zi->z_filefunc, zi->filestream, (uLong)DISKHEADERMAGIC, 4);
 
         /* Make sure enough space available on current disk for local header */
         zipGetDiskSizeAvailable((zipFile)zi, &size_available);
@@ -1183,10 +1184,10 @@ extern int ZEXPORT zipOpenNewFileInZip4_64(zipFile file, const char* filename, c
            (needed when we update size after done with file) */
         zi->ci.pos_zip64extrainfo = ZTELL64(zi->z_filefunc, zi->filestream);
 
-        err = zip64local_putValue(&zi->z_filefunc, zi->filestream, (short)headerid, 2);
-        err = zip64local_putValue(&zi->z_filefunc, zi->filestream, (short)datasize, 2);
+        /* err = */ zip64local_putValue(&zi->z_filefunc, zi->filestream, (short)headerid, 2);
+        /* err = */ zip64local_putValue(&zi->z_filefunc, zi->filestream, (short)datasize, 2);
 
-        err = zip64local_putValue(&zi->z_filefunc, zi->filestream, (ZPOS64_T)uncompressed_size, 8);
+        /* err = */ zip64local_putValue(&zi->z_filefunc, zi->filestream, (ZPOS64_T)uncompressed_size, 8);
         err = zip64local_putValue(&zi->z_filefunc, zi->filestream, (ZPOS64_T)compressed_size, 8);
     }
 #ifdef HAVE_AES
@@ -1586,7 +1587,7 @@ extern int ZEXPORT zipCloseFileInZipRaw64(zipFile file, ZPOS64_T uncompressed_si
                 if (zi->ci.stream.avail_out == 0)
                 {
                     if (zip64FlushWriteBuffer(zi) == ZIP_ERRNO)
-                        err = ZIP_ERRNO;
+                        /* err = ZIP_ERRNO */ ;
                     zi->ci.stream.avail_out = (uInt)Z_BUFSIZE;
                     zi->ci.stream.next_out = zi->ci.buffered_data;
                 }
@@ -1725,7 +1726,7 @@ extern int ZEXPORT zipCloseFileInZipRaw64(zipFile file, ZPOS64_T uncompressed_si
         if(zi->ci.pos_local_header >= 0xffffffff)
         {
             zip64local_putValue_inmemory(p, zi->ci.pos_local_header, 8);
-            p += 8;
+            /* p += 8 */ ;
         }
 
         zi->ci.size_centralExtraFree -= datasize + 4;
