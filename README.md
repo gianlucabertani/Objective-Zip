@@ -19,7 +19,7 @@ sources for ZLib, MiniZip and Objective-Zip, together with a unit test
 UI. The versions included are:
 
 - 1.2.8 for [ZLib](http://zlib.net)
-- 1.1 for [MiniZip](http://www.winimage.com/zLibDll/minizip.html)
+- 1.1 for [MiniZip](https://github.com/nmoinvaz/minizip)
 - latest version for Objective-Zip.
 
 Please note that ZLib and MiniZip are included here only to provide a
@@ -46,8 +46,13 @@ Version history
 
 Version 0.8.2:
 
-- Update ZLib to 1.2.8
-- Fixed use of 64 bit I/O in MiniZip (thanks [Sergio](http://mrsergio.com) for the suggestions)
+- Updated ZLib to 1.2.8
+- Updated MiniZip to Nathan Moinvaziri's Version
+- Added test code to zip & unzip up to (slighlty less than) 4 GB:
+  the library is able to create and expand files up to
+  4,293,387,000 bytes (compressed); use the test with caution,
+  requires 4 GB of free space and around 10 minutes on the
+  iOS simulator
 
 Version 0.8.1:
 
@@ -80,7 +85,7 @@ Version 0.7.0:
 Compatibility
 -------------
 
-Version 0.8.1 has been tested with iOS from 4.2 to 6.1, but should be
+Version 0.8.2 has been tested with iOS from 5.1 to 6.1, but should be
 compatible with earlier versions too. Le me know of any issues that
 should arise.
 
