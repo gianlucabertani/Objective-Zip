@@ -90,7 +90,7 @@ Version 0.7.0:
 Compatibility
 -------------
 
-Version 0.8.2 has been tested with iOS from 5.1 to 6.1, but should be
+Version 0.8.3 has been tested with iOS from 5.1 to 6.1, but should be
 compatible with earlier versions too. Le me know of any issues that
 should arise.
 
