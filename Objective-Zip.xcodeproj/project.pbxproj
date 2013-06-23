@@ -43,6 +43,8 @@
 		8CD8B40F17766067005212EC /* trees.c in Sources */ = {isa = PBXBuildFile; fileRef = 8CD8B3FC17766067005212EC /* trees.c */; };
 		8CD8B41017766067005212EC /* uncompr.c in Sources */ = {isa = PBXBuildFile; fileRef = 8CD8B3FE17766067005212EC /* uncompr.c */; };
 		8CD8B41117766067005212EC /* zutil.c in Sources */ = {isa = PBXBuildFile; fileRef = 8CD8B40117766067005212EC /* zutil.c */; };
+		8CE370031777427E0082BEE9 /* mac_test_file.zip in Resources */ = {isa = PBXBuildFile; fileRef = 8CE370011777427E0082BEE9 /* mac_test_file.zip */; };
+		8CE370041777427E0082BEE9 /* win_test_file.zip in Resources */ = {isa = PBXBuildFile; fileRef = 8CE370021777427E0082BEE9 /* win_test_file.zip */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -107,6 +109,8 @@
 		8CD8B40017766067005212EC /* zlib.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = zlib.h; path = ZLib/zlib.h; sourceTree = "<group>"; };
 		8CD8B40117766067005212EC /* zutil.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = zutil.c; path = ZLib/zutil.c; sourceTree = "<group>"; };
 		8CD8B40217766067005212EC /* zutil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = zutil.h; path = ZLib/zutil.h; sourceTree = "<group>"; };
+		8CE370011777427E0082BEE9 /* mac_test_file.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = mac_test_file.zip; sourceTree = "<group>"; };
+		8CE370021777427E0082BEE9 /* win_test_file.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = win_test_file.zip; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* Objective_Zip-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Objective_Zip-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -174,6 +178,8 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				8CE370011777427E0082BEE9 /* mac_test_file.zip */,
+				8CE370021777427E0082BEE9 /* win_test_file.zip */,
 				8C8F2D9210EBCE0300F75833 /* ObjectiveZipIcon.png */,
 				8C8F2D3910EBC94B00F75833 /* Default.png */,
 				2899E5210DE3E06400AC0155 /* Objective_ZipViewController.xib */,
@@ -325,6 +331,8 @@
 				8C8F2D9310EBCE0300F75833 /* ObjectiveZipIcon.png in Resources */,
 				8C1D598D1771057D006D69C3 /* GETTING_STARTED.md in Resources */,
 				8C1D598E1771057D006D69C3 /* README.md in Resources */,
+				8CE370031777427E0082BEE9 /* mac_test_file.zip in Resources */,
+				8CE370041777427E0082BEE9 /* win_test_file.zip in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

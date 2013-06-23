@@ -47,7 +47,8 @@ Version history
 Version 0.8.3:
 
 - Finally used correctly the 64 bit APIs. Thanks to Nathan Moinvaziri for advicing.
-- Updated test code to zip & unzip up to 6.3 GB.
+- Updated test code to zip & unzip up to 5 GB.
+- Added tests with unzip & check of zip files create with Mac OS X 10.8 and Windows 7.
 
 Version 0.8.2:
 

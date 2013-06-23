@@ -38,8 +38,29 @@
 #import "../Objective-Zip/ZipWriteStream.h"
 #import "../Objective-Zip/ZipReadStream.h"
 
-#define HUGE_TEST_BLOCK_LENGTH             (63000)
+#define HUGE_TEST_BLOCK_LENGTH             (50000)
 #define HUGE_TEST_NUMBER_OF_BLOCKS        (100000)
+
+
+@interface Objective_ZipViewController ()
+
+
+#pragma mark -
+#pragma mark Tests
+
+- (void) test1;
+- (void) test2;
+- (void) test3;
+- (void) test4;
+
+
+#pragma mark -
+#pragma mark Logging
+
+- (void) log:(NSString *)format, ...;
+
+
+@end
 
 
 @implementation Objective_ZipViewController
@@ -52,8 +73,8 @@
 }
 
 - (void) dealloc {
-	if (_testThread)
-		[_testThread release];
+	[_testThread release];
+	
     [super dealloc];
 }
 
@@ -65,7 +86,7 @@
 	if (_testThread)
 		[_testThread release];
 	
-	_testThread= [[NSThread alloc] initWithTarget:self selector:@selector(test) object:nil];
+	_testThread= [[NSThread alloc] initWithTarget:self selector:@selector(test1) object:nil];
 	[_testThread start];
 }
 
@@ -77,67 +98,87 @@
 	[_testThread start];
 }
 
-- (void) test {
+- (IBAction) zipCheck1 {
+	if (_testThread)
+		[_testThread release];
+	
+	_testThread= [[NSThread alloc] initWithTarget:self selector:@selector(test3) object:nil];
+	[_testThread start];
+}
+
+- (IBAction) zipCheck2 {
+	if (_testThread)
+		[_testThread release];
+	
+	_testThread= [[NSThread alloc] initWithTarget:self selector:@selector(test4) object:nil];
+	[_testThread start];
+}
+
+
+#pragma mark -
+#pragma mark Test 1: zip & unzip
+
+- (void) test1 {
     NSAutoreleasePool *pool= [[NSAutoreleasePool alloc] init];
 
-	@try {
-		NSString *documentsDir= [NSHomeDirectory() stringByAppendingPathComponent:@"Documents"];
-		NSString *filePath= [documentsDir stringByAppendingPathComponent:@"test.zip"];
+	NSString *documentsDir= [NSHomeDirectory() stringByAppendingPathComponent:@"Documents"];
+	NSString *filePath= [documentsDir stringByAppendingPathComponent:@"test.zip"];
 
-		[self performSelectorOnMainThread:@selector(log:) withObject:@"Test 1: opening zip file for writing..." waitUntilDone:YES];
+	@try {
+		[[NSFileManager defaultManager] removeItemAtPath:filePath error:NULL];
+
+		[self log:@"Test 1: opening zip file for writing..."];
 		
 		ZipFile *zipFile= [[ZipFile alloc] initWithFileName:filePath mode:ZipFileModeCreate];
 
-		[self performSelectorOnMainThread:@selector(log:) withObject:@"Test 1: adding first file..." waitUntilDone:YES];
+		[self log:@"Test 1: adding first file..."];
 		
 		ZipWriteStream *stream1= [zipFile writeFileInZipWithName:@"abc.txt" fileDate:[NSDate dateWithTimeIntervalSinceNow:-86400.0] compressionLevel:ZipCompressionLevelBest];
 
-		[self performSelectorOnMainThread:@selector(log:) withObject:@"Test 1: writing to first file's stream..." waitUntilDone:YES];
+		[self log:@"Test 1: writing to first file's stream..."];
 
 		NSString *text= @"abc";
 		[stream1 writeData:[text dataUsingEncoding:NSUTF8StringEncoding]];
 
-		[self performSelectorOnMainThread:@selector(log:) withObject:@"Test 1: closing first file's stream..." waitUntilDone:YES];
+		[self log:@"Test 1: closing first file's stream..."];
 		
 		[stream1 finishedWriting];
 		
-		[self performSelectorOnMainThread:@selector(log:) withObject:@"Test 1: adding second file..." waitUntilDone:YES];
+		[self log:@"Test 1: adding second file..."];
 		
 		NSString *file2name= @"x/y/z/xyz.txt";
 		ZipWriteStream *stream2= [zipFile writeFileInZipWithName:file2name compressionLevel:ZipCompressionLevelNone];
 		
-		[self performSelectorOnMainThread:@selector(log:) withObject:@"Test 1: writing to second file's stream..." waitUntilDone:YES];
+		[self log:@"Test 1: writing to second file's stream..."];
 		
 		NSString *text2= @"XYZ";
 		[stream2 writeData:[text2 dataUsingEncoding:NSUTF8StringEncoding]];
 		
-		[self performSelectorOnMainThread:@selector(log:) withObject:@"Test 1: closing second file's stream..." waitUntilDone:YES];
+		[self log:@"Test 1: closing second file's stream..."];
 		
 		[stream2 finishedWriting];
 		
-		[self performSelectorOnMainThread:@selector(log:) withObject:@"Test 1: closing zip file..." waitUntilDone:YES];
+		[self log:@"Test 1: closing zip file..."];
 		
 		[zipFile close];
 		[zipFile release];
 		
-		[self performSelectorOnMainThread:@selector(log:) withObject:@"Test 1: opening zip file for reading..." waitUntilDone:YES];
+		[self log:@"Test 1: opening zip file for reading..."];
 		
 		ZipFile *unzipFile= [[ZipFile alloc] initWithFileName:filePath mode:ZipFileModeUnzip];
 		
-		[self performSelectorOnMainThread:@selector(log:) withObject:@"Test 1: reading file infos..." waitUntilDone:YES];
+		[self log:@"Test 1: reading file infos..."];
 		
 		NSArray *infos= [unzipFile listFileInZipInfos];
-		for (FileInZipInfo *info in infos) {
-			NSString *fileInfo= [NSString stringWithFormat:@"Test 1: - %@ %@ %d (%d)", info.name, info.date, info.size, info.level];
-			[self performSelectorOnMainThread:@selector(log:) withObject:fileInfo waitUntilDone:YES];
-		}
+		for (FileInZipInfo *info in infos)
+			[self log:@"Test 1: - %@ %@ %d (%d)", info.name, info.date, info.size, info.level];
 		
-		[self performSelectorOnMainThread:@selector(log:) withObject:@"Test 1: opening first file..." waitUntilDone:YES];
+		[self log:@"Test 1: opening first file..."];
 		
 		[unzipFile goToFirstFileInZip];
 		ZipReadStream *read1= [unzipFile readCurrentFileInZip];
 		
-		[self performSelectorOnMainThread:@selector(log:) withObject:@"Test 1: reading from first file's stream..." waitUntilDone:YES];
+		[self log:@"Test 1: reading from first file's stream..."];
 		
 		NSMutableData *data1= [[[NSMutableData alloc] initWithLength:256] autorelease];
 		int bytesRead1= [read1 readDataWithBuffer:data1];
@@ -150,20 +191,20 @@
 		}
 		
 		if (ok)
-			[self performSelectorOnMainThread:@selector(log:) withObject:@"Test 1: content of first file is OK" waitUntilDone:YES];
+			[self log:@"Test 1: content of first file is OK"];
 		else
-			[self performSelectorOnMainThread:@selector(log:) withObject:@"Test 1: content of first file is WRONG" waitUntilDone:YES];
+			[self log:@"Test 1: content of first file is WRONG"];
 			
-		[self performSelectorOnMainThread:@selector(log:) withObject:@"Test 1: closing first file's stream..." waitUntilDone:YES];
+		[self log:@"Test 1: closing first file's stream..."];
 		
 		[read1 finishedReading];
 		
-		[self performSelectorOnMainThread:@selector(log:) withObject:@"Test 1: opening second file..." waitUntilDone:YES];
+		[self log:@"Test 1: opening second file..."];
 
 		[unzipFile locateFileInZip:file2name];
 		ZipReadStream *read2= [unzipFile readCurrentFileInZip];
 
-		[self performSelectorOnMainThread:@selector(log:) withObject:@"Test 1: reading from second file's stream..." waitUntilDone:YES];
+		[self log:@"Test 1: reading from second file's stream..."];
 		
 		NSMutableData *data2= [[[NSMutableData alloc] initWithLength:256] autorelease];
 		int bytesRead2= [read2 readDataWithBuffer:data2];
@@ -176,53 +217,60 @@
 		}
 		
 		if (ok)
-			[self performSelectorOnMainThread:@selector(log:) withObject:@"Test 1: content of second file is OK" waitUntilDone:YES];
+			[self log:@"Test 1: content of second file is OK"];
 		else
-			[self performSelectorOnMainThread:@selector(log:) withObject:@"Test 1: content of second file is WRONG" waitUntilDone:YES];
+			[self log:@"Test 1: content of second file is WRONG"];
 		
-		[self performSelectorOnMainThread:@selector(log:) withObject:@"Test 1: closing second file's stream..." waitUntilDone:YES];
+		[self log:@"Test 1: closing second file's stream..."];
 		
 		[read2 finishedReading];
 		
-		[self performSelectorOnMainThread:@selector(log:) withObject:@"Test 1: closing zip file..." waitUntilDone:YES];
+		[self log:@"Test 1: closing zip file..."];
 		
 		[unzipFile close];
 		[unzipFile release];
 		
-		[self performSelectorOnMainThread:@selector(log:) withObject:@"Test 1: test terminated succesfully" waitUntilDone:YES];
+		[self log:@"Test 1: test terminated succesfully"];
 		
 	} @catch (ZipException *ze) {
-		[self performSelectorOnMainThread:@selector(log:) withObject:@"Test 1: caught a ZipException (see logs), terminating..." waitUntilDone:YES];
+		[self log:@"Test 1: caught a ZipException (see logs), terminating..."];
 		
 		NSLog(@"Test 1: ZipException caught: %d - %@", ze.error, [ze reason]);
 
 	} @catch (id e) {
-		[self performSelectorOnMainThread:@selector(log:) withObject:@"Test 1: caught a generic exception (see logs), terminating..." waitUntilDone:YES];
+		[self log:@"Test 1: caught a generic exception (see logs), terminating..."];
 
 		NSLog(@"Test 1: Exception caught: %@ - %@", [[e class] description], [e description]);
+
+	} @finally {
+		[[NSFileManager defaultManager] removeItemAtPath:filePath error:NULL];
 	}
 	
 	[pool drain];
 }
 
+
+#pragma mark -
+#pragma mark Test 2: zip & unzip 5 GB
+
 - (void) test2 {
     NSAutoreleasePool *pool= [[NSAutoreleasePool alloc] init];
 	
+	NSString *documentsDir= [NSHomeDirectory() stringByAppendingPathComponent:@"Documents"];
+	NSString *filePath= [documentsDir stringByAppendingPathComponent:@"huge_test.zip"];
+
 	@try {
-		NSString *documentsDir= [NSHomeDirectory() stringByAppendingPathComponent:@"Documents"];
-		NSString *filePath= [documentsDir stringByAppendingPathComponent:@"huge_test.zip"];
-		
 		[[NSFileManager defaultManager] removeItemAtPath:filePath error:NULL];
 
-		[self performSelectorOnMainThread:@selector(log:) withObject:@"Test 2: opening zip file for writing..." waitUntilDone:YES];
+		[self log:@"Test 2: opening zip file for writing..."];
 		
 		ZipFile *zipFile= [[ZipFile alloc] initWithFileName:filePath mode:ZipFileModeCreate];
 		
-		[self performSelectorOnMainThread:@selector(log:) withObject:@"Test 2: adding file..." waitUntilDone:YES];
+		[self log:@"Test 2: adding file..."];
 		
 		ZipWriteStream *stream= [zipFile writeFileInZipWithName:@"huge_file.txt" compressionLevel:ZipCompressionLevelBest];
 		
-		[self performSelectorOnMainThread:@selector(log:) withObject:@"Test 2: writing to file's stream..." waitUntilDone:YES];
+		[self log:@"Test 2: writing to file's stream..."];
 		
 		NSMutableData *data= [[NSMutableData alloc] initWithLength:HUGE_TEST_BLOCK_LENGTH];
 		SecRandomCopyBytes(kSecRandomDefault, [data length], [data mutableBytes]);
@@ -234,32 +282,29 @@
 		for (int i= 0; i < HUGE_TEST_NUMBER_OF_BLOCKS; i++) {
 			[stream writeData:data];
 			
-			if (i % 100 == 0) {
-				NSString *logLine= [[NSString alloc] initWithFormat:@"Test 2: written %d KB...", ([data length] / 1024) * (i +1)];
-				[self performSelectorOnMainThread:@selector(log:) withObject:logLine waitUntilDone:YES];
-				[logLine release];
-			}
+			if (i % 100 == 0)
+				[self log:@"Test 2: written %d KB...", ([data length] / 1024) * (i +1)];
 		}
 				
-		[self performSelectorOnMainThread:@selector(log:) withObject:@"Test 2: closing file's stream..." waitUntilDone:YES];
+		[self log:@"Test 2: closing file's stream..."];
 		
 		[stream finishedWriting];
 		
-		[self performSelectorOnMainThread:@selector(log:) withObject:@"Test 2: closing zip file..." waitUntilDone:YES];
+		[self log:@"Test 2: closing zip file..."];
 		
 		[zipFile close];
 		[zipFile release];
 		
-		[self performSelectorOnMainThread:@selector(log:) withObject:@"Test 2: opening zip file for reading..." waitUntilDone:YES];
+		[self log:@"Test 2: opening zip file for reading..."];
 		
 		ZipFile *unzipFile= [[ZipFile alloc] initWithFileName:filePath mode:ZipFileModeUnzip];
 		
-		[self performSelectorOnMainThread:@selector(log:) withObject:@"Test 2: opening file..." waitUntilDone:YES];
+		[self log:@"Test 2: opening file..."];
 		
 		[unzipFile goToFirstFileInZip];
 		ZipReadStream *read= [unzipFile readCurrentFileInZip];
 		
-		[self performSelectorOnMainThread:@selector(log:) withObject:@"Test 2: reading from file's stream..." waitUntilDone:YES];
+		[self log:@"Test 2: reading from file's stream..."];
 		
 		for (int i= 0; i < HUGE_TEST_NUMBER_OF_BLOCKS; i++) {
 			int bytesRead= [read readDataWithBuffer:buffer];
@@ -271,55 +316,182 @@
 					ok= YES;
 			}
 			
-			if (!ok) {
-				NSString *logLine= [[NSString alloc] initWithFormat:@"Test 2: content of file is WRONG at position %d KB", ([buffer length] / 1024) * i];
-				[self performSelectorOnMainThread:@selector(log:) withObject:logLine waitUntilDone:YES];
-				[logLine release];
-			}
+			if (!ok)
+				[self log:@"Test 2: content of file is WRONG at position %d KB", ([buffer length] / 1024) * i];
 			
-			if (i % 100 == 0) {
-				NSString *logLine= [[NSString alloc] initWithFormat:@"Test 2: read %d KB...", ([buffer length] / 1024) * (i +1)];
-				[self performSelectorOnMainThread:@selector(log:) withObject:logLine waitUntilDone:YES];
-				[logLine release];
-			}
+			if (i % 100 == 0)
+				[self log:@"Test 2: read %d KB...", ([buffer length] / 1024) * (i +1)];
 		}
 		
-		[self performSelectorOnMainThread:@selector(log:) withObject:@"Test 2: closing file's stream..." waitUntilDone:YES];
+		[self log:@"Test 2: closing file's stream..."];
 		
 		[read finishedReading];
 		
-		[self performSelectorOnMainThread:@selector(log:) withObject:@"Test 2: closing zip file..." waitUntilDone:YES];
+		[self log:@"Test 2: closing zip file..."];
 		
 		[unzipFile close];
 		[unzipFile release];
 		
-		[self performSelectorOnMainThread:@selector(log:) withObject:@"Test 2: deleting zip file..." waitUntilDone:YES];
-		
-		[[NSFileManager defaultManager] removeItemAtPath:filePath error:NULL];
-		
-		[self performSelectorOnMainThread:@selector(log:) withObject:@"Test 2: test terminated succesfully" waitUntilDone:YES];
+		[self log:@"Test 2: test terminated succesfully"];
 		
 		[data release];
 		[buffer release];
 		
 	} @catch (ZipException *ze) {
-		[self performSelectorOnMainThread:@selector(log:) withObject:@"Test 2: caught a ZipException (see logs), terminating..." waitUntilDone:YES];
+		[self log:@"Test 2: caught a ZipException (see logs), terminating..."];
 		
 		NSLog(@"Test 2: ZipException caught: %d - %@", ze.error, [ze reason]);
 		
 	} @catch (id e) {
-		[self performSelectorOnMainThread:@selector(log:) withObject:@"Test 2: caught a generic exception (see logs), terminating..." waitUntilDone:YES];
+		[self log:@"Test 2: caught a generic exception (see logs), terminating..."];
 		
 		NSLog(@"Test 2: Exception caught: %@ - %@", [[e class] description], [e description]);
+	
+	} @finally {
+		[[NSFileManager defaultManager] removeItemAtPath:filePath error:NULL];
 	}
 	
 	[pool drain];
 }
 
-- (void) log:(NSString *)text {
-	NSLog(@"%@", text);
+
+#pragma mark -
+#pragma mark Test 3: unzip & check Mac zip file
+
+- (void) test3 {
+    NSAutoreleasePool *pool= [[NSAutoreleasePool alloc] init];
 	
-	_textView.text= [_textView.text stringByAppendingString:text];
+	NSString *filePath= [[NSBundle mainBundle] pathForResource:@"mac_test_file" ofType:@"zip"];
+	
+	@try {
+		[self log:@"Test 3: opening zip file for reading..."];
+		
+		ZipFile *unzipFile= [[ZipFile alloc] initWithFileName:filePath mode:ZipFileModeUnzip];
+		
+		[self log:@"Test 3: opening file..."];
+		
+		[unzipFile goToFirstFileInZip];
+		ZipReadStream *read= [unzipFile readCurrentFileInZip];
+		
+		[self log:@"Test 3: reading from file's stream..."];
+		
+		NSMutableData *buffer= [[NSMutableData alloc] initWithLength:1024];
+
+		int bytesRead= [read readDataWithBuffer:buffer];
+		
+		NSString *fileText= [[[NSString alloc] initWithBytes:[buffer bytes] length:bytesRead encoding:NSUTF8StringEncoding] autorelease];
+		if ([fileText isEqualToString:@"Objective-Zip Mac test file\n"])
+			[self log:@"Test 3: content of Mac file is OK"];
+		else
+			[self log:@"Test 3: content of Mac file is WRONG"];
+		
+		[self log:@"Test 3: closing file's stream..."];
+		
+		[read finishedReading];
+		
+		[self log:@"Test 3: closing zip file..."];
+		
+		[unzipFile close];
+		[unzipFile release];
+		
+		[self log:@"Test 3: test terminated succesfully"];
+		
+		[buffer release];
+
+	} @catch (ZipException *ze) {
+		[self log:@"Test 3: caught a ZipException (see logs), terminating..."];
+		
+		NSLog(@"Test 3: ZipException caught: %d - %@", ze.error, [ze reason]);
+		
+	} @catch (id e) {
+		[self log:@"Test 3: caught a generic exception (see logs), terminating..."];
+		
+		NSLog(@"Test 3: Exception caught: %@ - %@", [[e class] description], [e description]);
+		
+	}
+	
+	[pool drain];
+}
+
+
+#pragma mark -
+#pragma mark Test 4: unzip & check Win zip file
+
+- (void) test4 {
+    NSAutoreleasePool *pool= [[NSAutoreleasePool alloc] init];
+	
+	NSString *filePath= [[NSBundle mainBundle] pathForResource:@"win_test_file" ofType:@"zip"];
+	
+	@try {
+		[self log:@"Test 4: opening zip file for reading..."];
+		
+		ZipFile *unzipFile= [[ZipFile alloc] initWithFileName:filePath mode:ZipFileModeUnzip];
+		
+		[self log:@"Test 4: opening file..."];
+		
+		[unzipFile goToFirstFileInZip];
+		ZipReadStream *read= [unzipFile readCurrentFileInZip];
+		
+		[self log:@"Test 4: reading from file's stream..."];
+		
+		NSMutableData *buffer= [[NSMutableData alloc] initWithLength:1024];
+		
+		int bytesRead= [read readDataWithBuffer:buffer];
+		
+		NSString *fileText= [[[NSString alloc] initWithBytes:[buffer bytes] length:bytesRead encoding:NSUTF8StringEncoding] autorelease];
+		if ([fileText isEqualToString:@"Objective-Zip Windows test file\r\n"])
+			[self log:@"Test 4: content of Win file is OK"];
+		else
+			[self log:@"Test 4: content of Win file is WRONG"];
+		
+		[self log:@"Test 4: closing file's stream..."];
+		
+		[read finishedReading];
+		
+		[self log:@"Test 4: closing zip file..."];
+		
+		[unzipFile close];
+		[unzipFile release];
+		
+		[self log:@"Test 4: test terminated succesfully"];
+		
+		[buffer release];
+		
+	} @catch (ZipException *ze) {
+		[self log:@"Test 4: caught a ZipException (see logs), terminating..."];
+		
+		NSLog(@"Test 4: ZipException caught: %d - %@", ze.error, [ze reason]);
+		
+	} @catch (id e) {
+		[self log:@"Test 4: caught a generic exception (see logs), terminating..."];
+		
+		NSLog(@"Test 4: Exception caught: %@ - %@", [[e class] description], [e description]);
+	}
+	
+	[pool drain];
+}
+
+
+#pragma mark -
+#pragma mark Logging
+
+- (void) log:(NSString *)format, ... {
+
+	// Variable arguments formatting
+	va_list arguments;
+	va_start(arguments, format);
+	NSString *logLine= [[NSString alloc] initWithFormat:format arguments:arguments];
+	va_end(arguments);
+	
+	[self performSelectorOnMainThread:@selector(printLog:) withObject:logLine waitUntilDone:YES];
+	
+	[logLine release];
+}
+
+- (void) printLog:(NSString *)logLine {
+	NSLog(@"%@", logLine);
+	
+	_textView.text= [_textView.text stringByAppendingString:logLine];
 	_textView.text= [_textView.text stringByAppendingString:@"\n"];
 	
 	NSRange range;
@@ -327,5 +499,6 @@
 	range.length= 5;
 	[_textView scrollRangeToVisible:range];
 }
+
 
 @end

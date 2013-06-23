@@ -42,10 +42,8 @@
 
 - (IBAction) zipUnzip;
 - (IBAction) zipUnzip2;
-
-- (void) test;
-- (void) test2;
-- (void) log:(NSString *)text;
+- (IBAction) zipCheck1;
+- (IBAction) zipCheck2;
 
 @end
 
