@@ -1,6 +1,6 @@
 //
 //  FileInZipInfo.h
-//  Objective-Zip v. 0.8.2
+//  Objective-Zip v. 0.8.3
 //
 //  Created by Gianluca Bertani on 27/12/09.
 //  Copyright 2009-10 Flying Dolphin Studio. All rights reserved.

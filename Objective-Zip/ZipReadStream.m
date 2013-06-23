@@ -1,6 +1,6 @@
 //
 //  ZipReadStream.m
-//  Objective-Zip v. 0.8.2
+//  Objective-Zip v. 0.8.3
 //
 //  Created by Gianluca Bertani on 28/12/09.
 //  Copyright 2009-10 Flying Dolphin Studio. All rights reserved.
@@ -52,7 +52,7 @@
 - (NSUInteger) readDataWithBuffer:(NSMutableData *)buffer {
 	int err= unzReadCurrentFile(_unzFile, [buffer mutableBytes], [buffer length]);
 	if (err < 0) {
-		NSString *reason= [NSString stringWithFormat:@"Error in reading '%@' in the zipfile", _fileNameInZip];
+		NSString *reason= [NSString stringWithFormat:@"Error reading '%@' in the zipfile", _fileNameInZip];
 		@throw [[[ZipException alloc] initWithError:err reason:reason] autorelease];
 	}
 	
@@ -62,7 +62,7 @@
 - (void) finishedReading {
 	int err= unzCloseCurrentFile(_unzFile);
 	if (err != UNZ_OK) {
-		NSString *reason= [NSString stringWithFormat:@"Error in closing '%@' in the zipfile", _fileNameInZip];
+		NSString *reason= [NSString stringWithFormat:@"Error closing '%@' in the zipfile", _fileNameInZip];
 		@throw [[[ZipException alloc] initWithError:err reason:reason] autorelease];
 	}
 }
