@@ -371,6 +371,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CODE_SIGN_IDENTITY = "iPhone Developer: Gianluca Bertani (42HXKD6D45)";
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -380,6 +381,7 @@
 				GCC_THUMB_SUPPORT = NO;
 				INFOPLIST_FILE = "Objective_Zip-Info.plist";
 				PRODUCT_NAME = "Objective-Zip";
+				PROVISIONING_PROFILE = "8D9AD182-36E0-47FE-AB6B-E87632E60994";
 			};
 			name = Debug;
 		};
@@ -387,6 +389,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CODE_SIGN_IDENTITY = "iPhone Developer: Gianluca Bertani (42HXKD6D45)";
 				COPY_PHASE_STRIP = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Objective_Zip_Prefix.pch;
@@ -394,6 +397,7 @@
 				GCC_THUMB_SUPPORT = NO;
 				INFOPLIST_FILE = "Objective_Zip-Info.plist";
 				PRODUCT_NAME = "Objective-Zip";
+				PROVISIONING_PROFILE = "8D9AD182-36E0-47FE-AB6B-E87632E60994";
 			};
 			name = Release;
 		};
@@ -404,12 +408,15 @@
 					"$(ARCHS_STANDARD_32_BIT)",
 					armv6,
 				);
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Gianluca Bertani (42HXKD6D45)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Gianluca Bertani (42HXKD6D45)";
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_THUMB_SUPPORT = NO;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 3.1.2;
+				PROVISIONING_PROFILE = "8D9AD182-36E0-47FE-AB6B-E87632E60994";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "8D920AE2-DF44-48C7-A9B5-0AB3D42590BB";
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -421,12 +428,15 @@
 					"$(ARCHS_STANDARD_32_BIT)",
 					armv6,
 				);
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Gianluca Bertani (42HXKD6D45)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Gianluca Bertani (42HXKD6D45)";
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_THUMB_SUPPORT = NO;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 3.1.2;
+				PROVISIONING_PROFILE = "8D9AD182-36E0-47FE-AB6B-E87632E60994";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "8D920AE2-DF44-48C7-A9B5-0AB3D42590BB";
 				SDKROOT = iphoneos;
 			};
 			name = Release;
