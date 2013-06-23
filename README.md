@@ -18,8 +18,8 @@ The source repository contains a sample application with full
 sources for ZLib, MiniZip and Objective-Zip, together with a unit test
 UI. The versions included are:
 
-- 1.2.8 for [ZLib](http://zlib.net)
-- 1.1 for [MiniZip](https://github.com/nmoinvaz/minizip)
+- 1.2.8 for [ZLib](http://zlib.net).
+- 1.1 for [MiniZip](https://github.com/nmoinvaz/minizip).
 - latest version for Objective-Zip.
 
 Please note that ZLib and MiniZip are included here only to provide a
@@ -32,7 +32,7 @@ informations.
 Getting started
 ---------------
 
-Please see **GETTING_STARTED.md**.
+Please see [Getting Started](https://github.com/flyingdolphinstudio/Objective-Zip/blob/master/GETTING_STARTED.md).
 
 
 License
@@ -44,10 +44,15 @@ The library is distributed under the New BSD License.
 Version history
 ---------------
 
+Version 0.8.3:
+
+- Finally used correctly the 64 bit APIs. Thanks to Nathan Moinvaziri for advicing.
+- Updated test code to zip & unzip up to 6.3 GB.
+
 Version 0.8.2:
 
 - Updated ZLib to 1.2.8
-- Updated MiniZip to Nathan Moinvaziri's Version
+- Updated MiniZip to Nathan Moinvaziri's Version (thanks [Sergio](http://mrsergio.com) for the suggestions)
 - Added test code to zip & unzip up to (slighlty less than) 4 GB:
   the library is able to create and expand files up to
   4,293,387,000 bytes (compressed); use the test with caution,
