@@ -109,7 +109,7 @@
 						<int key="IBUIContentHorizontalAlignment">0</int>
 						<int key="IBUIContentVerticalAlignment">0</int>
 						<int key="IBUIButtonType">1</int>
-						<string key="IBUINormalTitle">4 GB Zip &amp; Unzip (use with caution)</string>
+						<string key="IBUINormalTitle">6.3 GB Zip &amp; Unzip (use with caution)</string>
 						<reference key="IBUIHighlightedTitleColor" ref="884333554"/>
 						<object class="NSColor" key="IBUINormalTitleColor">
 							<int key="NSColorSpace">1</int>

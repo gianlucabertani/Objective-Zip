@@ -39,7 +39,7 @@
 #import "../Objective-Zip/ZipReadStream.h"
 
 #define HUGE_TEST_BLOCK_LENGTH             (63000)
-#define HUGE_TEST_NUMBER_OF_BLOCKS         (68149)
+#define HUGE_TEST_NUMBER_OF_BLOCKS        (100000)
 
 
 @implementation Objective_ZipViewController
@@ -103,7 +103,8 @@
 		
 		[self performSelectorOnMainThread:@selector(log:) withObject:@"Test 1: adding second file..." waitUntilDone:YES];
 		
-		ZipWriteStream *stream2= [zipFile writeFileInZipWithName:@"x/y/z/xyz.txt" compressionLevel:ZipCompressionLevelNone];
+		NSString *file2name= @"x/y/z/xyz.txt";
+		ZipWriteStream *stream2= [zipFile writeFileInZipWithName:file2name compressionLevel:ZipCompressionLevelNone];
 		
 		[self performSelectorOnMainThread:@selector(log:) withObject:@"Test 1: writing to second file's stream..." waitUntilDone:YES];
 		
@@ -159,7 +160,7 @@
 		
 		[self performSelectorOnMainThread:@selector(log:) withObject:@"Test 1: opening second file..." waitUntilDone:YES];
 
-		[unzipFile goToNextFileInZip];
+		[unzipFile locateFileInZip:file2name];
 		ZipReadStream *read2= [unzipFile readCurrentFileInZip];
 
 		[self performSelectorOnMainThread:@selector(log:) withObject:@"Test 1: reading from second file's stream..." waitUntilDone:YES];
