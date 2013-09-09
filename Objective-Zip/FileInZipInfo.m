@@ -33,6 +33,19 @@
 
 #import "FileInZipInfo.h"
 
+@interface FileInZipInfo (){
+	
+@private
+	NSUInteger _length;
+	ZipCompressionLevel _level;
+	BOOL _crypted;
+	NSUInteger _size;
+	NSDate *_date;
+	NSUInteger _crc32;
+	NSString *_name;
+}
+
+@end
 
 @implementation FileInZipInfo
 
