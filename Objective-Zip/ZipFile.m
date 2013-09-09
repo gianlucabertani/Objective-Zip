@@ -37,8 +37,21 @@
 #import "ZipWriteStream.h"
 #import "FIleInZipInfo.h"
 
+#include "zip.h"
+#include "unzip.h"
+
 #define FILE_IN_ZIP_MAX_NAME_LENGTH (256)
 
+@interface ZipFile () {
+    NSString *_fileName;
+	ZipFileMode _mode;
+@private
+    zipFile _zipFile;
+    unzFile _unzFile;
+}
+
+
+@end
 
 @implementation ZipFile
 
