@@ -37,12 +37,7 @@
 #include "zip.h"
 
 
-@interface ZipWriteStream : NSObject {
-	NSString *_fileNameInZip;
-
-@private
-	zipFile _zipFile;
-}
+@interface ZipWriteStream : NSObject
 
 - (id) initWithZipFileStruct:(zipFile)zipFile fileNameInZip:(NSString *)fileNameInZip;
 

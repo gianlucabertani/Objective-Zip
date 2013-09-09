@@ -36,17 +36,7 @@
 #import "ARCHelper.h"
 
 
-@interface FileInZipInfo : NSObject {
-	
-@private
-	NSUInteger _length;
-	ZipCompressionLevel _level;
-	BOOL _crypted;
-	NSUInteger _size;
-	NSDate *_date;
-	NSUInteger _crc32;
-	NSString *_name;
-}
+@interface FileInZipInfo : NSObject 
 
 - (id) initWithName:(NSString *)name length:(NSUInteger)length level:(ZipCompressionLevel)level crypted:(BOOL)crypted size:(NSUInteger)size date:(NSDate *)date crc32:(NSUInteger)crc32;
 

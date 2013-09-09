@@ -36,6 +36,14 @@
 
 #include "zip.h"
 
+@interface ZipWriteStream () {
+	NSString *_fileNameInZip;
+    
+@private
+	zipFile _zipFile;
+}
+
+@end
 
 @implementation ZipWriteStream
 
