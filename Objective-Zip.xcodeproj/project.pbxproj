@@ -78,6 +78,8 @@
 		B05F7F1417DE096E00372F33 /* unzip.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 8C6D352A10E56A9000B63EFA /* unzip.h */; };
 		B05F7F1517DE096E00372F33 /* zip.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 8C6D352C10E56A9000B63EFA /* zip.h */; };
 		B05F7F1717DE0A0100372F33 /* ObjectiveZip.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = B05F7F1617DE098E00372F33 /* ObjectiveZip.h */; };
+		B06FC8F817DE0D1600D5BFB8 /* ARCHelper.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 8C9893AF16E5511500E1190A /* ARCHelper.h */; };
+		B06FC8F917DE0D2E00D5BFB8 /* ioapi.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 8C6D352610E56A9000B63EFA /* ioapi.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -87,6 +89,8 @@
 			dstPath = "include/${PRODUCT_NAME}";
 			dstSubfolderSpec = 16;
 			files = (
+				B06FC8F917DE0D2E00D5BFB8 /* ioapi.h in CopyFiles */,
+				B06FC8F817DE0D1600D5BFB8 /* ARCHelper.h in CopyFiles */,
 				B05F7F1717DE0A0100372F33 /* ObjectiveZip.h in CopyFiles */,
 				B05F7F0F17DE096E00372F33 /* ZipFile.h in CopyFiles */,
 				B05F7F1017DE096E00372F33 /* ZipException.h in CopyFiles */,
@@ -668,6 +672,7 @@
 				B05F7EF717DE079A00372F33 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		C01FCF4E08A954540054247B /* Build configuration list for PBXProject "Objective-Zip" */ = {
 			isa = XCConfigurationList;
