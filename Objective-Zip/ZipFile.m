@@ -44,9 +44,14 @@
 
 
 - (id) initWithFileName:(NSString *)fileName mode:(ZipFileMode)mode {
+	return [self initWithFileName:fileName mode:mode useZip64:TRUE];
+}
+
+- (id) initWithFileName:(NSString *)fileName mode:(ZipFileMode)mode useZip64:(BOOL)useZip64 {
 	if (self= [super init]) {
 		_fileName= [fileName ah_retain];
 		_mode= mode;
+		_avoidZip64 = !useZip64;
 		
 		switch (mode) {
 			case ZipFileModeUnzip:
@@ -117,7 +122,7 @@
 									 (compressionLevel != ZipCompressionLevelNone) ? Z_DEFLATED : 0,
 									 compressionLevel, 0,
 									 -MAX_WBITS, DEF_MEM_LEVEL, Z_DEFAULT_STRATEGY,
-									 NULL, 0, 1);
+									 NULL, 0, !_avoidZip64);
 	if (err != ZIP_OK) {
 		NSString *reason= [NSString stringWithFormat:@"Error opening '%@' in zipfile", fileNameInZip];
 		@throw [[[ZipException alloc] initWithError:err reason:reason] autorelease];
@@ -153,7 +158,7 @@
 									 (compressionLevel != ZipCompressionLevelNone) ? Z_DEFLATED : 0,
 									 compressionLevel, 0,
 									 -MAX_WBITS, DEF_MEM_LEVEL, Z_DEFAULT_STRATEGY,
-									 NULL, 0, 1);
+									 NULL, 0, !_avoidZip64);
 	if (err != ZIP_OK) {
 		NSString *reason= [NSString stringWithFormat:@"Error opening '%@' in zipfile", fileNameInZip];
 		@throw [[[ZipException alloc] initWithError:err reason:reason] autorelease];
@@ -189,7 +194,7 @@
 									 (compressionLevel != ZipCompressionLevelNone) ? Z_DEFLATED : 0,
 									 compressionLevel, 0,
 									 -MAX_WBITS, DEF_MEM_LEVEL, Z_DEFAULT_STRATEGY,
-									 [password cStringUsingEncoding:NSUTF8StringEncoding], crc32, 1);
+									 [password cStringUsingEncoding:NSUTF8StringEncoding], crc32, !_avoidZip64);
 	if (err != ZIP_OK) {
 		NSString *reason= [NSString stringWithFormat:@"Error opening '%@' in zipfile", fileNameInZip];
 		@throw [[[ZipException alloc] initWithError:err reason:reason] autorelease];

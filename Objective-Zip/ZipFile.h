@@ -62,9 +62,11 @@ typedef enum {
 @private
 	zipFile _zipFile;
 	unzFile _unzFile;
+    BOOL _avoidZip64;
 }
 
 - (id) initWithFileName:(NSString *)fileName mode:(ZipFileMode)mode;
+- (id) initWithFileName:(NSString *)fileName mode:(ZipFileMode)mode useZip64:(BOOL)useZip64;
 
 - (ZipWriteStream *) writeFileInZipWithName:(NSString *)fileNameInZip compressionLevel:(ZipCompressionLevel)compressionLevel;
 - (ZipWriteStream *) writeFileInZipWithName:(NSString *)fileNameInZip fileDate:(NSDate *)fileDate compressionLevel:(ZipCompressionLevel)compressionLevel;

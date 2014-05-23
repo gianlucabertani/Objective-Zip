@@ -40,6 +40,7 @@
 
 #define HUGE_TEST_BLOCK_LENGTH             (50000)
 #define HUGE_TEST_NUMBER_OF_BLOCKS        (100000)
+#define USE_ZIP64 TRUE
 
 
 @interface Objective_ZipViewController ()
@@ -129,7 +130,7 @@
 
 		[self log:@"Test 1: opening zip file for writing..."];
 		
-		ZipFile *zipFile= [[ZipFile alloc] initWithFileName:filePath mode:ZipFileModeCreate];
+		ZipFile *zipFile= [[ZipFile alloc] initWithFileName:filePath mode:ZipFileModeCreate useZip64:USE_ZIP64];
 
 		[self log:@"Test 1: adding first file..."];
 		
@@ -165,7 +166,7 @@
 		
 		[self log:@"Test 1: opening zip file for reading..."];
 		
-		ZipFile *unzipFile= [[ZipFile alloc] initWithFileName:filePath mode:ZipFileModeUnzip];
+		ZipFile *unzipFile= [[ZipFile alloc] initWithFileName:filePath mode:ZipFileModeUnzip useZip64:USE_ZIP64];
 		
 		[self log:@"Test 1: reading file infos..."];
 		
