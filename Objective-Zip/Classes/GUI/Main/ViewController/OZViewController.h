@@ -10,4 +10,11 @@
 
 @interface OZViewController : UIViewController
 
+@property (nonatomic, weak) IBOutlet UITextView *textView;
+
+- (IBAction)zipUnzip;
+- (IBAction)zipUnzip2;
+- (IBAction)zipCheck1;
+- (IBAction)zipCheck2;
+
 @end

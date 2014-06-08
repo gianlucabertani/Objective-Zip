@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5023" systemVersion="13A603" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" useAutolayout="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5056" systemVersion="13D65" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" useAutolayout="YES" initialViewController="BYZ-38-t0r">
     <dependencies>
+        <deployment defaultVersion="1536" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
     </dependencies>
     <scenes>
-        <!--class Prefix:identifier View Controller-->
+        <!--View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="OZViewController" sceneMemberID="viewController">
@@ -15,8 +16,98 @@
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SH7-Nx-8Al">
+                                <rect key="frame" x="343" y="85" width="83" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="60" id="JXm-z4-ZRI"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="15"/>
+                                <state key="normal" title="Zip &amp; Unzip">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="zipUnzip" destination="BYZ-38-t0r" eventType="touchUpInside" id="Zgd-IB-DRf"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qc6-rm-C09">
+                                <rect key="frame" x="257" y="145" width="254" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="60" id="C7W-Un-Jip"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="15"/>
+                                <state key="normal" title="5 GB Zip &amp; Unzip (use with caution)">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="zipUnzip2" destination="BYZ-38-t0r" eventType="touchUpInside" id="Lcn-VS-Nal"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zHr-WS-nyU">
+                                <rect key="frame" x="266" y="211" width="236" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="60" id="Gda-DP-AwN"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="15"/>
+                                <state key="normal" title="Unzip &amp; Check Mac OS X Zip File">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="zipCheck1" destination="BYZ-38-t0r" eventType="touchUpInside" id="79p-zt-e5H"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zfh-4A-Zuf">
+                                <rect key="frame" x="268" y="268" width="232" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="60" id="z4d-hB-wLm"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="15"/>
+                                <state key="normal" title="Unzip &amp; Check Windows Zip File">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="zipCheck2" destination="BYZ-38-t0r" eventType="touchUpInside" id="kvy-Wq-QoY"/>
+                                </connections>
+                            </button>
+                            <textView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" showsHorizontalScrollIndicator="NO" delaysContentTouches="NO" canCancelContentTouches="NO" bouncesZoom="NO" editable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wwA-x4-CeV">
+                                <rect key="frame" x="0.0" y="377" width="768" height="647"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="qc6-rm-C09" firstAttribute="top" secondItem="SH7-Nx-8Al" secondAttribute="bottom" constant="8" symbolic="YES" id="6Ij-6b-VDC"/>
+                            <constraint firstItem="wwA-x4-CeV" firstAttribute="top" secondItem="zfh-4A-Zuf" secondAttribute="bottom" constant="8" symbolic="YES" id="8A1-gg-NAW"/>
+                            <constraint firstItem="zHr-WS-nyU" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="20" symbolic="YES" id="Ao7-Fi-Y43"/>
+                            <constraint firstAttribute="trailing" secondItem="SH7-Nx-8Al" secondAttribute="trailing" constant="20" symbolic="YES" id="D7I-4p-jvc"/>
+                            <constraint firstItem="zHr-WS-nyU" firstAttribute="top" secondItem="qc6-rm-C09" secondAttribute="bottom" constant="8" symbolic="YES" id="DWf-vc-oLP"/>
+                            <constraint firstItem="zfh-4A-Zuf" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="20" symbolic="YES" id="EQT-3U-Ngu"/>
+                            <constraint firstItem="qc6-rm-C09" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="20" symbolic="YES" id="Hfo-Wk-nCn"/>
+                            <constraint firstAttribute="trailing" secondItem="zfh-4A-Zuf" secondAttribute="trailing" constant="20" symbolic="YES" id="OU0-dM-Idh"/>
+                            <constraint firstItem="wwA-x4-CeV" firstAttribute="top" secondItem="zfh-4A-Zuf" secondAttribute="bottom" constant="8" symbolic="YES" id="QQ3-ls-wsg"/>
+                            <constraint firstItem="wwA-x4-CeV" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="RFI-bW-RwB"/>
+                            <constraint firstItem="SH7-Nx-8Al" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="20" symbolic="YES" id="ShC-V7-2uF"/>
+                            <constraint firstAttribute="trailing" secondItem="zHr-WS-nyU" secondAttribute="trailing" constant="20" symbolic="YES" id="Vhs-c9-hwU"/>
+                            <constraint firstAttribute="trailing" secondItem="wwA-x4-CeV" secondAttribute="trailing" id="Wv6-FX-d7y"/>
+                            <constraint firstAttribute="trailing" secondItem="qc6-rm-C09" secondAttribute="trailing" constant="20" symbolic="YES" id="XXs-5g-9aO"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="wwA-x4-CeV" secondAttribute="bottom" id="ZPn-n3-8NW"/>
+                            <constraint firstItem="zHr-WS-nyU" firstAttribute="top" secondItem="qc6-rm-C09" secondAttribute="bottom" constant="8" symbolic="YES" id="dRa-Lh-6Wn"/>
+                            <constraint firstItem="qc6-rm-C09" firstAttribute="top" secondItem="SH7-Nx-8Al" secondAttribute="bottom" constant="8" symbolic="YES" id="iaZ-Qy-snQ"/>
+                            <constraint firstItem="zfh-4A-Zuf" firstAttribute="top" secondItem="zHr-WS-nyU" secondAttribute="bottom" constant="8" symbolic="YES" id="pGR-d9-xRJ"/>
+                            <constraint firstItem="SH7-Nx-8Al" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="20" symbolic="YES" id="s34-wg-Xgt"/>
+                            <constraint firstItem="zfh-4A-Zuf" firstAttribute="top" secondItem="zHr-WS-nyU" secondAttribute="bottom" constant="8" symbolic="YES" id="tV9-U1-ajm"/>
+                        </constraints>
                     </view>
+                    <connections>
+                        <outlet property="textView" destination="wwA-x4-CeV" id="WAj-ps-MQe"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
