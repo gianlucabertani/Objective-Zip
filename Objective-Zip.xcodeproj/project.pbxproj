@@ -37,6 +37,9 @@
 		653D496219446FE6004206FC /* trees.c in Sources */ = {isa = PBXBuildFile; fileRef = 653D494F19446FE6004206FC /* trees.c */; };
 		653D496319446FE6004206FC /* uncompr.c in Sources */ = {isa = PBXBuildFile; fileRef = 653D495119446FE6004206FC /* uncompr.c */; };
 		653D496419446FE6004206FC /* zutil.c in Sources */ = {isa = PBXBuildFile; fileRef = 653D495419446FE6004206FC /* zutil.c */; };
+		653D496D194474C6004206FC /* ioapi.c in Sources */ = {isa = PBXBuildFile; fileRef = 653D4967194474C6004206FC /* ioapi.c */; };
+		653D496E194474C6004206FC /* unzip.c in Sources */ = {isa = PBXBuildFile; fileRef = 653D4969194474C6004206FC /* unzip.c */; };
+		653D496F194474C6004206FC /* zip.c in Sources */ = {isa = PBXBuildFile; fileRef = 653D496B194474C6004206FC /* zip.c */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -96,6 +99,13 @@
 		653D495319446FE6004206FC /* zlib.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = zlib.h; path = Vendors/ZLib/zlib.h; sourceTree = "<group>"; };
 		653D495419446FE6004206FC /* zutil.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = zutil.c; path = Vendors/ZLib/zutil.c; sourceTree = "<group>"; };
 		653D495519446FE6004206FC /* zutil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = zutil.h; path = Vendors/ZLib/zutil.h; sourceTree = "<group>"; };
+		653D4966194474C6004206FC /* crypt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = crypt.h; path = Vendors/MiniZip/crypt.h; sourceTree = "<group>"; };
+		653D4967194474C6004206FC /* ioapi.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = ioapi.c; path = Vendors/MiniZip/ioapi.c; sourceTree = "<group>"; };
+		653D4968194474C6004206FC /* ioapi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ioapi.h; path = Vendors/MiniZip/ioapi.h; sourceTree = "<group>"; };
+		653D4969194474C6004206FC /* unzip.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = unzip.c; path = Vendors/MiniZip/unzip.c; sourceTree = "<group>"; };
+		653D496A194474C6004206FC /* unzip.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = unzip.h; path = Vendors/MiniZip/unzip.h; sourceTree = "<group>"; };
+		653D496B194474C6004206FC /* zip.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = zip.c; path = Vendors/MiniZip/zip.c; sourceTree = "<group>"; };
+		653D496C194474C6004206FC /* zip.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = zip.h; path = Vendors/MiniZip/zip.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -214,6 +224,7 @@
 		653D49311944699B004206FC /* Vendors */ = {
 			isa = PBXGroup;
 			children = (
+				653D4965194474B3004206FC /* MiniZip */,
 				653D493B19446FDC004206FC /* ZLib */,
 			);
 			name = Vendors;
@@ -294,6 +305,20 @@
 				653D495519446FE6004206FC /* zutil.h */,
 			);
 			name = ZLib;
+			sourceTree = "<group>";
+		};
+		653D4965194474B3004206FC /* MiniZip */ = {
+			isa = PBXGroup;
+			children = (
+				653D4966194474C6004206FC /* crypt.h */,
+				653D4967194474C6004206FC /* ioapi.c */,
+				653D4968194474C6004206FC /* ioapi.h */,
+				653D4969194474C6004206FC /* unzip.c */,
+				653D496A194474C6004206FC /* unzip.h */,
+				653D496B194474C6004206FC /* zip.c */,
+				653D496C194474C6004206FC /* zip.h */,
+			);
+			name = MiniZip;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -396,10 +421,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				653D496419446FE6004206FC /* zutil.c in Sources */,
+				653D496D194474C6004206FC /* ioapi.c in Sources */,
 				653D496119446FE6004206FC /* inftrees.c in Sources */,
 				653D495B19446FE6004206FC /* gzlib.c in Sources */,
 				653D4904194468BE004206FC /* main.m in Sources */,
 				653D495C19446FE6004206FC /* gzread.c in Sources */,
+				653D496E194474C6004206FC /* unzip.c in Sources */,
 				653D495F19446FE6004206FC /* inffast.c in Sources */,
 				653D495A19446FE6004206FC /* gzclose.c in Sources */,
 				653D4911194468BE004206FC /* OZViewController.m in Sources */,
@@ -411,6 +438,7 @@
 				653D496219446FE6004206FC /* trees.c in Sources */,
 				653D495E19446FE6004206FC /* infback.c in Sources */,
 				653D495619446FE6004206FC /* adler32.c in Sources */,
+				653D496F194474C6004206FC /* zip.c in Sources */,
 				653D495D19446FE6004206FC /* gzwrite.c in Sources */,
 				653D495719446FE6004206FC /* compress.c in Sources */,
 			);
