@@ -40,6 +40,11 @@
 		653D496D194474C6004206FC /* ioapi.c in Sources */ = {isa = PBXBuildFile; fileRef = 653D4967194474C6004206FC /* ioapi.c */; };
 		653D496E194474C6004206FC /* unzip.c in Sources */ = {isa = PBXBuildFile; fileRef = 653D4969194474C6004206FC /* unzip.c */; };
 		653D496F194474C6004206FC /* zip.c in Sources */ = {isa = PBXBuildFile; fileRef = 653D496B194474C6004206FC /* zip.c */; };
+		653D497B19447544004206FC /* OZFileInZipInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 653D497219447544004206FC /* OZFileInZipInfo.m */; };
+		653D497C19447544004206FC /* OZZipException.m in Sources */ = {isa = PBXBuildFile; fileRef = 653D497419447544004206FC /* OZZipException.m */; };
+		653D497D19447544004206FC /* OZZipFile.m in Sources */ = {isa = PBXBuildFile; fileRef = 653D497619447544004206FC /* OZZipFile.m */; };
+		653D497E19447544004206FC /* OZZipReadStream.m in Sources */ = {isa = PBXBuildFile; fileRef = 653D497819447544004206FC /* OZZipReadStream.m */; };
+		653D497F19447544004206FC /* OZZipWriteStream.m in Sources */ = {isa = PBXBuildFile; fileRef = 653D497A19447544004206FC /* OZZipWriteStream.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -106,6 +111,16 @@
 		653D496A194474C6004206FC /* unzip.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = unzip.h; path = Vendors/MiniZip/unzip.h; sourceTree = "<group>"; };
 		653D496B194474C6004206FC /* zip.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = zip.c; path = Vendors/MiniZip/zip.c; sourceTree = "<group>"; };
 		653D496C194474C6004206FC /* zip.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = zip.h; path = Vendors/MiniZip/zip.h; sourceTree = "<group>"; };
+		653D497119447544004206FC /* OZFileInZipInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OZFileInZipInfo.h; path = "Classes/Objective-Zip/OZFileInZipInfo.h"; sourceTree = "<group>"; };
+		653D497219447544004206FC /* OZFileInZipInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OZFileInZipInfo.m; path = "Classes/Objective-Zip/OZFileInZipInfo.m"; sourceTree = "<group>"; };
+		653D497319447544004206FC /* OZZipException.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OZZipException.h; path = "Classes/Objective-Zip/OZZipException.h"; sourceTree = "<group>"; };
+		653D497419447544004206FC /* OZZipException.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OZZipException.m; path = "Classes/Objective-Zip/OZZipException.m"; sourceTree = "<group>"; };
+		653D497519447544004206FC /* OZZipFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OZZipFile.h; path = "Classes/Objective-Zip/OZZipFile.h"; sourceTree = "<group>"; };
+		653D497619447544004206FC /* OZZipFile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OZZipFile.m; path = "Classes/Objective-Zip/OZZipFile.m"; sourceTree = "<group>"; };
+		653D497719447544004206FC /* OZZipReadStream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OZZipReadStream.h; path = "Classes/Objective-Zip/OZZipReadStream.h"; sourceTree = "<group>"; };
+		653D497819447544004206FC /* OZZipReadStream.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OZZipReadStream.m; path = "Classes/Objective-Zip/OZZipReadStream.m"; sourceTree = "<group>"; };
+		653D497919447544004206FC /* OZZipWriteStream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OZZipWriteStream.h; path = "Classes/Objective-Zip/OZZipWriteStream.h"; sourceTree = "<group>"; };
+		653D497A19447544004206FC /* OZZipWriteStream.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OZZipWriteStream.m; path = "Classes/Objective-Zip/OZZipWriteStream.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -167,6 +182,7 @@
 		653D48FD194468BE004206FC /* Objective-Zip */ = {
 			isa = PBXGroup;
 			children = (
+				653D497019447533004206FC /* Objective-Zip */,
 				653D492F19446981004206FC /* GUI */,
 				653D48FE194468BE004206FC /* Supporting Files */,
 				653D4906194468BE004206FC /* OZAppDelegate.h */,
@@ -321,6 +337,23 @@
 			name = MiniZip;
 			sourceTree = "<group>";
 		};
+		653D497019447533004206FC /* Objective-Zip */ = {
+			isa = PBXGroup;
+			children = (
+				653D497119447544004206FC /* OZFileInZipInfo.h */,
+				653D497219447544004206FC /* OZFileInZipInfo.m */,
+				653D497319447544004206FC /* OZZipException.h */,
+				653D497419447544004206FC /* OZZipException.m */,
+				653D497519447544004206FC /* OZZipFile.h */,
+				653D497619447544004206FC /* OZZipFile.m */,
+				653D497719447544004206FC /* OZZipReadStream.h */,
+				653D497819447544004206FC /* OZZipReadStream.m */,
+				653D497919447544004206FC /* OZZipWriteStream.h */,
+				653D497A19447544004206FC /* OZZipWriteStream.m */,
+			);
+			name = "Objective-Zip";
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -420,6 +453,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				653D497B19447544004206FC /* OZFileInZipInfo.m in Sources */,
+				653D497E19447544004206FC /* OZZipReadStream.m in Sources */,
 				653D496419446FE6004206FC /* zutil.c in Sources */,
 				653D496D194474C6004206FC /* ioapi.c in Sources */,
 				653D496119446FE6004206FC /* inftrees.c in Sources */,
@@ -435,12 +470,15 @@
 				653D4908194468BE004206FC /* OZAppDelegate.m in Sources */,
 				653D496319446FE6004206FC /* uncompr.c in Sources */,
 				653D495819446FE6004206FC /* crc32.c in Sources */,
+				653D497F19447544004206FC /* OZZipWriteStream.m in Sources */,
 				653D496219446FE6004206FC /* trees.c in Sources */,
 				653D495E19446FE6004206FC /* infback.c in Sources */,
 				653D495619446FE6004206FC /* adler32.c in Sources */,
 				653D496F194474C6004206FC /* zip.c in Sources */,
 				653D495D19446FE6004206FC /* gzwrite.c in Sources */,
 				653D495719446FE6004206FC /* compress.c in Sources */,
+				653D497C19447544004206FC /* OZZipException.m in Sources */,
+				653D497D19447544004206FC /* OZZipFile.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
