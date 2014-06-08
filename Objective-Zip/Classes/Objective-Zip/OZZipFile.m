@@ -32,13 +32,34 @@
 //
 
 #import "OZZipFile.h"
-#import "OZZipException.h"
 #import "OZZipReadStream.h"
 #import "OZZipWriteStream.h"
 #import "OZFileInZipInfo.h"
+#import "NSError+ObjectiveZip.h"
 
 #define FILE_IN_ZIP_MAX_NAME_LENGTH (256)
 
+#define CHECK_IF_ZIP_IS_OPENED(zipFile) if (!zipFile) { \
+                                            *error = [NSError errorWithErrorCode:OZErrorCodeNotOpened reason:nil]; \
+                                            return nil; \
+                                        }
+
+#define CHECK_IF_MODE_IS_NOT_UNZIP(mode) if (mode == OZZipFileModeUnzip) { \
+                                         NSString *reason= @"Operation not permitted with Unzip mode"; \
+                                         *error = [NSError errorWithErrorCode:OZErrorCodeNotAllowed reason:reason]; \
+                                         return nil; \
+                                     }
+
+#define CHECK_IF_MODE_IS_UNZIP(mode) if (self.mode != OZZipFileModeUnzip) { \
+                                          NSString *reason = @"Operation not permitted without Unzip mode"; \
+                                          *error = [NSError errorWithErrorCode:OZErrorCodeNotAllowed reason:reason]; \
+                                     }
+
+#define CHECK_IF_MODE_IS_UNZIP_RETURN(mode) if (self.mode != OZZipFileModeUnzip) { \
+                                                NSString *reason = @"Operation not permitted without Unzip mode"; \
+                                                *error = [NSError errorWithErrorCode:OZErrorCodeNotAllowed reason:reason]; \
+                                                return NO; \
+                                            }
 
 @interface OZZipFile () {
     zipFile _zipFile;
@@ -54,52 +75,37 @@
 
 @implementation OZZipFile
 
-
 - (instancetype)initWithFileName:(NSString *)fileName mode:(OZZipFileMode)mode {
-    self= [super init];
+    self = [super init];
 	if (self) {
 		self.fileName= fileName;
 		self.mode = mode;
-
-		switch (mode) {
-			case OZZipFileModeUnzip:
-				_unzFile= unzOpen64([_fileName cStringUsingEncoding:NSUTF8StringEncoding]);
-				if (_unzFile == NULL) {
-					NSString *reason= [NSString stringWithFormat:@"Can't open '%@'", _fileName];
-					@throw [[OZZipException alloc] initWithReason:reason];
-				}
-				break;
-				
-			case OZZipFileModeCreate:
-				_zipFile= zipOpen64([_fileName cStringUsingEncoding:NSUTF8StringEncoding], APPEND_STATUS_CREATE);
-				if (_zipFile == NULL) {
-					NSString *reason= [NSString stringWithFormat:@"Can't open '%@'", _fileName];
-					@throw [[OZZipException alloc] initWithReason:reason];
-				}
-				break;
-				
-			case OZZipFileModeAppend:
-				_zipFile= zipOpen64([_fileName cStringUsingEncoding:NSUTF8StringEncoding], APPEND_STATUS_ADDINZIP);
-				if (_zipFile == NULL) {
-					NSString *reason= [NSString stringWithFormat:@"Can't open '%@'", _fileName];
-					@throw [[OZZipException alloc] initWithReason:reason];
-				}
-				break;
-			default: {
-				NSString *reason= [NSString stringWithFormat:@"Unknown mode %d", _mode];
-				@throw [[OZZipException alloc] initWithReason:reason];
-			}
-		}
+        _zipFile = NULL;
+        _unzFile = NULL;
+        [self openZipFile];
 	}
-	
 	return self;
 }
 
-- (OZZipWriteStream *)writeFileInZipWithName:(NSString *)fileNameInZip compressionLevel:(OZZipCompressionLevel)compressionLevel {
-	if (self.mode == OZZipFileModeUnzip) {
-		NSString *reason= @"Operation not permitted with Unzip mode";
-		@throw [[OZZipException alloc] initWithReason:reason];
-	}
+- (void)openZipFile {
+
+    switch (self.mode) {
+        case OZZipFileModeUnzip:
+            _unzFile = unzOpen64([_fileName cStringUsingEncoding:NSUTF8StringEncoding]);
+            break;
+        case OZZipFileModeCreate:
+            _zipFile = zipOpen64([_fileName cStringUsingEncoding:NSUTF8StringEncoding], APPEND_STATUS_CREATE);
+            break;
+        case OZZipFileModeAppend:
+            _zipFile = zipOpen64([_fileName cStringUsingEncoding:NSUTF8StringEncoding], APPEND_STATUS_ADDINZIP);
+            break;
+    }
+
+}
+
+- (OZZipWriteStream *)writeFileInZipWithName:(NSString *)fileNameInZip compressionLevel:(OZZipCompressionLevel)compressionLevel error:(NSError **)error {
+    CHECK_IF_ZIP_IS_OPENED(_zipFile);
+    CHECK_IF_MODE_IS_NOT_UNZIP(self.mode);
 
 	NSDate *now= [NSDate date];
 	NSCalendar *calendar= [NSCalendar currentCalendar];
@@ -116,7 +122,7 @@
 	zi.external_fa= 0;
 	zi.dosDate= 0;
 
-	int err= zipOpenNewFileInZip3_64(
+	int err = zipOpenNewFileInZip3_64(
 									 _zipFile,
 									 [fileNameInZip cStringUsingEncoding:NSUTF8StringEncoding],
 									 &zi,
@@ -127,17 +133,19 @@
 									 NULL, 0, 1);
 	if (err != ZIP_OK) {
 		NSString *reason= [NSString stringWithFormat:@"Error opening '%@' in zipfile", fileNameInZip];
-		@throw [[OZZipException alloc] initWithError:err reason:reason];
+        *error = [NSError errorWithErrorCode:OZErrorCodeCannotOpen reason:reason];
+        return nil;
 	}
 
 	return [[OZZipWriteStream alloc] initWithZipFileStruct:_zipFile fileNameInZip:fileNameInZip];
 }
 
-- (OZZipWriteStream *)writeFileInZipWithName:(NSString *)fileNameInZip fileDate:(NSDate *)fileDate compressionLevel:(OZZipCompressionLevel)compressionLevel {
-	if (self.mode == OZZipFileModeUnzip) {
-		NSString *reason = @"Operation not permitted with Unzip mode";
-		@throw [[OZZipException alloc] initWithReason:reason];
-	}
+- (OZZipWriteStream *)writeFileInZipWithName:(NSString *)fileNameInZip
+                                    fileDate:(NSDate *)fileDate
+                            compressionLevel:(OZZipCompressionLevel)compressionLevel
+                                       error:(NSError **)error {
+    CHECK_IF_ZIP_IS_OPENED(_zipFile);
+    CHECK_IF_MODE_IS_NOT_UNZIP(self.mode);
 	
 	NSCalendar *calendar= [NSCalendar currentCalendar];
 	NSDateComponents *date= [calendar components:(NSSecondCalendarUnit | NSMinuteCalendarUnit | NSHourCalendarUnit | NSDayCalendarUnit |
@@ -164,18 +172,21 @@
 									 NULL, 0, 1);
 	if (err != ZIP_OK) {
 		NSString *reason= [NSString stringWithFormat:@"Error opening '%@' in zipfile", fileNameInZip];
-		@throw [[OZZipException alloc] initWithError:err reason:reason];
+        *error = [NSError errorWithErrorCode:OZErrorCodeCannotOpen reason:reason];
+        return nil;
 	}
 
 	return [[OZZipWriteStream alloc] initWithZipFileStruct:_zipFile fileNameInZip:fileNameInZip];
 }
 
-- (OZZipWriteStream *)writeFileInZipWithName:(NSString *)fileNameInZip fileDate:(NSDate *)fileDate compressionLevel:(OZZipCompressionLevel)compressionLevel
-                                    password:(NSString *)password crc32:(NSUInteger)crc32 {
-	if (self.mode == OZZipFileModeUnzip) {
-		NSString *reason = @"Operation not permitted with Unzip mode";
-		@throw [[OZZipException alloc] initWithReason:reason];
-	}
+- (OZZipWriteStream *)writeFileInZipWithName:(NSString *)fileNameInZip
+                                    fileDate:(NSDate *)fileDate
+                            compressionLevel:(OZZipCompressionLevel)compressionLevel
+                                    password:(NSString *)password
+                                       crc32:(NSUInteger)crc32
+                                       error:(NSError **)error {
+    CHECK_IF_ZIP_IS_OPENED(_zipFile);
+    CHECK_IF_MODE_IS_NOT_UNZIP(self.mode);
 	
 	NSCalendar *calendar= [NSCalendar currentCalendar];
 	NSDateComponents *date= [calendar components:(NSSecondCalendarUnit | NSMinuteCalendarUnit | NSHourCalendarUnit | NSDayCalendarUnit |
@@ -191,7 +202,7 @@
 	zi.external_fa= 0;
 	zi.dosDate= 0;
 	
-	int err= zipOpenNewFileInZip3_64(
+	int err = zipOpenNewFileInZip3_64(
 									 _zipFile,
 									 [fileNameInZip cStringUsingEncoding:NSUTF8StringEncoding],
 									 &zi,
@@ -202,7 +213,7 @@
 									 [password cStringUsingEncoding:NSUTF8StringEncoding], crc32, 1);
 	if (err != ZIP_OK) {
 		NSString *reason= [NSString stringWithFormat:@"Error opening '%@' in zipfile", fileNameInZip];
-		@throw [[OZZipException alloc] initWithError:err reason:reason];
+        *error = [NSError errorWithErrorCode:OZErrorCodeCannotOpen reason:reason];
 	}
 
 	return [[OZZipWriteStream alloc] initWithZipFileStruct:_zipFile fileNameInZip:fileNameInZip];
@@ -211,16 +222,15 @@
 
 - (NSUInteger)numFilesInZip {
 	if (self.mode != OZZipFileModeUnzip) {
-		NSString *reason = @"Operation not permitted without Unzip mode";
-		@throw [[OZZipException alloc] initWithReason:reason];
+        return 0;
 	}
 
 	unz_global_info64 gi;
 	int err= unzGetGlobalInfo64(_unzFile, &gi);
 	if (err != UNZ_OK) {
-		NSString *reason= [NSString stringWithFormat:@"Error getting global info in '%@'", self.fileName];
-		@throw [[OZZipException alloc] initWithError:err reason:reason];
+        return 0;
 	}
+
     _numFilesInZip = (NSUInteger)gi.number_entry;
 	return _numFilesInZip;
 }
@@ -233,36 +243,30 @@
 
 	NSMutableArray *files= [[NSMutableArray alloc] initWithCapacity:num];
 
-	[self goToFirstFileInZip];
-	for (NSUInteger i= 0; i < num; i++) {
-		OZFileInZipInfo *info= [self getCurrentFileInZipInfo];
+	[self goToFirstFileInZip:nil];
+	for (NSUInteger i = 0; i < num; i++) {
+		OZFileInZipInfo *info= [self getCurrentFileInZipInfo:nil];
 		[files addObject:info];
 
 		if ((i +1) < num)
-			[self goToNextFileInZip];
+			[self goToNextFileInZip:nil];
 	}
 
 	return files;
 }
 
-- (void)goToFirstFileInZip {
-	if (self.mode != OZZipFileModeUnzip) {
-		NSString *reason = @"Operation not permitted without Unzip mode";
-		@throw [[OZZipException alloc] initWithReason:reason];
-	}
+- (void)goToFirstFileInZip:(NSError **)error {
+    CHECK_IF_MODE_IS_UNZIP(self.mode);
 
 	int err = unzGoToFirstFile(_unzFile);
 	if (err != UNZ_OK) {
 		NSString *reason = [NSString stringWithFormat:@"Error going to first file in zip in '%@'", self.fileName];
-		@throw [[OZZipException alloc] initWithError:err reason:reason];
+        *error = [NSError errorWithErrorCode:OZErrorCodeGeneral reason:reason];
 	}
 }
 
-- (BOOL)goToNextFileInZip {
-	if (self.mode != OZZipFileModeUnzip) {
-		NSString *reason = @"Operation not permitted without Unzip mode";
-		@throw [[OZZipException alloc] initWithReason:reason];
-	}
+- (BOOL)goToNextFileInZip:(NSError **)error {
+    CHECK_IF_MODE_IS_UNZIP_RETURN(self.mode);
 
 	int err= unzGoToNextFile(_unzFile);
 	if (err == UNZ_END_OF_LIST_OF_FILE) {
@@ -271,17 +275,15 @@
 
 	if (err != UNZ_OK) {
 		NSString *reason= [NSString stringWithFormat:@"Error going to next file in zip in '%@'", self.fileName];
-		@throw [[OZZipException alloc] initWithError:err reason:reason];
+        *error = [NSError errorWithErrorCode:OZErrorCodeGeneral reason:reason];
+		return NO;
 	}
 
 	return YES;
 }
 
-- (BOOL)locateFileInZip:(NSString *)fileNameInZip {
-	if (self.mode != OZZipFileModeUnzip) {
-		NSString *reason= @"Operation not permitted without Unzip mode";
-		@throw [[OZZipException alloc] initWithReason:reason];
-	}
+- (BOOL)locateFileInZip:(NSString *)fileNameInZip error:(NSError **)error {
+    CHECK_IF_MODE_IS_UNZIP_RETURN(self.mode);
 
 	int err= unzLocateFile(_unzFile, [fileNameInZip cStringUsingEncoding:NSUTF8StringEncoding], NULL);
 	if (err == UNZ_END_OF_LIST_OF_FILE) {
@@ -290,17 +292,15 @@
 
 	if (err != UNZ_OK) {
 		NSString *reason= [NSString stringWithFormat:@"Error localting file in zip in '%@'", self.fileName];
-		@throw [[OZZipException alloc] initWithError:err reason:reason];
+        *error = [NSError errorWithErrorCode:OZErrorCodeGeneral reason:reason];
+		return NO;
 	}
 
 	return YES;
 }
 
-- (OZFileInZipInfo *)getCurrentFileInZipInfo {
-	if (self.mode != OZZipFileModeUnzip) {
-		NSString *reason = @"Operation not permitted without Unzip mode";
-		@throw [[OZZipException alloc] initWithReason:reason];
-	}
+- (OZFileInZipInfo *)getCurrentFileInZipInfo:(NSError **)error {
+    CHECK_IF_MODE_IS_UNZIP_RETURN(self.mode);
 
 	char filename_inzip[FILE_IN_ZIP_MAX_NAME_LENGTH];
 	unz_file_info64 file_info;
@@ -308,7 +308,7 @@
 	int err= unzGetCurrentFileInfo64(_unzFile, &file_info, filename_inzip, sizeof(filename_inzip), NULL, 0, NULL, 0);
 	if (err != UNZ_OK) {
 		NSString *reason= [NSString stringWithFormat:@"Error getting current file info in '%@'", self.fileName];
-		@throw [[OZZipException alloc] initWithError:err reason:reason];
+        *error = [NSError errorWithErrorCode:OZErrorCodeGeneral reason:reason];
 	}
 
 	NSString *name = [NSString stringWithCString:filename_inzip encoding:NSUTF8StringEncoding];
@@ -352,10 +352,11 @@
 	return info;
 }
 
-- (OZZipReadStream *)readCurrentFileInZip {
+- (OZZipReadStream *)readCurrentFileInZip:(NSError **)error {
 	if (self.mode != OZZipFileModeUnzip) {
 		NSString *reason = @"Operation not permitted without Unzip mode";
-		@throw [[OZZipException alloc] initWithReason:reason];
+        *error = [NSError errorWithErrorCode:OZErrorCodeNotAllowed reason:reason];
+        return nil;
 	}
 
 	char filename_inzip[FILE_IN_ZIP_MAX_NAME_LENGTH];
@@ -364,24 +365,27 @@
 	int err= unzGetCurrentFileInfo64(_unzFile, &file_info, filename_inzip, sizeof(filename_inzip), NULL, 0, NULL, 0);
 	if (err != UNZ_OK) {
 		NSString *reason= [NSString stringWithFormat:@"Error getting current file info in '%@'", _fileName];
-		@throw [[OZZipException alloc] initWithError:err reason:reason];
+        *error = [NSError errorWithErrorCode:OZErrorCodeNotAllowed reason:reason];
+        return nil;
 	}
 
 	NSString *fileNameInZip= [NSString stringWithCString:filename_inzip encoding:NSUTF8StringEncoding];
 	err = unzOpenCurrentFilePassword(_unzFile, NULL);
 	if (err != UNZ_OK) {
 		NSString *reason= [NSString stringWithFormat:@"Error opening current file in '%@'", self.fileName];
-		@throw [[OZZipException alloc] initWithError:err reason:reason];
+        *error = [NSError errorWithErrorCode:OZErrorCodeCannotOpen reason:reason];
+        return nil;
 	}
 
 	return [[OZZipReadStream alloc] initWithUnzFileStruct:_unzFile fileNameInZip:fileNameInZip];
 }
 
-- (OZZipReadStream *)readCurrentFileInZipWithPassword:(NSString *)password {
-	if (self.mode != OZZipFileModeUnzip) {
-		NSString *reason= [NSString stringWithFormat:@"Operation not permitted without Unzip mode"];
-		@throw [[OZZipException alloc] initWithReason:reason];
-	}
+- (OZZipReadStream *)readCurrentFileInZipWithPassword:(NSString *)password error:(NSError **)error {
+    if (self.mode != OZZipFileModeUnzip) {
+        NSString *reason = @"Operation not permitted without Unzip mode";
+        *error = [NSError errorWithErrorCode:OZErrorCodeNotAllowed reason:reason];
+        return nil;
+    }
 
 	char filename_inzip[FILE_IN_ZIP_MAX_NAME_LENGTH];
 	unz_file_info64 file_info;
@@ -389,35 +393,37 @@
 	int err= unzGetCurrentFileInfo64(_unzFile, &file_info, filename_inzip, sizeof(filename_inzip), NULL, 0, NULL, 0);
 	if (err != UNZ_OK) {
 		NSString *reason= [NSString stringWithFormat:@"Error getting current file info in '%@'", _fileName];
-		@throw [[OZZipException alloc] initWithError:err reason:reason];
+        *error = [NSError errorWithErrorCode:OZErrorCodeNotAllowed reason:reason];
+        return nil;
 	}
 
 	NSString *fileNameInZip = [NSString stringWithCString:filename_inzip encoding:NSUTF8StringEncoding];
 	err = unzOpenCurrentFilePassword(_unzFile, [password cStringUsingEncoding:NSUTF8StringEncoding]);
 	if (err != UNZ_OK) {
 		NSString *reason= [NSString stringWithFormat:@"Error opening current file in '%@'", _fileName];
-		@throw [[OZZipException alloc] initWithError:err reason:reason];
+        *error = [NSError errorWithErrorCode:OZErrorCodeCannotOpen reason:reason];
+        return nil;
 	}
 
 	return [[OZZipReadStream alloc] initWithUnzFileStruct:_unzFile fileNameInZip:fileNameInZip];
 }
 
-- (void)close {
+- (void)close:(NSError **)error {
 	switch (self.mode) {
 		case OZZipFileModeUnzip: {
 			int err= unzClose(_unzFile);
 			if (err != UNZ_OK) {
-				NSString *reason= [NSString stringWithFormat:@"Error closing '%@'", self.fileName];
-				@throw [[OZZipException alloc] initWithError:err reason:reason];
+				NSString *reason = [NSString stringWithFormat:@"Error closing '%@'", self.fileName];
+                *error = [NSError errorWithErrorCode:OZErrorCodeCannotClose reason:reason];
 			}
 			break;
 		}
-			
+
 		case OZZipFileModeCreate: {
 			int err= zipClose(_zipFile, NULL);
 			if (err != ZIP_OK) {
 				NSString *reason= [NSString stringWithFormat:@"Error closing '%@'", self.fileName];
-				@throw [[OZZipException alloc] initWithError:err reason:reason];
+                *error = [NSError errorWithErrorCode:OZErrorCodeCannotClose reason:reason];
 			}
 			break;
 		}
@@ -426,14 +432,9 @@
 			int err = zipClose(_zipFile, NULL);
 			if (err != ZIP_OK) {
 				NSString *reason= [NSString stringWithFormat:@"Error closing '%@'", self.fileName];
-				@throw [[OZZipException alloc] initWithError:err reason:reason];
+                *error = [NSError errorWithErrorCode:OZErrorCodeCannotClose reason:reason]; \
 			}
 			break;
-		}
-
-		default: {
-			NSString *reason= [NSString stringWithFormat:@"Unknown mode %d", self.mode];
-			@throw [[OZZipException alloc] initWithReason:reason];
 		}
 	}
 }

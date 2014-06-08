@@ -40,7 +40,7 @@
 
 - (instancetype)initWithZipFileStruct:(zipFile)zipFile fileNameInZip:(NSString *)fileNameInZip;
 
-- (void)writeData:(NSData *)data;
-- (void)finishedWriting;
+- (void)writeData:(NSData *)data error:(NSError **)error;
+- (void)finishedWriting:(NSError **)error;
 
 @end

@@ -36,19 +36,7 @@
 #include "zip.h"
 #include "unzip.h"
 
-
-typedef enum {
-	OZZipFileModeUnzip,
-	OZZipFileModeCreate,
-	OZZipFileModeAppend
-} OZZipFileMode;
-
-typedef enum {
-	OZZipCompressionLevelDefault= -1,
-	OZZipCompressionLevelNone= 0,
-	OZZipCompressionLevelFastest= 1,
-	OZZipCompressionLevelBest= 9
-} OZZipCompressionLevel;
+#import "OZConstants.h"
 
 @class OZZipReadStream;
 @class OZZipWriteStream;
@@ -58,24 +46,33 @@ typedef enum {
 
 - (instancetype)initWithFileName:(NSString *)fileName mode:(OZZipFileMode)mode;
 
-- (OZZipWriteStream *)writeFileInZipWithName:(NSString *)fileNameInZip compressionLevel:(OZZipCompressionLevel)compressionLevel;
-- (OZZipWriteStream *)writeFileInZipWithName:(NSString *)fileNameInZip fileDate:(NSDate *)fileDate compressionLevel:(OZZipCompressionLevel)compressionLevel;
-- (OZZipWriteStream *)writeFileInZipWithName:(NSString *)fileNameInZip fileDate:(NSDate *)fileDate compressionLevel:(OZZipCompressionLevel)compressionLevel
-                                    password:(NSString *)password crc32:(NSUInteger)crc32;
+- (OZZipWriteStream *)writeFileInZipWithName:(NSString *)fileNameInZip compressionLevel:(OZZipCompressionLevel)compressionLevel error:(NSError **)error;
+
+- (OZZipWriteStream *)writeFileInZipWithName:(NSString *)fileNameInZip
+                                    fileDate:(NSDate *)fileDate
+                            compressionLevel:(OZZipCompressionLevel)compressionLevel
+                                       error:(NSError **)error;
+
+- (OZZipWriteStream *)writeFileInZipWithName:(NSString *)fileNameInZip
+                                    fileDate:(NSDate *)fileDate
+                            compressionLevel:(OZZipCompressionLevel)compressionLevel
+                                    password:(NSString *)password
+                                       crc32:(NSUInteger)crc32
+                                       error:(NSError **)error;
 
 @property (nonatomic, copy, readonly) NSString *fileName;
 @property (nonatomic, assign, readonly) NSUInteger numFilesInZip;
 
 - (NSArray *) listFileInZipInfos;
 
-- (void)goToFirstFileInZip;
-- (BOOL)goToNextFileInZip;
-- (BOOL)locateFileInZip:(NSString *)fileNameInZip;
+- (void)goToFirstFileInZip:(NSError **)error;
+- (BOOL)goToNextFileInZip:(NSError **)error;
+- (BOOL)locateFileInZip:(NSString *)fileNameInZip error:(NSError **)error;
 
-- (OZFileInZipInfo *)getCurrentFileInZipInfo;
-- (OZZipReadStream *)readCurrentFileInZip;
-- (OZZipReadStream *)readCurrentFileInZipWithPassword:(NSString *)password;
+- (OZFileInZipInfo *)getCurrentFileInZipInfo:(NSError **)error;
+- (OZZipReadStream *)readCurrentFileInZip:(NSError **)error;
+- (OZZipReadStream *)readCurrentFileInZipWithPassword:(NSString *)password error:(NSError **)error;
 
-- (void)close;
+- (void)close:(NSError **)error;
 
 @end

@@ -32,7 +32,7 @@
 //
 
 #import "OZZipWriteStream.h"
-#import "OZZipException.h"
+#import "NSError+ObjectiveZip.h"
 
 #include "zip.h"
 
@@ -55,19 +55,19 @@
 	return self;
 }
 
-- (void)writeData:(NSData *)data {
-	int err= zipWriteInFileInZip(_zipFile, [data bytes], [data length]);
-	if (err < 0) {
+- (void)writeData:(NSData *)data error:(NSError **)error {
+	int writtenBytes = zipWriteInFileInZip(_zipFile, [data bytes], [data length]);
+	if (writtenBytes < 0) {
 		NSString *reason= [NSString stringWithFormat:@"Error writing '%@' in the zipfile", self.fileNameInZip];
-		@throw [[OZZipException alloc] initWithError:err reason:reason];
+        *error = [NSError errorWithErrorCode:OZErrorCodeCannotWrite reason:reason];
 	}
 }
 
-- (void)finishedWriting {
-	int err = zipCloseFileInZip(_zipFile);
-	if (err != ZIP_OK) {
+- (void)finishedWriting:(NSError **)error {
+	int code = zipCloseFileInZip(_zipFile);
+	if (code != ZIP_OK) {
 		NSString *reason = [NSString stringWithFormat:@"Error closing '%@' in the zipfile", self.fileNameInZip];
-		@throw [[OZZipException alloc] initWithError:err reason:reason];
+        *error = [NSError errorWithErrorCode:OZErrorCodeCannotClose reason:reason];
 	}
 }
 

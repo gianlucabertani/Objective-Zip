@@ -1,13 +1,11 @@
 //
-//  OZLib.h
+//  OZConstants.m
 //  Objective-Zip
 //
 //  Created by Bogdan Iusco on 08/06/14.
 //  Copyright (c) 2014 yourcompany. All rights reserved.
 //
 
-#import "OZFileInZipInfo.h"
-#import "OZZipFile.h"
-#import "OZZipReadStream.h"
-#import "OZZipWriteStream.h"
 #import "OZConstants.h"
+
+NSString * const kOZErrorDomanain = @"Objective-Zip Error";

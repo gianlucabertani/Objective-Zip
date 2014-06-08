@@ -32,7 +32,7 @@
 //
 
 #import "OZZipReadStream.h"
-#import "OZZipException.h"
+#import "NSError+ObjectiveZip.h"
 
 #include "unzip.h"
 
@@ -48,7 +48,6 @@
 
 @implementation OZZipReadStream
 
-
 - (instancetype)initWithUnzFileStruct:(unzFile)unzFile fileNameInZip:(NSString *)fileNameInZip {
 	self= [super init];
     if (self) {
@@ -58,20 +57,20 @@
 	return self;
 }
 
-- (NSUInteger)readDataWithBuffer:(NSMutableData *)buffer {
-	int err= unzReadCurrentFile(_unzFile, [buffer mutableBytes], [buffer length]);
-	if (err < 0) {
+- (NSUInteger)readDataWithBuffer:(NSMutableData *)buffer error:(NSError **)error {
+	int readBytes = unzReadCurrentFile(_unzFile, [buffer mutableBytes], [buffer length]);
+	if (readBytes < 0) {
 		NSString *reason= [NSString stringWithFormat:@"Error reading '%@' in the zipfile", self.fileNameInZip];
-		@throw [[OZZipException alloc] initWithError:err reason:reason];
+        *error = [NSError errorWithErrorCode:OZErrorCodeCannotRead reason:reason];
 	}
-	return err;
+	return readBytes;
 }
 
-- (void)finishedReading {
-	int err = unzCloseCurrentFile(_unzFile);
-	if (err != UNZ_OK) {
+- (void)finishedReading:(NSError **)error {
+	int code = unzCloseCurrentFile(_unzFile);
+	if (code != UNZ_OK) {
 		NSString *reason= [NSString stringWithFormat:@"Error closing '%@' in the zipfile", self.fileNameInZip];
-		@throw [[OZZipException alloc] initWithError:err reason:reason];
+        *error = [NSError errorWithErrorCode:OZErrorCodeCannotClose reason:reason];
 	}
 }
 
