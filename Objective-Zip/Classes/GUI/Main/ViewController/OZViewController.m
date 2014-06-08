@@ -10,12 +10,7 @@
 #define HUGE_TEST_NUMBER_OF_BLOCKS        (100000)
 
 #import "OZViewController.h"
-#import "OZZipFile.h"
-#import "OZZipException.h"
-#import "OZZipReadStream.h"
-#import "OZZipWriteStream.h"
-#import "OZFileInZipInfo.h"
-
+#import "OZLib.h"
 
 @interface OZViewController ()
 

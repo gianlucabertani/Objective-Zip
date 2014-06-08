@@ -60,6 +60,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		43D03C331944D9B500B48F94 /* OZLib.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OZLib.h; path = "Classes/Objective-Zip/OZLib.h"; sourceTree = "<group>"; };
 		653D48F4194468BE004206FC /* Objective-Zip.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Objective-Zip.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		653D48F7194468BE004206FC /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		653D48F9194468BE004206FC /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -355,6 +356,7 @@
 				653D497819447544004206FC /* OZZipReadStream.m */,
 				653D497919447544004206FC /* OZZipWriteStream.h */,
 				653D497A19447544004206FC /* OZZipWriteStream.m */,
+				43D03C331944D9B500B48F94 /* OZLib.h */,
 			);
 			name = "Objective-Zip";
 			sourceTree = "<group>";
