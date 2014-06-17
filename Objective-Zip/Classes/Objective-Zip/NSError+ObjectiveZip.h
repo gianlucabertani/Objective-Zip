@@ -18,4 +18,12 @@
 - (instancetype)initWithErrorCode:(OZErrorCode)code
                            reason:(NSString *)reason;
 
++ (instancetype)errorWithErrorCode:(OZErrorCode)code
+                            reason:(NSString *)reason
+                          forError:(NSError **)error;
+
+- (instancetype)initWithErrorCode:(OZErrorCode)code
+                           reason:(NSString *)reason
+                         forError:(NSError **)error;
+
 @end

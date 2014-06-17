@@ -59,7 +59,7 @@
 	int writtenBytes = zipWriteInFileInZip(_zipFile, [data bytes], [data length]);
 	if (writtenBytes < 0) {
 		NSString *reason= [NSString stringWithFormat:@"Error writing '%@' in the zipfile", self.fileNameInZip];
-        *error = [NSError errorWithErrorCode:OZErrorCodeCannotWrite reason:reason];
+        [NSError errorWithErrorCode:OZErrorCodeCannotWrite reason:reason forError:error];
 	}
 }
 
@@ -67,7 +67,7 @@
 	int code = zipCloseFileInZip(_zipFile);
 	if (code != ZIP_OK) {
 		NSString *reason = [NSString stringWithFormat:@"Error closing '%@' in the zipfile", self.fileNameInZip];
-        *error = [NSError errorWithErrorCode:OZErrorCodeCannotClose reason:reason];
+        [NSError errorWithErrorCode:OZErrorCodeCannotClose reason:reason forError:error];
 	}
 }
 

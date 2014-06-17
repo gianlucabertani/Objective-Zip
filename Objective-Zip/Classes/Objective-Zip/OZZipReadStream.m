@@ -61,7 +61,7 @@
 	int readBytes = unzReadCurrentFile(_unzFile, [buffer mutableBytes], [buffer length]);
 	if (readBytes < 0) {
 		NSString *reason= [NSString stringWithFormat:@"Error reading '%@' in the zipfile", self.fileNameInZip];
-        *error = [NSError errorWithErrorCode:OZErrorCodeCannotRead reason:reason];
+        [NSError errorWithErrorCode:OZErrorCodeCannotRead reason:reason forError:error];
 	}
 	return readBytes;
 }
@@ -70,7 +70,7 @@
 	int code = unzCloseCurrentFile(_unzFile);
 	if (code != UNZ_OK) {
 		NSString *reason= [NSString stringWithFormat:@"Error closing '%@' in the zipfile", self.fileNameInZip];
-        *error = [NSError errorWithErrorCode:OZErrorCodeCannotClose reason:reason];
+        [NSError errorWithErrorCode:OZErrorCodeCannotClose reason:reason forError:error];
 	}
 }
 

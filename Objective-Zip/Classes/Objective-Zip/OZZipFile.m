@@ -40,24 +40,24 @@
 #define FILE_IN_ZIP_MAX_NAME_LENGTH (256)
 
 #define CHECK_IF_ZIP_IS_OPENED(zipFile) if (!zipFile) { \
-                                            *error = [NSError errorWithErrorCode:OZErrorCodeNotOpened reason:nil]; \
+                                            [NSError errorWithErrorCode:OZErrorCodeNotOpened reason:nil forError:error]; \
                                             return nil; \
                                         }
 
 #define CHECK_IF_MODE_IS_NOT_UNZIP(mode) if (mode == OZZipFileModeUnzip) { \
                                          NSString *reason= @"Operation not permitted with Unzip mode"; \
-                                         *error = [NSError errorWithErrorCode:OZErrorCodeNotAllowed reason:reason]; \
+                                         [NSError errorWithErrorCode:OZErrorCodeNotAllowed reason:reason forError:error]; \
                                          return nil; \
                                      }
 
 #define CHECK_IF_MODE_IS_UNZIP(mode) if (self.mode != OZZipFileModeUnzip) { \
                                           NSString *reason = @"Operation not permitted without Unzip mode"; \
-                                          *error = [NSError errorWithErrorCode:OZErrorCodeNotAllowed reason:reason]; \
+                                          [NSError errorWithErrorCode:OZErrorCodeNotAllowed reason:reason forError:error]; \
                                      }
 
 #define CHECK_IF_MODE_IS_UNZIP_RETURN(mode) if (self.mode != OZZipFileModeUnzip) { \
                                                 NSString *reason = @"Operation not permitted without Unzip mode"; \
-                                                *error = [NSError errorWithErrorCode:OZErrorCodeNotAllowed reason:reason]; \
+                                                [NSError errorWithErrorCode:OZErrorCodeNotAllowed reason:reason forError:error]; \
                                                 return NO; \
                                             }
 
@@ -133,7 +133,7 @@
 									 NULL, 0, 1);
 	if (err != ZIP_OK) {
 		NSString *reason= [NSString stringWithFormat:@"Error opening '%@' in zipfile", fileNameInZip];
-        *error = [NSError errorWithErrorCode:OZErrorCodeCannotOpen reason:reason];
+        [NSError errorWithErrorCode:OZErrorCodeCannotOpen reason:reason forError:error];
         return nil;
 	}
 
@@ -172,7 +172,7 @@
 									 NULL, 0, 1);
 	if (err != ZIP_OK) {
 		NSString *reason= [NSString stringWithFormat:@"Error opening '%@' in zipfile", fileNameInZip];
-        *error = [NSError errorWithErrorCode:OZErrorCodeCannotOpen reason:reason];
+        [NSError errorWithErrorCode:OZErrorCodeCannotOpen reason:reason forError:error];
         return nil;
 	}
 
@@ -213,7 +213,7 @@
 									 [password cStringUsingEncoding:NSUTF8StringEncoding], crc32, 1);
 	if (err != ZIP_OK) {
 		NSString *reason= [NSString stringWithFormat:@"Error opening '%@' in zipfile", fileNameInZip];
-        *error = [NSError errorWithErrorCode:OZErrorCodeCannotOpen reason:reason];
+        [NSError errorWithErrorCode:OZErrorCodeCannotOpen reason:reason forError:error];
 	}
 
 	return [[OZZipWriteStream alloc] initWithZipFileStruct:_zipFile fileNameInZip:fileNameInZip];
@@ -261,7 +261,7 @@
 	int err = unzGoToFirstFile(_unzFile);
 	if (err != UNZ_OK) {
 		NSString *reason = [NSString stringWithFormat:@"Error going to first file in zip in '%@'", self.fileName];
-        *error = [NSError errorWithErrorCode:OZErrorCodeGeneral reason:reason];
+        [NSError errorWithErrorCode:OZErrorCodeGeneral reason:reason forError:error];
 	}
 }
 
@@ -275,7 +275,7 @@
 
 	if (err != UNZ_OK) {
 		NSString *reason= [NSString stringWithFormat:@"Error going to next file in zip in '%@'", self.fileName];
-        *error = [NSError errorWithErrorCode:OZErrorCodeGeneral reason:reason];
+        [NSError errorWithErrorCode:OZErrorCodeGeneral reason:reason forError:error];
 		return NO;
 	}
 
@@ -292,7 +292,7 @@
 
 	if (err != UNZ_OK) {
 		NSString *reason= [NSString stringWithFormat:@"Error localting file in zip in '%@'", self.fileName];
-        *error = [NSError errorWithErrorCode:OZErrorCodeGeneral reason:reason];
+        [NSError errorWithErrorCode:OZErrorCodeGeneral reason:reason forError:error];
 		return NO;
 	}
 
@@ -308,7 +308,7 @@
 	int err= unzGetCurrentFileInfo64(_unzFile, &file_info, filename_inzip, sizeof(filename_inzip), NULL, 0, NULL, 0);
 	if (err != UNZ_OK) {
 		NSString *reason= [NSString stringWithFormat:@"Error getting current file info in '%@'", self.fileName];
-        *error = [NSError errorWithErrorCode:OZErrorCodeGeneral reason:reason];
+        [NSError errorWithErrorCode:OZErrorCodeGeneral reason:reason forError:error];
 	}
 
 	NSString *name = [NSString stringWithCString:filename_inzip encoding:NSUTF8StringEncoding];
@@ -365,7 +365,7 @@
 	int err= unzGetCurrentFileInfo64(_unzFile, &file_info, filename_inzip, sizeof(filename_inzip), NULL, 0, NULL, 0);
 	if (err != UNZ_OK) {
 		NSString *reason= [NSString stringWithFormat:@"Error getting current file info in '%@'", _fileName];
-        *error = [NSError errorWithErrorCode:OZErrorCodeNotAllowed reason:reason];
+        [NSError errorWithErrorCode:OZErrorCodeNotAllowed reason:reason forError:error];
         return nil;
 	}
 
@@ -373,7 +373,7 @@
 	err = unzOpenCurrentFilePassword(_unzFile, NULL);
 	if (err != UNZ_OK) {
 		NSString *reason= [NSString stringWithFormat:@"Error opening current file in '%@'", self.fileName];
-        *error = [NSError errorWithErrorCode:OZErrorCodeCannotOpen reason:reason];
+        [NSError errorWithErrorCode:OZErrorCodeCannotOpen reason:reason forError:error];
         return nil;
 	}
 
@@ -393,7 +393,7 @@
 	int err= unzGetCurrentFileInfo64(_unzFile, &file_info, filename_inzip, sizeof(filename_inzip), NULL, 0, NULL, 0);
 	if (err != UNZ_OK) {
 		NSString *reason= [NSString stringWithFormat:@"Error getting current file info in '%@'", _fileName];
-        *error = [NSError errorWithErrorCode:OZErrorCodeNotAllowed reason:reason];
+        [NSError errorWithErrorCode:OZErrorCodeNotAllowed reason:reason forError:error];
         return nil;
 	}
 
@@ -401,7 +401,7 @@
 	err = unzOpenCurrentFilePassword(_unzFile, [password cStringUsingEncoding:NSUTF8StringEncoding]);
 	if (err != UNZ_OK) {
 		NSString *reason= [NSString stringWithFormat:@"Error opening current file in '%@'", _fileName];
-        *error = [NSError errorWithErrorCode:OZErrorCodeCannotOpen reason:reason];
+        [NSError errorWithErrorCode:OZErrorCodeCannotOpen reason:reason forError:error];
         return nil;
 	}
 
@@ -414,7 +414,7 @@
 			int err= unzClose(_unzFile);
 			if (err != UNZ_OK) {
 				NSString *reason = [NSString stringWithFormat:@"Error closing '%@'", self.fileName];
-                *error = [NSError errorWithErrorCode:OZErrorCodeCannotClose reason:reason];
+                [NSError errorWithErrorCode:OZErrorCodeCannotClose reason:reason forError:error];
 			}
 			break;
 		}
@@ -423,7 +423,7 @@
 			int err= zipClose(_zipFile, NULL);
 			if (err != ZIP_OK) {
 				NSString *reason= [NSString stringWithFormat:@"Error closing '%@'", self.fileName];
-                *error = [NSError errorWithErrorCode:OZErrorCodeCannotClose reason:reason];
+                [NSError errorWithErrorCode:OZErrorCodeCannotClose reason:reason forError:error];
 			}
 			break;
 		}
@@ -432,7 +432,7 @@
 			int err = zipClose(_zipFile, NULL);
 			if (err != ZIP_OK) {
 				NSString *reason= [NSString stringWithFormat:@"Error closing '%@'", self.fileName];
-                *error = [NSError errorWithErrorCode:OZErrorCodeCannotClose reason:reason]; \
+                [NSError errorWithErrorCode:OZErrorCodeCannotClose reason:reason forError:error];
 			}
 			break;
 		}
