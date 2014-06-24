@@ -14,7 +14,6 @@ Adding Objective-Zip to your project
 The library is distributed as source only, so simply download the unit
 test application and copy-paste these directories in your own project:
 
-- ARCHelper
 - ZLib
 - MiniZip
 - Objective-Zip
@@ -32,8 +31,8 @@ ZipFile. It can be created with the common Objective-C procedure of an
 alloc followed by an init, specifying in the latter if the zip file is
 being created, appended or unzipped:
 
-	ZipFile *zipFile= [[ZipFile alloc] initWithFileName:@"test.zip"
-		mode:ZipFileModeCreate];
+	OZZipFile *zipFile= [[OZZipFile alloc] initWithFileName:@"test.zip"
+		mode:OZZipFileModeCreate];
 
 Creating and appending are both write-only modalities, while unzipping
 is a read-only modality. You can not request reading operations on a
@@ -50,8 +49,8 @@ with a password. Both methods return an instance of a ZipWriteStream
 class, which will be used solely for the scope of writing the content of
 the file, and then must be closed:
 
-	ZipWriteStream *stream= [zipFile writeFileInZipWithName:@"abc.txt"
-		compressionLevel:ZipCompressionLevelBest];
+	OZZipWriteStream *stream= [zipFile writeFileInZipWithName:@"abc.txt"
+		compressionLevel:OZZipCompressionLevelBest];
 
 	[stream writeData:abcData];
 	[stream finishedWriting];
@@ -66,12 +65,12 @@ step-forwarding or by locating the file by name. Once you are on the
 correct file, you can obtain an instance of a ZipReadStream that will
 let you read the content (and then must be closed):
 
-	ZipFile *unzipFile= [[ZipFile alloc] initWithFileName:@"test.zip"
-		mode:ZipFileModeUnzip];
+	OZZipFile *unzipFile= [[OZZipFile alloc] initWithFileName:@"test.zip"
+		mode:OZZipFileModeUnzip];
 
 	[unzipFile goToFirstFileInZip];
 
-	ZipReadStream *read= [unzipFile readCurrentFileInZip];
+	OZZipReadStream *read= [unzipFile readCurrentFileInZip];
 	NSMutableData *data= [[NSMutableData alloc] initWithLength:256];
 	int bytesRead= [read readDataWithBuffer:data];
 
@@ -91,11 +90,11 @@ contained in zip by filling an NSArray with instances of FileInZipInfo
 class. You can then use its name property to locate the file inside the
 zip and expand it:
 
-	ZipFile *unzipFile= [[ZipFile alloc] initWithFileName:@"test.zip"
-		mode:ZipFileModeUnzip];
+	OZZipFile *unzipFile= [[OZZipFile alloc] initWithFileName:@"test.zip"
+		mode:OZZipFileModeUnzip];
 
 	NSArray *infos= [unzipFile listFileInZipInfos];
-	for (FileInZipInfo *info in infos) {
+	for (OZFileInZipInfo *info in infos) {
 		NSLog(@"- %@ %@ %d (%d)", info.name, info.date, info.size,
     		info.level);
 
@@ -103,7 +102,7 @@ zip and expand it:
 		[unzipFile locateFileInZip:info.name];
 
 		// Expand the file in memory
-		ZipReadStream *read= [unzipFile readCurrentFileInZip];
+		OZZipReadStream *read= [unzipFile readCurrentFileInZip];
 		NSMutableData *data= [[NSMutableData alloc] initWithLength:256];
 		int bytesRead= [read readDataWithBuffer:data];
 		[read finishedReading];
@@ -149,7 +148,7 @@ you can do so using a read-then-write buffered loop like this:
 	NSMutableData *buffer= [[NSMutableData alloc]
 		initWithLength:BUFFER_SIZE];
 
-	ZipReadStream *read= [unzipFile readCurrentFileInZip];
+	OZZipReadStream *read= [unzipFile readCurrentFileInZip];
 
 	// Read-then-write buffered loop
 	do {
@@ -180,7 +179,7 @@ Exception handling
 ------------------
 
 If something goes wrong during an operation, Objective-Zip will always
-throw an exception of class ZipException, which contains a property with
+throw an exception of class OZZipException, which contains a property with
 the specific error number of MiniZip. With that number you are supposed
 to find the reason of the error.
 

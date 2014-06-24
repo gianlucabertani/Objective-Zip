@@ -3,6 +3,7 @@
 Objective-Zip
 =============
 
+[![Build Status](https://travis-ci.org/grigaci/Objective-Zip.svg?branch=master)](https://travis-ci.org/grigaci/Objective-Zip)
 
 Introduction
 ------------
@@ -43,6 +44,12 @@ The library is distributed under the New BSD License.
 
 Version history
 ---------------
+
+Version 1.0.0:
+- Xcode 5 support
+- Droped manual reference counting support
+- Class prefix
+
 
 Version 0.8.3:
 
@@ -91,7 +98,5 @@ Version 0.7.0:
 Compatibility
 -------------
 
-Version 0.8.3 has been tested with iOS from 5.1 to 6.1, but should be
-compatible with earlier versions too. Le me know of any issues that
-should arise.
+Version 1.0.0 has been tested with iOS from 6.0 to 7.1.
 

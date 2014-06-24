@@ -1,0 +1,3 @@
+[submodule "Objective-Zip/Vendors/ZLib"]
+	path = Objective-Zip/Vendors/ZLib
+	url = https://github.com/grigaci/zlib.git
