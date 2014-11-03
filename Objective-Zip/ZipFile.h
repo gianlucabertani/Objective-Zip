@@ -70,6 +70,7 @@ typedef enum {
 - (ZipWriteStream *) writeFileInZipWithName:(NSString *)fileNameInZip fileDate:(NSDate *)fileDate compressionLevel:(ZipCompressionLevel)compressionLevel;
 - (ZipWriteStream *) writeFileInZipWithName:(NSString *)fileNameInZip fileDate:(NSDate *)fileDate compressionLevel:(ZipCompressionLevel)compressionLevel password:(NSString *)password crc32:(NSUInteger)crc32;
 - (void) writeFile:(NSString*)fileNameOnDisk inZipWithName:(NSString*)fileNameInZip compressionLevel:(ZipCompressionLevel)compressionLevel;
+- (void) writeFile:(NSString*)fileNameOnDisk inZipWithName:(NSString*)fileNameInZip compressionLevel:(ZipCompressionLevel)compressionLevel password:(NSString *)password crc32:(NSUInteger)crc32;
 
 - (NSString*) fileName;
 - (NSUInteger) numFilesInZip;
