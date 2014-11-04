@@ -36,11 +36,12 @@
 
 @implementation FileInZipInfo
 
-- (id) initWithName:(NSString *)name length:(NSUInteger)length level:(ZipCompressionLevel)level crypted:(BOOL)crypted size:(NSUInteger)size date:(NSDate *)date crc32:(NSUInteger)crc32 {
+- (id) initWithName:(NSString *)name length:(NSUInteger)length level:(ZipCompressionLevel)level zip64:(BOOL)zip64 crypted:(BOOL)crypted size:(NSUInteger)size date:(NSDate *)date crc32:(NSUInteger)crc32 {
 	if (self= [super init]) {
 		_name= [name ah_retain];
 		_length= length;
 		_level= level;
+        _zip64= zip64;
 		_crypted= crypted;
 		_size= size;
 		_date= [date ah_retain];
@@ -60,6 +61,7 @@
 @synthesize name= _name;
 @synthesize length= _length;
 @synthesize level= _level;
+@synthesize zip64= _zip64;
 @synthesize crypted= _crypted;
 @synthesize size= _size;
 @synthesize date= _date;
