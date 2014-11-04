@@ -90,76 +90,11 @@
 }
 
 - (ZipWriteStream *) writeFileInZipWithName:(NSString *)fileNameInZip compressionLevel:(ZipCompressionLevel)compressionLevel zip64:(BOOL)zip64 {
-	if (_mode == ZipFileModeUnzip) {
-		NSString *reason= [NSString stringWithFormat:@"Operation not permitted with Unzip mode"];
-		@throw [[[ZipException alloc] initWithReason:reason] autorelease];
-	}
-	
-	NSDate *now= [NSDate date];
-	NSCalendar *calendar= [NSCalendar currentCalendar];
-	NSDateComponents *date= [calendar components:(NSSecondCalendarUnit | NSMinuteCalendarUnit | NSHourCalendarUnit | NSDayCalendarUnit | NSMonthCalendarUnit | NSYearCalendarUnit) fromDate:now];	
-	zip_fileinfo zi;
-	zi.tmz_date.tm_sec= [date second];
-	zi.tmz_date.tm_min= [date minute];
-	zi.tmz_date.tm_hour= [date hour];
-	zi.tmz_date.tm_mday= [date day];
-	zi.tmz_date.tm_mon= [date month] -1;
-	zi.tmz_date.tm_year= [date year];
-	zi.internal_fa= 0;
-	zi.external_fa= 0;
-	zi.dosDate= 0;
-	
-	int err= zipOpenNewFileInZip3_64(
-									 _zipFile,
-									 [fileNameInZip cStringUsingEncoding:NSUTF8StringEncoding],
-									 &zi,
-									 NULL, 0, NULL, 0, NULL,
-									 (compressionLevel != ZipCompressionLevelNone) ? Z_DEFLATED : 0,
-									 compressionLevel, 0,
-									 -MAX_WBITS, DEF_MEM_LEVEL, Z_DEFAULT_STRATEGY,
-									 NULL, 0, zip64);
-	if (err != ZIP_OK) {
-		NSString *reason= [NSString stringWithFormat:@"Error opening '%@' in zipfile", fileNameInZip];
-		@throw [[[ZipException alloc] initWithError:err reason:reason] autorelease];
-	}
-	
-	return [[[ZipWriteStream alloc] initWithZipFileStruct:_zipFile fileNameInZip:fileNameInZip] autorelease];
+    return [self writeFileInZipWithName:fileNameInZip fileDate:nil compressionLevel:compressionLevel zip64:zip64 password:nil crc32:0];
 }
 
 - (ZipWriteStream *) writeFileInZipWithName:(NSString *)fileNameInZip fileDate:(NSDate *)fileDate compressionLevel:(ZipCompressionLevel)compressionLevel zip64:(BOOL)zip64 {
-	if (_mode == ZipFileModeUnzip) {
-		NSString *reason= [NSString stringWithFormat:@"Operation not permitted with Unzip mode"];
-		@throw [[[ZipException alloc] initWithReason:reason] autorelease];
-	}
-	
-	NSCalendar *calendar= [NSCalendar currentCalendar];
-	NSDateComponents *date= [calendar components:(NSSecondCalendarUnit | NSMinuteCalendarUnit | NSHourCalendarUnit | NSDayCalendarUnit | NSMonthCalendarUnit | NSYearCalendarUnit) fromDate:fileDate];	
-	zip_fileinfo zi;
-	zi.tmz_date.tm_sec= [date second];
-	zi.tmz_date.tm_min= [date minute];
-	zi.tmz_date.tm_hour= [date hour];
-	zi.tmz_date.tm_mday= [date day];
-	zi.tmz_date.tm_mon= [date month] -1;
-	zi.tmz_date.tm_year= [date year];
-	zi.internal_fa= 0;
-	zi.external_fa= 0;
-	zi.dosDate= 0;
-	
-	int err= zipOpenNewFileInZip3_64(
-									 _zipFile,
-									 [fileNameInZip cStringUsingEncoding:NSUTF8StringEncoding],
-									 &zi,
-									 NULL, 0, NULL, 0, NULL,
-									 (compressionLevel != ZipCompressionLevelNone) ? Z_DEFLATED : 0,
-									 compressionLevel, 0,
-									 -MAX_WBITS, DEF_MEM_LEVEL, Z_DEFAULT_STRATEGY,
-									 NULL, 0, zip64);
-	if (err != ZIP_OK) {
-		NSString *reason= [NSString stringWithFormat:@"Error opening '%@' in zipfile", fileNameInZip];
-		@throw [[[ZipException alloc] initWithError:err reason:reason] autorelease];
-	}
-	
-	return [[[ZipWriteStream alloc] initWithZipFileStruct:_zipFile fileNameInZip:fileNameInZip] autorelease];
+    return [self writeFileInZipWithName:fileNameInZip fileDate:fileDate compressionLevel:compressionLevel zip64:zip64 password:nil crc32:0];
 }
 
 - (ZipWriteStream *) writeFileInZipWithName:(NSString *)fileNameInZip fileDate:(NSDate *)fileDate compressionLevel:(ZipCompressionLevel)compressionLevel zip64:(BOOL)zip64 password:(NSString *)password crc32:(NSUInteger)crc32 {
@@ -168,6 +103,11 @@
 		@throw [[[ZipException alloc] initWithReason:reason] autorelease];
 	}
 	
+    if (fileDate == nil)
+    {
+        fileDate = [NSDate date];
+    }
+    
 	NSCalendar *calendar= [NSCalendar currentCalendar];
 	NSDateComponents *date= [calendar components:(NSSecondCalendarUnit | NSMinuteCalendarUnit | NSHourCalendarUnit | NSDayCalendarUnit | NSMonthCalendarUnit | NSYearCalendarUnit) fromDate:fileDate];	
 	zip_fileinfo zi;
@@ -198,33 +138,23 @@
 	return [[[ZipWriteStream alloc] initWithZipFileStruct:_zipFile fileNameInZip:fileNameInZip] autorelease];
 }
 
+- (ZipWriteStream *) writeFileInZipWithName:(NSString *)fileNameInZip compressionLevel:(ZipCompressionLevel)compressionLevel
+{
+    return [self writeFileInZipWithName:fileNameInZip compressionLevel:compressionLevel zip64:YES];
+}
+- (ZipWriteStream *) writeFileInZipWithName:(NSString *)fileNameInZip fileDate:(NSDate *)fileDate compressionLevel:(ZipCompressionLevel)compressionLevel
+{
+    return [self writeFileInZipWithName:fileNameInZip fileDate:fileDate compressionLevel:compressionLevel zip64:YES];
+}
+
+- (ZipWriteStream *) writeFileInZipWithName:(NSString *)fileNameInZip fileDate:(NSDate *)fileDate compressionLevel:(ZipCompressionLevel)compressionLevel password:(NSString *)password crc32:(NSUInteger)crc32
+{
+    return [self writeFileInZipWithName:fileNameInZip fileDate:fileDate compressionLevel:compressionLevel zip64:YES password:password crc32:crc32];
+}
+
 - (void)writeFile:(NSString *)fileNameOnDisk inZipWithName:(NSString *)fileNameInZip compressionLevel:(ZipCompressionLevel)compressionLevel zip64:(BOOL)zip64
 {
-    NSFileManager* fileManager = [NSFileManager defaultManager];
-    BOOL isDirectory;
-    if (![fileManager fileExistsAtPath:fileNameOnDisk isDirectory:&isDirectory] || isDirectory)
-    {
-        NSString *reason= [NSString stringWithFormat:@"File %@ does not exist.", fileNameOnDisk];
-        @throw [[[ZipException alloc] initWithReason:reason] autorelease];
-    }
-    
-    NSDictionary* attributes = [fileManager attributesOfItemAtPath:fileNameOnDisk error:NULL];
-    NSDate* fileDate = attributes[NSFileCreationDate];
-    if (fileDate == nil)
-    {
-        fileDate = [NSDate date];
-    }
-    
-    ZipWriteStream* stream = [self writeFileInZipWithName:fileNameInZip fileDate:fileDate compressionLevel:compressionLevel zip64:zip64];
-    NSError* error = nil;
-    [stream writeData:[NSData dataWithContentsOfFile:fileNameOnDisk options:0 error:&error]];
-    [stream finishedWriting];
-    
-    if (error != nil)
-    {
-        NSString *reason= [NSString stringWithFormat:@"Error writing '%@' in zipfile.", fileNameOnDisk];
-        @throw [[[ZipException alloc] initWithError: error reason:reason] autorelease];
-    }
+    [self writeFile:fileNameOnDisk inZipWithName:fileNameInZip compressionLevel:compressionLevel zip64:zip64 password:nil crc32:0];
 }
 
 - (void)writeFile:(NSString *)fileNameOnDisk inZipWithName:(NSString *)fileNameInZip compressionLevel:(ZipCompressionLevel)compressionLevel zip64:(BOOL)zip64 password:(NSString *)password crc32:(NSUInteger)crc32
@@ -256,6 +186,16 @@
     }
 }
 
+- (void) writeFile:(NSString*)fileNameOnDisk inZipWithName:(NSString*)fileNameInZip compressionLevel:(ZipCompressionLevel)compressionLevel
+{
+    [self writeFile:fileNameOnDisk inZipWithName:fileNameInZip compressionLevel:compressionLevel zip64:YES];
+}
+
+- (void) writeFile:(NSString*)fileNameOnDisk inZipWithName:(NSString*)fileNameInZip compressionLevel:(ZipCompressionLevel)compressionLevel password:(NSString *)password crc32:(NSUInteger)crc32
+{
+    [self writeFile:fileNameOnDisk inZipWithName:fileNameInZip compressionLevel:compressionLevel zip64:YES password:password crc32:crc32];
+}
+
 - (NSString*) fileName {
 	return _fileName;
 }
@@ -277,7 +217,7 @@
 }
 
 - (NSArray *) listFileInZipInfos {
-	int num= [self numFilesInZip];
+	NSInteger num= [self numFilesInZip];
 	if (num < 1)
 		return [[[NSArray alloc] init] autorelease];
 	
@@ -395,29 +335,7 @@
 }
 
 - (ZipReadStream *) readCurrentFileInZip {
-	if (_mode != ZipFileModeUnzip) {
-		NSString *reason= [NSString stringWithFormat:@"Operation not permitted without Unzip mode"];
-		@throw [[[ZipException alloc] initWithReason:reason] autorelease];
-	}
-
-	char filename_inzip[FILE_IN_ZIP_MAX_NAME_LENGTH];
-	unz_file_info64 file_info;
-	
-	int err= unzGetCurrentFileInfo64(_unzFile, &file_info, filename_inzip, sizeof(filename_inzip), NULL, 0, NULL, 0);
-	if (err != UNZ_OK) {
-		NSString *reason= [NSString stringWithFormat:@"Error getting current file info in '%@'", _fileName];
-		@throw [[[ZipException alloc] initWithError:err reason:reason] autorelease];
-	}
-	
-	NSString *fileNameInZip= [NSString stringWithCString:filename_inzip encoding:NSUTF8StringEncoding];
-	
-	err= unzOpenCurrentFilePassword(_unzFile, NULL);
-	if (err != UNZ_OK) {
-		NSString *reason= [NSString stringWithFormat:@"Error opening current file in '%@'", _fileName];
-		@throw [[[ZipException alloc] initWithError:err reason:reason] autorelease];
-	}
-	
-	return [[[ZipReadStream alloc] initWithUnzFileStruct:_unzFile fileNameInZip:fileNameInZip] autorelease];
+    return [self readCurrentFileInZipWithPassword:nil];
 }
 
 - (ZipReadStream *) readCurrentFileInZipWithPassword:(NSString *)password {
