@@ -45,6 +45,7 @@
 		8CD8B41117766067005212EC /* zutil.c in Sources */ = {isa = PBXBuildFile; fileRef = 8CD8B40117766067005212EC /* zutil.c */; };
 		8CE370031777427E0082BEE9 /* mac_test_file.zip in Resources */ = {isa = PBXBuildFile; fileRef = 8CE370011777427E0082BEE9 /* mac_test_file.zip */; };
 		8CE370041777427E0082BEE9 /* win_test_file.zip in Resources */ = {isa = PBXBuildFile; fileRef = 8CE370021777427E0082BEE9 /* win_test_file.zip */; };
+		9AF619701A07F09900628A46 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9AF6196F1A07F09900628A46 /* Default-568h@2x.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -112,6 +113,7 @@
 		8CE370011777427E0082BEE9 /* mac_test_file.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = mac_test_file.zip; sourceTree = "<group>"; };
 		8CE370021777427E0082BEE9 /* win_test_file.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = win_test_file.zip; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* Objective_Zip-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Objective_Zip-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
+		9AF6196F1A07F09900628A46 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -151,6 +153,7 @@
 		29B97314FDCFA39411CA2CEA /* CustomTemplate */ = {
 			isa = PBXGroup;
 			children = (
+				9AF6196F1A07F09900628A46 /* Default-568h@2x.png */,
 				8C6D353B10E56BA400B63EFA /* Objective-Zip */,
 				8C6D350110E56A4B00B63EFA /* MiniZip */,
 				8CD8B3E817766056005212EC /* ZLib */,
@@ -299,7 +302,7 @@
 		29B97313FDCFA39411CA2CEA /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0460;
+				LastUpgradeCheck = 0610;
 			};
 			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "Objective-Zip" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -327,6 +330,7 @@
 			files = (
 				28AD733F0D9D9553002E5188 /* MainWindow.xib in Resources */,
 				2899E5220DE3E06400AC0155 /* Objective_ZipViewController.xib in Resources */,
+				9AF619701A07F09900628A46 /* Default-568h@2x.png in Resources */,
 				8C8F2D3A10EBC94B00F75833 /* Default.png in Resources */,
 				8C8F2D9310EBCE0300F75833 /* ObjectiveZipIcon.png in Resources */,
 				8C1D598D1771057D006D69C3 /* GETTING_STARTED.md in Resources */,
@@ -412,17 +416,14 @@
 		C01FCF4F08A954540054247B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = (
-					"$(ARCHS_STANDARD_32_BIT)",
-					armv6,
-				);
 				CODE_SIGN_IDENTITY = "iPhone Developer: Gianluca Bertani (42HXKD6D45)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Gianluca Bertani (42HXKD6D45)";
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_THUMB_SUPPORT = NO;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 3.1.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				ONLY_ACTIVE_ARCH = YES;
 				PROVISIONING_PROFILE = "8D9AD182-36E0-47FE-AB6B-E87632E60994";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "8D920AE2-DF44-48C7-A9B5-0AB3D42590BB";
 				SDKROOT = iphoneos;
@@ -432,17 +433,13 @@
 		C01FCF5008A954540054247B /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = (
-					"$(ARCHS_STANDARD_32_BIT)",
-					armv6,
-				);
 				CODE_SIGN_IDENTITY = "iPhone Developer: Gianluca Bertani (42HXKD6D45)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Gianluca Bertani (42HXKD6D45)";
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_THUMB_SUPPORT = NO;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 3.1.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				PROVISIONING_PROFILE = "8D9AD182-36E0-47FE-AB6B-E87632E60994";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "8D920AE2-DF44-48C7-A9B5-0AB3D42590BB";
 				SDKROOT = iphoneos;

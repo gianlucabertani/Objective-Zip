@@ -133,7 +133,7 @@
 
 		[self log:@"Test 1: adding first file..."];
 		
-		ZipWriteStream *stream1= [zipFile writeFileInZipWithName:@"abc.txt" fileDate:[NSDate dateWithTimeIntervalSinceNow:-86400.0] compressionLevel:ZipCompressionLevelBest];
+		ZipWriteStream *stream1= [zipFile writeFileInZipWithName:@"abc.txt" fileDate:[NSDate dateWithTimeIntervalSinceNow:-86400.0] compressionLevel:ZipCompressionLevelBest zip64:NO];
 
 		[self log:@"Test 1: writing to first file's stream..."];
 
@@ -147,7 +147,7 @@
 		[self log:@"Test 1: adding second file..."];
 		
 		NSString *file2name= @"x/y/z/xyz.txt";
-		ZipWriteStream *stream2= [zipFile writeFileInZipWithName:file2name compressionLevel:ZipCompressionLevelNone];
+		ZipWriteStream *stream2= [zipFile writeFileInZipWithName:file2name compressionLevel:ZipCompressionLevelNone zip64:NO];
 		
 		[self log:@"Test 1: writing to second file's stream..."];
 		
@@ -268,7 +268,7 @@
 		
 		[self log:@"Test 2: adding file..."];
 		
-		ZipWriteStream *stream= [zipFile writeFileInZipWithName:@"huge_file.txt" compressionLevel:ZipCompressionLevelBest];
+		ZipWriteStream *stream= [zipFile writeFileInZipWithName:@"huge_file.txt" compressionLevel:ZipCompressionLevelBest zip64:YES];
 		
 		[self log:@"Test 2: writing to file's stream..."];
 		
