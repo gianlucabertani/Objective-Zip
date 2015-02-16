@@ -215,7 +215,7 @@
 		@throw [[[ZipException alloc] initWithError:err reason:reason] autorelease];
 	}
 	
-	return gi.number_entry;
+	return (NSUInteger)gi.number_entry;
 }
 
 - (NSArray *) listFileInZipInfos {
