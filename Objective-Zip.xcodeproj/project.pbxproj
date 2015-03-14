@@ -60,6 +60,7 @@
 		28D7ACF70DDB3853001CB0EB /* Objective_ZipViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Objective_ZipViewController.m; sourceTree = "<group>"; };
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		32CA4F630368D1EE00C91783 /* Objective_Zip_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Objective_Zip_Prefix.pch; sourceTree = "<group>"; };
+		69C29A701AB4AA3800CC38B2 /* Objective-Zip.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Objective-Zip.h"; sourceTree = "<group>"; };
 		8C14E8181773A09F00B84597 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		8C1D598B1771057D006D69C3 /* GETTING_STARTED.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = GETTING_STARTED.md; sourceTree = "<group>"; };
 		8C1D598C1771057D006D69C3 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
@@ -227,6 +228,7 @@
 				8C83F49410E7CBCB002FB3CB /* FileInZipInfo.m */,
 				8CBE431610E95FA300AC9ED3 /* ZipReadStream.h */,
 				8CBE431710E95FA300AC9ED3 /* ZipReadStream.m */,
+				69C29A701AB4AA3800CC38B2 /* Objective-Zip.h */,
 			);
 			name = "Objective-Zip";
 			sourceTree = "<group>";
