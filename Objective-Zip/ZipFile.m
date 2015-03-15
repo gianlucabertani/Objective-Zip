@@ -41,16 +41,19 @@
 
 
 @implementation ZipFile
-
-
 - (id) initWithFileName:(NSString *)fileName mode:(ZipFileMode)mode {
+    return [self initWithFileName:fileName mode:mode allow64Mode:YES];
+}
+
+- (id) initWithFileName:(NSString *)fileName mode:(ZipFileMode)mode allow64Mode: (BOOL) allow64Mode {
 	if (self= [super init]) {
 		_fileName= [fileName ah_retain];
 		_mode= mode;
+        _using64= allow64Mode;
 		
 		switch (mode) {
 			case ZipFileModeUnzip:
-				_unzFile= unzOpen64([_fileName cStringUsingEncoding:NSUTF8StringEncoding]);
+				_unzFile= [self unzOpen:[_fileName cStringUsingEncoding:NSUTF8StringEncoding]];
 				if (_unzFile == NULL) {
 					NSString *reason= [NSString stringWithFormat:@"Can't open '%@'", _fileName];
 					@throw [[[ZipException alloc] initWithReason:reason] autorelease];
@@ -58,7 +61,7 @@
 				break;
 				
 			case ZipFileModeCreate:
-				_zipFile= zipOpen64([_fileName cStringUsingEncoding:NSUTF8StringEncoding], APPEND_STATUS_CREATE);
+				_zipFile= [self zipOpen64:[_fileName cStringUsingEncoding:NSUTF8StringEncoding] append:APPEND_STATUS_CREATE];
 				if (_zipFile == NULL) {
 					NSString *reason= [NSString stringWithFormat:@"Can't open '%@'", _fileName];
 					@throw [[[ZipException alloc] initWithReason:reason] autorelease];
@@ -66,7 +69,7 @@
 				break;
 				
 			case ZipFileModeAppend:
-				_zipFile= zipOpen64([_fileName cStringUsingEncoding:NSUTF8StringEncoding], APPEND_STATUS_ADDINZIP);
+				_zipFile= [self zipOpen64:[_fileName cStringUsingEncoding:NSUTF8StringEncoding] append:APPEND_STATUS_ADDINZIP];
 				if (_zipFile == NULL) {
 					NSString *reason= [NSString stringWithFormat:@"Can't open '%@'", _fileName];
 					@throw [[[ZipException alloc] initWithReason:reason] autorelease];
@@ -117,7 +120,7 @@
 									 (compressionLevel != ZipCompressionLevelNone) ? Z_DEFLATED : 0,
 									 compressionLevel, 0,
 									 -MAX_WBITS, DEF_MEM_LEVEL, Z_DEFAULT_STRATEGY,
-									 NULL, 0, 1);
+									 NULL, 0, _using64);
 	if (err != ZIP_OK) {
 		NSString *reason= [NSString stringWithFormat:@"Error opening '%@' in zipfile", fileNameInZip];
 		@throw [[[ZipException alloc] initWithError:err reason:reason] autorelease];
@@ -153,7 +156,7 @@
 									 (compressionLevel != ZipCompressionLevelNone) ? Z_DEFLATED : 0,
 									 compressionLevel, 0,
 									 -MAX_WBITS, DEF_MEM_LEVEL, Z_DEFAULT_STRATEGY,
-									 NULL, 0, 1);
+									 NULL, 0, _using64);
 	if (err != ZIP_OK) {
 		NSString *reason= [NSString stringWithFormat:@"Error opening '%@' in zipfile", fileNameInZip];
 		@throw [[[ZipException alloc] initWithError:err reason:reason] autorelease];
@@ -189,13 +192,17 @@
 									 (compressionLevel != ZipCompressionLevelNone) ? Z_DEFLATED : 0,
 									 compressionLevel, 0,
 									 -MAX_WBITS, DEF_MEM_LEVEL, Z_DEFAULT_STRATEGY,
-									 [password cStringUsingEncoding:NSUTF8StringEncoding], crc32, 1);
+									 [password cStringUsingEncoding:NSUTF8StringEncoding], crc32, _using64);
 	if (err != ZIP_OK) {
 		NSString *reason= [NSString stringWithFormat:@"Error opening '%@' in zipfile", fileNameInZip];
 		@throw [[[ZipException alloc] initWithError:err reason:reason] autorelease];
 	}
 	
 	return [[[ZipWriteStream alloc] initWithZipFileStruct:_zipFile fileNameInZip:fileNameInZip] autorelease];
+}
+
+- (BOOL)isUsing64Bit {
+    return _using64;
 }
 
 - (NSString*) fileName {
@@ -207,15 +214,25 @@
 		NSString *reason= [NSString stringWithFormat:@"Operation not permitted without Unzip mode"];
 		@throw [[[ZipException alloc] initWithReason:reason] autorelease];
 	}
-	
-	unz_global_info64 gi;
-	int err= unzGetGlobalInfo64(_unzFile, &gi);
-	if (err != UNZ_OK) {
-		NSString *reason= [NSString stringWithFormat:@"Error getting global info in '%@'", _fileName];
-		@throw [[[ZipException alloc] initWithError:err reason:reason] autorelease];
-	}
-	
-	return gi.number_entry;
+
+    if (_using64) {
+        unz_global_info64 gi;
+        int err = unzGetGlobalInfo64(_unzFile, &gi);
+        if (err != UNZ_OK) {
+            NSString *reason = [NSString stringWithFormat:@"Error getting global info in '%@'", _fileName];
+            @throw [[[ZipException alloc] initWithError:err reason:reason] autorelease];
+        }
+        return gi.number_entry;
+
+    } else {
+        unz_global_info gi;
+        int err = unzGetGlobalInfo(_unzFile, &gi);
+        if (err != UNZ_OK) {
+            NSString *reason = [NSString stringWithFormat:@"Error getting global info in '%@'", _fileName];
+            @throw [[[ZipException alloc] initWithError:err reason:reason] autorelease];
+        }
+        return gi.number_entry;
+    }
 }
 
 - (NSArray *) listFileInZipInfos {
@@ -287,53 +304,107 @@
 }
 
 - (FileInZipInfo *) getCurrentFileInZipInfo {
-	if (_mode != ZipFileModeUnzip) {
-		NSString *reason= [NSString stringWithFormat:@"Operation not permitted without Unzip mode"];
-		@throw [[[ZipException alloc] initWithReason:reason] autorelease];
-	}
+	return _using64 ? [[self getCurrentFileInZipInfo64] autorelease] : [[self getCurrentFileInZipInfo32] autorelease];
+}
 
-	char filename_inzip[FILE_IN_ZIP_MAX_NAME_LENGTH];
-	unz_file_info64 file_info;
-	
-	int err= unzGetCurrentFileInfo64(_unzFile, &file_info, filename_inzip, sizeof(filename_inzip), NULL, 0, NULL, 0);
-	if (err != UNZ_OK) {
-		NSString *reason= [NSString stringWithFormat:@"Error getting current file info in '%@'", _fileName];
-		@throw [[[ZipException alloc] initWithError:err reason:reason] autorelease];
-	}
-	
-	NSString *name= [NSString stringWithCString:filename_inzip encoding:NSUTF8StringEncoding];
-	
-	ZipCompressionLevel level= ZipCompressionLevelNone;
-	if (file_info.compression_method != 0) {
-		switch ((file_info.flag & 0x6) / 2) {
-			case 0:
-				level= ZipCompressionLevelDefault;
-				break;
-				
-			case 1:
-				level= ZipCompressionLevelBest;
-				break;
-				
-			default:
-				level= ZipCompressionLevelFastest;
-				break;
-		}
-	}
-	
-	BOOL crypted= ((file_info.flag & 1) != 0);
-	
-	NSDateComponents *components= [[[NSDateComponents alloc] init] autorelease];
-	[components setDay:file_info.tmu_date.tm_mday];
-	[components setMonth:file_info.tmu_date.tm_mon +1];
-	[components setYear:file_info.tmu_date.tm_year];
-	[components setHour:file_info.tmu_date.tm_hour];
-	[components setMinute:file_info.tmu_date.tm_min];
-	[components setSecond:file_info.tmu_date.tm_sec];
-	NSCalendar *calendar= [NSCalendar currentCalendar];
-	NSDate *date= [calendar dateFromComponents:components];
-	
-	FileInZipInfo *info= [[FileInZipInfo alloc] initWithName:name length:file_info.uncompressed_size level:level crypted:crypted size:file_info.compressed_size date:date crc32:file_info.crc];
-	return [info autorelease];
+- (FileInZipInfo *) getCurrentFileInZipInfo64 {
+    if (_mode != ZipFileModeUnzip) {
+        NSString *reason= [NSString stringWithFormat:@"Operation not permitted without Unzip mode"];
+        @throw [[[ZipException alloc] initWithReason:reason] autorelease];
+    }
+
+    char filename_inzip[FILE_IN_ZIP_MAX_NAME_LENGTH];
+    unz_file_info64 file_info;
+
+    int err= unzGetCurrentFileInfo64(_unzFile, &file_info, filename_inzip, sizeof(filename_inzip), NULL, 0, NULL, 0);
+    if (err != UNZ_OK) {
+        NSString *reason= [NSString stringWithFormat:@"Error getting current file info in '%@'", _fileName];
+        @throw [[[ZipException alloc] initWithError:err reason:reason] autorelease];
+    }
+
+    NSString *name= [NSString stringWithCString:filename_inzip encoding:NSUTF8StringEncoding];
+
+    ZipCompressionLevel level= ZipCompressionLevelNone;
+    if (file_info.compression_method != 0) {
+        switch ((file_info.flag & 0x6) / 2) {
+            case 0:
+                level= ZipCompressionLevelDefault;
+                break;
+
+            case 1:
+                level= ZipCompressionLevelBest;
+                break;
+
+            default:
+                level= ZipCompressionLevelFastest;
+                break;
+        }
+    }
+
+    BOOL crypted= ((file_info.flag & 1) != 0);
+
+    NSDateComponents *components= [[[NSDateComponents alloc] init] autorelease];
+    [components setDay:file_info.tmu_date.tm_mday];
+    [components setMonth:file_info.tmu_date.tm_mon +1];
+    [components setYear:file_info.tmu_date.tm_year];
+    [components setHour:file_info.tmu_date.tm_hour];
+    [components setMinute:file_info.tmu_date.tm_min];
+    [components setSecond:file_info.tmu_date.tm_sec];
+    NSCalendar *calendar= [NSCalendar currentCalendar];
+    NSDate *date= [calendar dateFromComponents:components];
+
+    FileInZipInfo *info= [[FileInZipInfo alloc] initWithName:name length:file_info.uncompressed_size level:level crypted:crypted size:file_info.compressed_size date:date crc32:file_info.crc];
+    return [info autorelease];
+}
+
+- (FileInZipInfo *) getCurrentFileInZipInfo32 {
+    if (_mode != ZipFileModeUnzip) {
+        NSString *reason= [NSString stringWithFormat:@"Operation not permitted without Unzip mode"];
+        @throw [[[ZipException alloc] initWithReason:reason] autorelease];
+    }
+
+    char filename_inzip[FILE_IN_ZIP_MAX_NAME_LENGTH];
+    unz_file_info file_info;
+
+    int err= unzGetCurrentFileInfo(_unzFile, &file_info, filename_inzip, sizeof(filename_inzip), NULL, 0, NULL, 0);
+    if (err != UNZ_OK) {
+        NSString *reason= [NSString stringWithFormat:@"Error getting current file info in '%@'", _fileName];
+        @throw [[[ZipException alloc] initWithError:err reason:reason] autorelease];
+    }
+
+    NSString *name= [NSString stringWithCString:filename_inzip encoding:NSUTF8StringEncoding];
+
+    ZipCompressionLevel level= ZipCompressionLevelNone;
+    if (file_info.compression_method != 0) {
+        switch ((file_info.flag & 0x6) / 2) {
+            case 0:
+                level= ZipCompressionLevelDefault;
+                break;
+
+            case 1:
+                level= ZipCompressionLevelBest;
+                break;
+
+            default:
+                level= ZipCompressionLevelFastest;
+                break;
+        }
+    }
+
+    BOOL crypted= ((file_info.flag & 1) != 0);
+
+    NSDateComponents *components= [[[NSDateComponents alloc] init] autorelease];
+    [components setDay:file_info.tmu_date.tm_mday];
+    [components setMonth:file_info.tmu_date.tm_mon +1];
+    [components setYear:file_info.tmu_date.tm_year];
+    [components setHour:file_info.tmu_date.tm_hour];
+    [components setMinute:file_info.tmu_date.tm_min];
+    [components setSecond:file_info.tmu_date.tm_sec];
+    NSCalendar *calendar= [NSCalendar currentCalendar];
+    NSDate *date= [calendar dateFromComponents:components];
+
+    FileInZipInfo *info= [[FileInZipInfo alloc] initWithName:name length:file_info.uncompressed_size level:level crypted:crypted size:file_info.compressed_size date:date crc32:file_info.crc];
+    return [info autorelease];
 }
 
 - (ZipReadStream *) readCurrentFileInZip {
@@ -343,17 +414,28 @@
 	}
 
 	char filename_inzip[FILE_IN_ZIP_MAX_NAME_LENGTH];
-	unz_file_info64 file_info;
-	
-	int err= unzGetCurrentFileInfo64(_unzFile, &file_info, filename_inzip, sizeof(filename_inzip), NULL, 0, NULL, 0);
-	if (err != UNZ_OK) {
-		NSString *reason= [NSString stringWithFormat:@"Error getting current file info in '%@'", _fileName];
-		@throw [[[ZipException alloc] initWithError:err reason:reason] autorelease];
-	}
+
+    if (_using64) {
+        unz_file_info64 file_info;
+
+        int err = unzGetCurrentFileInfo64(_unzFile, &file_info, filename_inzip, sizeof(filename_inzip), NULL, 0, NULL, 0);
+        if (err != UNZ_OK) {
+            NSString *reason = [NSString stringWithFormat:@"Error getting current file info in '%@'", _fileName];
+            @throw [[[ZipException alloc] initWithError:err reason:reason] autorelease];
+        }
+    } else {
+        unz_file_info file_info;
+
+        int err = unzGetCurrentFileInfo(_unzFile, &file_info, filename_inzip, sizeof(filename_inzip), NULL, 0, NULL, 0);
+        if (err != UNZ_OK) {
+            NSString *reason = [NSString stringWithFormat:@"Error getting current file info in '%@'", _fileName];
+            @throw [[[ZipException alloc] initWithError:err reason:reason] autorelease];
+        }
+    }
 	
 	NSString *fileNameInZip= [NSString stringWithCString:filename_inzip encoding:NSUTF8StringEncoding];
 	
-	err= unzOpenCurrentFilePassword(_unzFile, NULL);
+	int err= unzOpenCurrentFilePassword(_unzFile, NULL);
 	if (err != UNZ_OK) {
 		NSString *reason= [NSString stringWithFormat:@"Error opening current file in '%@'", _fileName];
 		@throw [[[ZipException alloc] initWithError:err reason:reason] autorelease];
@@ -369,17 +451,27 @@
 	}
 	
 	char filename_inzip[FILE_IN_ZIP_MAX_NAME_LENGTH];
-	unz_file_info64 file_info;
-	
-	int err= unzGetCurrentFileInfo64(_unzFile, &file_info, filename_inzip, sizeof(filename_inzip), NULL, 0, NULL, 0);
-	if (err != UNZ_OK) {
-		NSString *reason= [NSString stringWithFormat:@"Error getting current file info in '%@'", _fileName];
-		@throw [[[ZipException alloc] initWithError:err reason:reason] autorelease];
-	}
+    if (_using64) {
+        unz_file_info64 file_info;
+
+        int err = unzGetCurrentFileInfo64(_unzFile, &file_info, filename_inzip, sizeof(filename_inzip), NULL, 0, NULL, 0);
+        if (err != UNZ_OK) {
+            NSString *reason = [NSString stringWithFormat:@"Error getting current file info in '%@'", _fileName];
+            @throw [[[ZipException alloc] initWithError:err reason:reason] autorelease];
+        }
+    } else {
+        unz_file_info file_info;
+
+        int err = unzGetCurrentFileInfo(_unzFile, &file_info, filename_inzip, sizeof(filename_inzip), NULL, 0, NULL, 0);
+        if (err != UNZ_OK) {
+            NSString *reason = [NSString stringWithFormat:@"Error getting current file info in '%@'", _fileName];
+            @throw [[[ZipException alloc] initWithError:err reason:reason] autorelease];
+        }
+    }
 	
 	NSString *fileNameInZip= [NSString stringWithCString:filename_inzip encoding:NSUTF8StringEncoding];
 
-	err= unzOpenCurrentFilePassword(_unzFile, [password cStringUsingEncoding:NSUTF8StringEncoding]);
+	int err= unzOpenCurrentFilePassword(_unzFile, [password cStringUsingEncoding:NSUTF8StringEncoding]);
 	if (err != UNZ_OK) {
 		NSString *reason= [NSString stringWithFormat:@"Error opening current file in '%@'", _fileName];
 		@throw [[[ZipException alloc] initWithError:err reason:reason] autorelease];
@@ -424,5 +516,12 @@
 	}
 }
 
+-(unzFile) unzOpen: (const void *) path {
+    return _using64 ? unzOpen64(path) : unzOpen(path);
+}
+
+-(zipFile) zipOpen64: (const void *) path append: (int) append {
+    return _using64 ? zipOpen64(path, append) : zipOpen(path, append);
+}
 
 @end
