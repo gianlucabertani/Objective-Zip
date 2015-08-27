@@ -40,8 +40,8 @@
     Objective_ZipViewController *viewController;
 }
 
-@property (nonatomic, retain) IBOutlet UIWindow *window;
-@property (nonatomic, retain) IBOutlet Objective_ZipViewController *viewController;
+@property (nonatomic, strong) IBOutlet UIWindow *window;
+@property (nonatomic, strong) IBOutlet Objective_ZipViewController *viewController;
 
 @end
 

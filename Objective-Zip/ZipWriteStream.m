@@ -53,7 +53,7 @@
 	int err= zipWriteInFileInZip(_zipFile, [data bytes], [data length]);
 	if (err < 0) {
 		NSString *reason= [NSString stringWithFormat:@"Error writing '%@' in the zipfile", _fileNameInZip];
-		@throw [[[ZipException alloc] initWithError:err reason:reason] autorelease];
+		@throw [[ZipException alloc] initWithError:err reason:reason];
 	}
 }
 
@@ -61,7 +61,7 @@
 	int err= zipCloseFileInZip(_zipFile);
 	if (err != ZIP_OK) {
 		NSString *reason= [NSString stringWithFormat:@"Error closing '%@' in the zipfile", _fileNameInZip];
-		@throw [[[ZipException alloc] initWithError:err reason:reason] autorelease];
+		@throw [[ZipException alloc] initWithError:err reason:reason];
 	}
 }
 

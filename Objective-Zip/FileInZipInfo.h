@@ -32,8 +32,8 @@
 //
 
 #import <Foundation/Foundation.h>
+
 #import "ZipFile.h"
-#import "ARCHelper.h"
 
 
 @interface FileInZipInfo : NSObject {
