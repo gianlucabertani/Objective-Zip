@@ -1,5 +1,5 @@
 //
-//  ZipWriteStream.m
+//  OZZipFile.h
 //  Objective-Zip v. 0.8.3
 //
 //  Created by Gianluca Bertani on 25/12/09.
@@ -31,39 +31,57 @@
 //  POSSIBILITY OF SUCH DAMAGE.
 //
 
-#import "ZipWriteStream.h"
-#import "ZipException.h"
+#import <Foundation/Foundation.h>
 
 #include "zip.h"
+#include "unzip.h"
 
 
-@implementation ZipWriteStream
+typedef enum {
+	OZZipFileModeUnzip,
+	OZZipFileModeCreate,
+	OZZipFileModeAppend
+} OZZipFileMode;
 
+typedef enum {
+	OZZipCompressionLevelDefault= -1,
+	OZZipCompressionLevelNone= 0,
+	OZZipCompressionLevelFastest= 1,
+	OZZipCompressionLevelBest= 9
+} OZZipCompressionLevel;	
 
-- (id) initWithZipFileStruct:(zipFile)zipFile fileNameInZip:(NSString *)fileNameInZip {
-	if (self= [super init]) {
-		_zipFile= zipFile;
-		_fileNameInZip= fileNameInZip;
-	}
-	
-	return self;
+@class OZZipReadStream;
+@class OZZipWriteStream;
+@class OZFileInZipInfo;
+
+@interface OZZipFile : NSObject {
+	NSString *_fileName;
+	OZZipFileMode _mode;
+
+@private
+	zipFile _zipFile;
+	unzFile _unzFile;
 }
 
-- (void) writeData:(NSData *)data {
-	int err= zipWriteInFileInZip(_zipFile, [data bytes], [data length]);
-	if (err < 0) {
-		NSString *reason= [NSString stringWithFormat:@"Error writing '%@' in the zipfile", _fileNameInZip];
-		@throw [[ZipException alloc] initWithError:err reason:reason];
-	}
-}
+- (id) initWithFileName:(NSString *)fileName mode:(OZZipFileMode)mode;
 
-- (void) finishedWriting {
-	int err= zipCloseFileInZip(_zipFile);
-	if (err != ZIP_OK) {
-		NSString *reason= [NSString stringWithFormat:@"Error closing '%@' in the zipfile", _fileNameInZip];
-		@throw [[ZipException alloc] initWithError:err reason:reason];
-	}
-}
+- (OZZipWriteStream *) writeFileInZipWithName:(NSString *)fileNameInZip compressionLevel:(OZZipCompressionLevel)compressionLevel;
+- (OZZipWriteStream *) writeFileInZipWithName:(NSString *)fileNameInZip fileDate:(NSDate *)fileDate compressionLevel:(OZZipCompressionLevel)compressionLevel;
+- (OZZipWriteStream *) writeFileInZipWithName:(NSString *)fileNameInZip fileDate:(NSDate *)fileDate compressionLevel:(OZZipCompressionLevel)compressionLevel password:(NSString *)password crc32:(NSUInteger)crc32;
 
+- (NSString*) fileName;
+- (NSUInteger) numFilesInZip;
+- (NSArray *) listFileInZipInfos;
+
+- (void) goToFirstFileInZip;
+- (BOOL) goToNextFileInZip;
+- (BOOL) locateFileInZip:(NSString *)fileNameInZip;
+
+- (OZFileInZipInfo *) getCurrentFileInZipInfo;
+
+- (OZZipReadStream *) readCurrentFileInZip;
+- (OZZipReadStream *) readCurrentFileInZipWithPassword:(NSString *)password;
+
+- (void) close;
 
 @end

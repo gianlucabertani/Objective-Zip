@@ -32,11 +32,11 @@
 //
 
 #import "Objective_ZipViewController.h"
-#import "../Objective-Zip/ZipFile.h"
-#import "../Objective-Zip/ZipException.h"
-#import "../Objective-Zip/FileInZipInfo.h"
-#import "../Objective-Zip/ZipWriteStream.h"
-#import "../Objective-Zip/ZipReadStream.h"
+#import "../Objective-Zip/OZZipFile.h"
+#import "../Objective-Zip/OZZipException.h"
+#import "../Objective-Zip/OZFileInZipInfo.h"
+#import "../Objective-Zip/OZZipWriteStream.h"
+#import "../Objective-Zip/OZZipReadStream.h"
 
 #define HUGE_TEST_BLOCK_LENGTH             (50000)
 #define HUGE_TEST_NUMBER_OF_BLOCKS        (100000)
@@ -116,11 +116,11 @@
 
 			[self log:@"Test 1: opening zip file for writing..."];
 			
-			ZipFile *zipFile= [[ZipFile alloc] initWithFileName:filePath mode:ZipFileModeCreate];
+			OZZipFile *zipFile= [[OZZipFile alloc] initWithFileName:filePath mode:OZZipFileModeCreate];
 
 			[self log:@"Test 1: adding first file..."];
 			
-			ZipWriteStream *stream1= [zipFile writeFileInZipWithName:@"abc.txt" fileDate:[NSDate dateWithTimeIntervalSinceNow:-86400.0] compressionLevel:ZipCompressionLevelBest];
+			OZZipWriteStream *stream1= [zipFile writeFileInZipWithName:@"abc.txt" fileDate:[NSDate dateWithTimeIntervalSinceNow:-86400.0] compressionLevel:OZZipCompressionLevelBest];
 
 			[self log:@"Test 1: writing to first file's stream..."];
 
@@ -134,7 +134,7 @@
 			[self log:@"Test 1: adding second file..."];
 			
 			NSString *file2name= @"x/y/z/xyz.txt";
-			ZipWriteStream *stream2= [zipFile writeFileInZipWithName:file2name compressionLevel:ZipCompressionLevelNone];
+			OZZipWriteStream *stream2= [zipFile writeFileInZipWithName:file2name compressionLevel:OZZipCompressionLevelNone];
 			
 			[self log:@"Test 1: writing to second file's stream..."];
 			
@@ -151,18 +151,18 @@
 			
 			[self log:@"Test 1: opening zip file for reading..."];
 			
-			ZipFile *unzipFile= [[ZipFile alloc] initWithFileName:filePath mode:ZipFileModeUnzip];
+			OZZipFile *unzipFile= [[OZZipFile alloc] initWithFileName:filePath mode:OZZipFileModeUnzip];
 			
 			[self log:@"Test 1: reading file infos..."];
 			
 			NSArray *infos= [unzipFile listFileInZipInfos];
-			for (FileInZipInfo *info in infos)
+			for (OZFileInZipInfo *info in infos)
 				[self log:@"Test 1: - %@ %@ %d (%d)", info.name, info.date, info.size, info.level];
 			
 			[self log:@"Test 1: opening first file..."];
 			
 			[unzipFile goToFirstFileInZip];
-			ZipReadStream *read1= [unzipFile readCurrentFileInZip];
+			OZZipReadStream *read1= [unzipFile readCurrentFileInZip];
 			
 			[self log:@"Test 1: reading from first file's stream..."];
 			
@@ -188,7 +188,7 @@
 			[self log:@"Test 1: opening second file..."];
 
 			[unzipFile locateFileInZip:file2name];
-			ZipReadStream *read2= [unzipFile readCurrentFileInZip];
+			OZZipReadStream *read2= [unzipFile readCurrentFileInZip];
 
 			[self log:@"Test 1: reading from second file's stream..."];
 			
@@ -217,7 +217,7 @@
 			
 			[self log:@"Test 1: test terminated succesfully"];
 			
-		} @catch (ZipException *ze) {
+		} @catch (OZZipException *ze) {
 			[self log:@"Test 1: caught a ZipException (see logs), terminating..."];
 			
 			NSLog(@"Test 1: ZipException caught: %d - %@", ze.error, [ze reason]);
@@ -248,11 +248,11 @@
 
 			[self log:@"Test 2: opening zip file for writing..."];
 			
-			ZipFile *zipFile= [[ZipFile alloc] initWithFileName:filePath mode:ZipFileModeCreate];
+			OZZipFile *zipFile= [[OZZipFile alloc] initWithFileName:filePath mode:OZZipFileModeCreate];
 			
 			[self log:@"Test 2: adding file..."];
 			
-			ZipWriteStream *stream= [zipFile writeFileInZipWithName:@"huge_file.txt" compressionLevel:ZipCompressionLevelBest];
+			OZZipWriteStream *stream= [zipFile writeFileInZipWithName:@"huge_file.txt" compressionLevel:OZZipCompressionLevelBest];
 			
 			[self log:@"Test 2: writing to file's stream..."];
 			
@@ -280,12 +280,12 @@
 			
 			[self log:@"Test 2: opening zip file for reading..."];
 			
-			ZipFile *unzipFile= [[ZipFile alloc] initWithFileName:filePath mode:ZipFileModeUnzip];
+			OZZipFile *unzipFile= [[OZZipFile alloc] initWithFileName:filePath mode:OZZipFileModeUnzip];
 			
 			[self log:@"Test 2: opening file..."];
 			
 			[unzipFile goToFirstFileInZip];
-			ZipReadStream *read= [unzipFile readCurrentFileInZip];
+			OZZipReadStream *read= [unzipFile readCurrentFileInZip];
 			
 			[self log:@"Test 2: reading from file's stream..."];
 			
@@ -316,7 +316,7 @@
 			
 			[self log:@"Test 2: test terminated succesfully"];
 			
-		} @catch (ZipException *ze) {
+		} @catch (OZZipException *ze) {
 			[self log:@"Test 2: caught a ZipException (see logs), terminating..."];
 			
 			NSLog(@"Test 2: ZipException caught: %d - %@", ze.error, [ze reason]);
@@ -345,12 +345,12 @@
 		@try {
 			[self log:@"Test 3: opening zip file for reading..."];
 			
-			ZipFile *unzipFile= [[ZipFile alloc] initWithFileName:filePath mode:ZipFileModeUnzip];
+			OZZipFile *unzipFile= [[OZZipFile alloc] initWithFileName:filePath mode:OZZipFileModeUnzip];
 			
 			[self log:@"Test 3: opening file..."];
 			
 			[unzipFile goToFirstFileInZip];
-			ZipReadStream *read= [unzipFile readCurrentFileInZip];
+			OZZipReadStream *read= [unzipFile readCurrentFileInZip];
 			
 			[self log:@"Test 3: reading from file's stream..."];
 			
@@ -374,7 +374,7 @@
 			
 			[self log:@"Test 3: test terminated succesfully"];
 
-		} @catch (ZipException *ze) {
+		} @catch (OZZipException *ze) {
 			[self log:@"Test 3: caught a ZipException (see logs), terminating..."];
 			
 			NSLog(@"Test 3: ZipException caught: %d - %@", ze.error, [ze reason]);
@@ -399,12 +399,12 @@
 		@try {
 			[self log:@"Test 4: opening zip file for reading..."];
 			
-			ZipFile *unzipFile= [[ZipFile alloc] initWithFileName:filePath mode:ZipFileModeUnzip];
+			OZZipFile *unzipFile= [[OZZipFile alloc] initWithFileName:filePath mode:OZZipFileModeUnzip];
 			
 			[self log:@"Test 4: opening file..."];
 			
 			[unzipFile goToFirstFileInZip];
-			ZipReadStream *read= [unzipFile readCurrentFileInZip];
+			OZZipReadStream *read= [unzipFile readCurrentFileInZip];
 			
 			[self log:@"Test 4: reading from file's stream..."];
 			
@@ -428,7 +428,7 @@
 			
 			[self log:@"Test 4: test terminated succesfully"];
 			
-		} @catch (ZipException *ze) {
+		} @catch (OZZipException *ze) {
 			[self log:@"Test 4: caught a ZipException (see logs), terminating..."];
 			
 			NSLog(@"Test 4: ZipException caught: %d - %@", ze.error, [ze reason]);

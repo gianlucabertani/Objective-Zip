@@ -1,5 +1,5 @@
 //
-//  FileInZipInfo.m
+//  OZFileInZipInfo.m
 //  Objective-Zip v. 0.8.3
 //
 //  Created by Gianluca Bertani on 27/12/09.
@@ -31,12 +31,12 @@
 //  POSSIBILITY OF SUCH DAMAGE.
 //
 
-#import "FileInZipInfo.h"
+#import "OZFileInZipInfo.h"
 
 
-@implementation FileInZipInfo
+@implementation OZFileInZipInfo
 
-- (id) initWithName:(NSString *)name length:(NSUInteger)length level:(ZipCompressionLevel)level crypted:(BOOL)crypted size:(NSUInteger)size date:(NSDate *)date crc32:(NSUInteger)crc32 {
+- (id) initWithName:(NSString *)name length:(NSUInteger)length level:(OZZipCompressionLevel)level crypted:(BOOL)crypted size:(NSUInteger)size date:(NSDate *)date crc32:(NSUInteger)crc32 {
 	if (self= [super init]) {
 		_name= name;
 		_length= length;

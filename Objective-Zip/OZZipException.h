@@ -1,5 +1,5 @@
 //
-//  ZipException.m
+//  OZZipException.h
 //  Objective-Zip v. 0.8.3
 //
 //  Created by Gianluca Bertani on 25/12/09.
@@ -31,27 +31,18 @@
 //  POSSIBILITY OF SUCH DAMAGE.
 //
 
-#import "ZipException.h"
+#import <Foundation/Foundation.h>
 
 
-@implementation ZipException
-
-- (id) initWithReason:(NSString *)reason {
-	if (self= [super initWithName:@"ZipException" reason:reason userInfo:nil]) {
-		_error= 0;
-	}
+@interface OZZipException : NSException {
 	
-	return self;
+@private	
+	NSInteger _error;
 }
 
-- (id) initWithError:(NSInteger)error reason:(NSString *)reason {
-	if (self= [super initWithName:@"ZipException" reason:reason userInfo:nil]) {
-		_error= error;
-	}
-	
-	return self;
-}
+- (id) initWithReason:(NSString *)reason;
+- (id) initWithError:(NSInteger)error reason:(NSString *)reason;
 
-@synthesize error= _error;
+@property (nonatomic, readonly) NSInteger error;
 
 @end

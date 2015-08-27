@@ -1,6 +1,6 @@
 //
-//  ZipFile.h
-//  Objective-Zip v.0.8.3
+//  OZZipWriteStream.h
+//  Objective-Zip v. 0.8.3
 //
 //  Created by Gianluca Bertani on 25/12/09.
 //  Copyright 2009-10 Flying Dolphin Studio. All rights reserved.
@@ -34,54 +34,18 @@
 #import <Foundation/Foundation.h>
 
 #include "zip.h"
-#include "unzip.h"
 
 
-typedef enum {
-	ZipFileModeUnzip,
-	ZipFileModeCreate,
-	ZipFileModeAppend
-} ZipFileMode;
-
-typedef enum {
-	ZipCompressionLevelDefault= -1,
-	ZipCompressionLevelNone= 0,
-	ZipCompressionLevelFastest= 1,
-	ZipCompressionLevelBest= 9
-} ZipCompressionLevel;	
-
-@class ZipReadStream;
-@class ZipWriteStream;
-@class FileInZipInfo;
-
-@interface ZipFile : NSObject {
-	NSString *_fileName;
-	ZipFileMode _mode;
+@interface OZZipWriteStream : NSObject {
+	NSString *_fileNameInZip;
 
 @private
 	zipFile _zipFile;
-	unzFile _unzFile;
 }
 
-- (id) initWithFileName:(NSString *)fileName mode:(ZipFileMode)mode;
+- (id) initWithZipFileStruct:(zipFile)zipFile fileNameInZip:(NSString *)fileNameInZip;
 
-- (ZipWriteStream *) writeFileInZipWithName:(NSString *)fileNameInZip compressionLevel:(ZipCompressionLevel)compressionLevel;
-- (ZipWriteStream *) writeFileInZipWithName:(NSString *)fileNameInZip fileDate:(NSDate *)fileDate compressionLevel:(ZipCompressionLevel)compressionLevel;
-- (ZipWriteStream *) writeFileInZipWithName:(NSString *)fileNameInZip fileDate:(NSDate *)fileDate compressionLevel:(ZipCompressionLevel)compressionLevel password:(NSString *)password crc32:(NSUInteger)crc32;
-
-- (NSString*) fileName;
-- (NSUInteger) numFilesInZip;
-- (NSArray *) listFileInZipInfos;
-
-- (void) goToFirstFileInZip;
-- (BOOL) goToNextFileInZip;
-- (BOOL) locateFileInZip:(NSString *)fileNameInZip;
-
-- (FileInZipInfo *) getCurrentFileInZipInfo;
-
-- (ZipReadStream *) readCurrentFileInZip;
-- (ZipReadStream *) readCurrentFileInZipWithPassword:(NSString *)password;
-
-- (void) close;
+- (void) writeData:(NSData *)data;
+- (void) finishedWriting;
 
 @end

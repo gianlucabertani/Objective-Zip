@@ -21,13 +21,13 @@
 		8C6D352D10E56A9000B63EFA /* ioapi.c in Sources */ = {isa = PBXBuildFile; fileRef = 8C6D352510E56A9000B63EFA /* ioapi.c */; };
 		8C6D352F10E56A9000B63EFA /* unzip.c in Sources */ = {isa = PBXBuildFile; fileRef = 8C6D352910E56A9000B63EFA /* unzip.c */; };
 		8C6D353010E56A9000B63EFA /* zip.c in Sources */ = {isa = PBXBuildFile; fileRef = 8C6D352B10E56A9000B63EFA /* zip.c */; };
-		8C6D354010E56BD300B63EFA /* ZipFile.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C6D353F10E56BD300B63EFA /* ZipFile.m */; };
-		8C6D356B10E56F4D00B63EFA /* ZipException.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C6D356A10E56F4D00B63EFA /* ZipException.m */; };
-		8C6D357610E5797600B63EFA /* ZipWriteStream.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C6D357510E5797600B63EFA /* ZipWriteStream.m */; };
-		8C83F49510E7CBCB002FB3CB /* FileInZipInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C83F49410E7CBCB002FB3CB /* FileInZipInfo.m */; };
+		8C6D354010E56BD300B63EFA /* OZZipFile.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C6D353F10E56BD300B63EFA /* OZZipFile.m */; };
+		8C6D356B10E56F4D00B63EFA /* OZZipException.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C6D356A10E56F4D00B63EFA /* OZZipException.m */; };
+		8C6D357610E5797600B63EFA /* OZZipWriteStream.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C6D357510E5797600B63EFA /* OZZipWriteStream.m */; };
+		8C83F49510E7CBCB002FB3CB /* OZFileInZipInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C83F49410E7CBCB002FB3CB /* OZFileInZipInfo.m */; };
 		8C8F2D3A10EBC94B00F75833 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 8C8F2D3910EBC94B00F75833 /* Default.png */; };
 		8C8F2D9310EBCE0300F75833 /* ObjectiveZipIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 8C8F2D9210EBCE0300F75833 /* ObjectiveZipIcon.png */; };
-		8CBE431810E95FA300AC9ED3 /* ZipReadStream.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CBE431710E95FA300AC9ED3 /* ZipReadStream.m */; };
+		8CBE431810E95FA300AC9ED3 /* OZZipReadStream.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CBE431710E95FA300AC9ED3 /* OZZipReadStream.m */; };
 		8CD8B40317766067005212EC /* adler32.c in Sources */ = {isa = PBXBuildFile; fileRef = 8CD8B3E917766067005212EC /* adler32.c */; };
 		8CD8B40417766067005212EC /* compress.c in Sources */ = {isa = PBXBuildFile; fileRef = 8CD8B3EA17766067005212EC /* compress.c */; };
 		8CD8B40517766067005212EC /* crc32.c in Sources */ = {isa = PBXBuildFile; fileRef = 8CD8B3EB17766067005212EC /* crc32.c */; };
@@ -70,18 +70,18 @@
 		8C6D352A10E56A9000B63EFA /* unzip.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = unzip.h; path = MiniZip/unzip.h; sourceTree = "<group>"; };
 		8C6D352B10E56A9000B63EFA /* zip.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = zip.c; path = MiniZip/zip.c; sourceTree = "<group>"; };
 		8C6D352C10E56A9000B63EFA /* zip.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = zip.h; path = MiniZip/zip.h; sourceTree = "<group>"; };
-		8C6D353E10E56BD300B63EFA /* ZipFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ZipFile.h; path = "Objective-Zip/ZipFile.h"; sourceTree = "<group>"; };
-		8C6D353F10E56BD300B63EFA /* ZipFile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ZipFile.m; path = "Objective-Zip/ZipFile.m"; sourceTree = "<group>"; };
-		8C6D356910E56F4D00B63EFA /* ZipException.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ZipException.h; path = "Objective-Zip/ZipException.h"; sourceTree = "<group>"; };
-		8C6D356A10E56F4D00B63EFA /* ZipException.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ZipException.m; path = "Objective-Zip/ZipException.m"; sourceTree = "<group>"; };
-		8C6D357410E5797600B63EFA /* ZipWriteStream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ZipWriteStream.h; path = "Objective-Zip/ZipWriteStream.h"; sourceTree = "<group>"; };
-		8C6D357510E5797600B63EFA /* ZipWriteStream.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ZipWriteStream.m; path = "Objective-Zip/ZipWriteStream.m"; sourceTree = "<group>"; };
-		8C83F49310E7CBCB002FB3CB /* FileInZipInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FileInZipInfo.h; path = "Objective-Zip/FileInZipInfo.h"; sourceTree = "<group>"; };
-		8C83F49410E7CBCB002FB3CB /* FileInZipInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FileInZipInfo.m; path = "Objective-Zip/FileInZipInfo.m"; sourceTree = "<group>"; };
+		8C6D353E10E56BD300B63EFA /* OZZipFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OZZipFile.h; path = "Objective-Zip/OZZipFile.h"; sourceTree = "<group>"; };
+		8C6D353F10E56BD300B63EFA /* OZZipFile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OZZipFile.m; path = "Objective-Zip/OZZipFile.m"; sourceTree = "<group>"; };
+		8C6D356910E56F4D00B63EFA /* OZZipException.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OZZipException.h; path = "Objective-Zip/OZZipException.h"; sourceTree = "<group>"; };
+		8C6D356A10E56F4D00B63EFA /* OZZipException.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OZZipException.m; path = "Objective-Zip/OZZipException.m"; sourceTree = "<group>"; };
+		8C6D357410E5797600B63EFA /* OZZipWriteStream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OZZipWriteStream.h; path = "Objective-Zip/OZZipWriteStream.h"; sourceTree = "<group>"; };
+		8C6D357510E5797600B63EFA /* OZZipWriteStream.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OZZipWriteStream.m; path = "Objective-Zip/OZZipWriteStream.m"; sourceTree = "<group>"; };
+		8C83F49310E7CBCB002FB3CB /* OZFileInZipInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OZFileInZipInfo.h; path = "Objective-Zip/OZFileInZipInfo.h"; sourceTree = "<group>"; };
+		8C83F49410E7CBCB002FB3CB /* OZFileInZipInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OZFileInZipInfo.m; path = "Objective-Zip/OZFileInZipInfo.m"; sourceTree = "<group>"; };
 		8C8F2D3910EBC94B00F75833 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		8C8F2D9210EBCE0300F75833 /* ObjectiveZipIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ObjectiveZipIcon.png; sourceTree = "<group>"; };
-		8CBE431610E95FA300AC9ED3 /* ZipReadStream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ZipReadStream.h; path = "Objective-Zip/ZipReadStream.h"; sourceTree = "<group>"; };
-		8CBE431710E95FA300AC9ED3 /* ZipReadStream.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ZipReadStream.m; path = "Objective-Zip/ZipReadStream.m"; sourceTree = "<group>"; };
+		8CBE431610E95FA300AC9ED3 /* OZZipReadStream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OZZipReadStream.h; path = "Objective-Zip/OZZipReadStream.h"; sourceTree = "<group>"; };
+		8CBE431710E95FA300AC9ED3 /* OZZipReadStream.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OZZipReadStream.m; path = "Objective-Zip/OZZipReadStream.m"; sourceTree = "<group>"; };
 		8CD8B3E917766067005212EC /* adler32.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = adler32.c; path = ZLib/adler32.c; sourceTree = "<group>"; };
 		8CD8B3EA17766067005212EC /* compress.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = compress.c; path = ZLib/compress.c; sourceTree = "<group>"; };
 		8CD8B3EB17766067005212EC /* crc32.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = crc32.c; path = ZLib/crc32.c; sourceTree = "<group>"; };
@@ -215,16 +215,16 @@
 		8C6D353B10E56BA400B63EFA /* Objective-Zip */ = {
 			isa = PBXGroup;
 			children = (
-				8C6D353E10E56BD300B63EFA /* ZipFile.h */,
-				8C6D353F10E56BD300B63EFA /* ZipFile.m */,
-				8C6D356910E56F4D00B63EFA /* ZipException.h */,
-				8C6D356A10E56F4D00B63EFA /* ZipException.m */,
-				8C6D357410E5797600B63EFA /* ZipWriteStream.h */,
-				8C6D357510E5797600B63EFA /* ZipWriteStream.m */,
-				8C83F49310E7CBCB002FB3CB /* FileInZipInfo.h */,
-				8C83F49410E7CBCB002FB3CB /* FileInZipInfo.m */,
-				8CBE431610E95FA300AC9ED3 /* ZipReadStream.h */,
-				8CBE431710E95FA300AC9ED3 /* ZipReadStream.m */,
+				8C6D353E10E56BD300B63EFA /* OZZipFile.h */,
+				8C6D353F10E56BD300B63EFA /* OZZipFile.m */,
+				8C6D356910E56F4D00B63EFA /* OZZipException.h */,
+				8C6D356A10E56F4D00B63EFA /* OZZipException.m */,
+				8C6D357410E5797600B63EFA /* OZZipWriteStream.h */,
+				8C6D357510E5797600B63EFA /* OZZipWriteStream.m */,
+				8C83F49310E7CBCB002FB3CB /* OZFileInZipInfo.h */,
+				8C83F49410E7CBCB002FB3CB /* OZFileInZipInfo.m */,
+				8CBE431610E95FA300AC9ED3 /* OZZipReadStream.h */,
+				8CBE431710E95FA300AC9ED3 /* OZZipReadStream.m */,
 			);
 			name = "Objective-Zip";
 			sourceTree = "<group>";
@@ -338,11 +338,11 @@
 				8C6D352D10E56A9000B63EFA /* ioapi.c in Sources */,
 				8C6D352F10E56A9000B63EFA /* unzip.c in Sources */,
 				8C6D353010E56A9000B63EFA /* zip.c in Sources */,
-				8C6D354010E56BD300B63EFA /* ZipFile.m in Sources */,
-				8C6D356B10E56F4D00B63EFA /* ZipException.m in Sources */,
-				8C6D357610E5797600B63EFA /* ZipWriteStream.m in Sources */,
-				8C83F49510E7CBCB002FB3CB /* FileInZipInfo.m in Sources */,
-				8CBE431810E95FA300AC9ED3 /* ZipReadStream.m in Sources */,
+				8C6D354010E56BD300B63EFA /* OZZipFile.m in Sources */,
+				8C6D356B10E56F4D00B63EFA /* OZZipException.m in Sources */,
+				8C6D357610E5797600B63EFA /* OZZipWriteStream.m in Sources */,
+				8C83F49510E7CBCB002FB3CB /* OZFileInZipInfo.m in Sources */,
+				8CBE431810E95FA300AC9ED3 /* OZZipReadStream.m in Sources */,
 				8CD8B40317766067005212EC /* adler32.c in Sources */,
 				8CD8B40417766067005212EC /* compress.c in Sources */,
 				8CD8B40517766067005212EC /* crc32.c in Sources */,

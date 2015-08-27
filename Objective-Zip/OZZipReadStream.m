@@ -1,5 +1,5 @@
 //
-//  ZipReadStream.h
+//  OZZipReadStream.m
 //  Objective-Zip v. 0.8.3
 //
 //  Created by Gianluca Bertani on 28/12/09.
@@ -31,21 +31,41 @@
 //  POSSIBILITY OF SUCH DAMAGE.
 //
 
-#import <Foundation/Foundation.h>
+#import "OZZipReadStream.h"
+#import "OZZipException.h"
 
 #include "unzip.h"
 
 
-@interface ZipReadStream : NSObject {
-	NSString *_fileNameInZip;
+@implementation OZZipReadStream
+
+
+- (id) initWithUnzFileStruct:(unzFile)unzFile fileNameInZip:(NSString *)fileNameInZip {
+	if (self= [super init]) {
+		_unzFile= unzFile;
+		_fileNameInZip= fileNameInZip;
+	}
 	
-@private
-	unzFile _unzFile;
+	return self;
 }
 
-- (id) initWithUnzFileStruct:(unzFile)unzFile fileNameInZip:(NSString *)fileNameInZip;
+- (NSUInteger) readDataWithBuffer:(NSMutableData *)buffer {
+	int err= unzReadCurrentFile(_unzFile, [buffer mutableBytes], [buffer length]);
+	if (err < 0) {
+		NSString *reason= [NSString stringWithFormat:@"Error reading '%@' in the zipfile", _fileNameInZip];
+		@throw [[OZZipException alloc] initWithError:err reason:reason];
+	}
+	
+	return err;
+}
 
-- (NSUInteger) readDataWithBuffer:(NSMutableData *)buffer;
-- (void) finishedReading;
+- (void) finishedReading {
+	int err= unzCloseCurrentFile(_unzFile);
+	if (err != UNZ_OK) {
+		NSString *reason= [NSString stringWithFormat:@"Error closing '%@' in the zipfile", _fileNameInZip];
+		@throw [[OZZipException alloc] initWithError:err reason:reason];
+	}
+}
+
 
 @end

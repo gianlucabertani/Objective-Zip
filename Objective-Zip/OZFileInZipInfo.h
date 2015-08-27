@@ -1,8 +1,8 @@
 //
-//  ZipReadStream.m
+//  OZFileInZipInfo.h
 //  Objective-Zip v. 0.8.3
 //
-//  Created by Gianluca Bertani on 28/12/09.
+//  Created by Gianluca Bertani on 27/12/09.
 //  Copyright 2009-10 Flying Dolphin Studio. All rights reserved.
 //
 //  Redistribution and use in source and binary forms, with or without 
@@ -31,41 +31,31 @@
 //  POSSIBILITY OF SUCH DAMAGE.
 //
 
-#import "ZipReadStream.h"
-#import "ZipException.h"
+#import <Foundation/Foundation.h>
 
-#include "unzip.h"
-
-
-@implementation ZipReadStream
+#import "OZZipFile.h"
 
 
-- (id) initWithUnzFileStruct:(unzFile)unzFile fileNameInZip:(NSString *)fileNameInZip {
-	if (self= [super init]) {
-		_unzFile= unzFile;
-		_fileNameInZip= fileNameInZip;
-	}
+@interface OZFileInZipInfo : NSObject {
 	
-	return self;
+@private
+	NSUInteger _length;
+	OZZipCompressionLevel _level;
+	BOOL _crypted;
+	NSUInteger _size;
+	NSDate *_date;
+	NSUInteger _crc32;
+	NSString *_name;
 }
 
-- (NSUInteger) readDataWithBuffer:(NSMutableData *)buffer {
-	int err= unzReadCurrentFile(_unzFile, [buffer mutableBytes], [buffer length]);
-	if (err < 0) {
-		NSString *reason= [NSString stringWithFormat:@"Error reading '%@' in the zipfile", _fileNameInZip];
-		@throw [[ZipException alloc] initWithError:err reason:reason];
-	}
-	
-	return err;
-}
+- (id) initWithName:(NSString *)name length:(NSUInteger)length level:(OZZipCompressionLevel)level crypted:(BOOL)crypted size:(NSUInteger)size date:(NSDate *)date crc32:(NSUInteger)crc32;
 
-- (void) finishedReading {
-	int err= unzCloseCurrentFile(_unzFile);
-	if (err != UNZ_OK) {
-		NSString *reason= [NSString stringWithFormat:@"Error closing '%@' in the zipfile", _fileNameInZip];
-		@throw [[ZipException alloc] initWithError:err reason:reason];
-	}
-}
-
+@property (nonatomic, readonly) NSString *name;
+@property (nonatomic, readonly) NSUInteger length;
+@property (nonatomic, readonly) OZZipCompressionLevel level;
+@property (nonatomic, readonly) BOOL crypted;
+@property (nonatomic, readonly) NSUInteger size;
+@property (nonatomic, readonly) NSDate *date;
+@property (nonatomic, readonly) NSUInteger crc32;
 
 @end

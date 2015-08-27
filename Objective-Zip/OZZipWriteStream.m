@@ -1,8 +1,8 @@
 //
-//  FileInZipInfo.h
+//  OZZipWriteStream.m
 //  Objective-Zip v. 0.8.3
 //
-//  Created by Gianluca Bertani on 27/12/09.
+//  Created by Gianluca Bertani on 25/12/09.
 //  Copyright 2009-10 Flying Dolphin Studio. All rights reserved.
 //
 //  Redistribution and use in source and binary forms, with or without 
@@ -31,31 +31,39 @@
 //  POSSIBILITY OF SUCH DAMAGE.
 //
 
-#import <Foundation/Foundation.h>
+#import "OZZipWriteStream.h"
+#import "OZZipException.h"
 
-#import "ZipFile.h"
+#include "zip.h"
 
 
-@interface FileInZipInfo : NSObject {
+@implementation OZZipWriteStream
+
+
+- (id) initWithZipFileStruct:(zipFile)zipFile fileNameInZip:(NSString *)fileNameInZip {
+	if (self= [super init]) {
+		_zipFile= zipFile;
+		_fileNameInZip= fileNameInZip;
+	}
 	
-@private
-	NSUInteger _length;
-	ZipCompressionLevel _level;
-	BOOL _crypted;
-	NSUInteger _size;
-	NSDate *_date;
-	NSUInteger _crc32;
-	NSString *_name;
+	return self;
 }
 
-- (id) initWithName:(NSString *)name length:(NSUInteger)length level:(ZipCompressionLevel)level crypted:(BOOL)crypted size:(NSUInteger)size date:(NSDate *)date crc32:(NSUInteger)crc32;
+- (void) writeData:(NSData *)data {
+	int err= zipWriteInFileInZip(_zipFile, [data bytes], [data length]);
+	if (err < 0) {
+		NSString *reason= [NSString stringWithFormat:@"Error writing '%@' in the zipfile", _fileNameInZip];
+		@throw [[OZZipException alloc] initWithError:err reason:reason];
+	}
+}
 
-@property (nonatomic, readonly) NSString *name;
-@property (nonatomic, readonly) NSUInteger length;
-@property (nonatomic, readonly) ZipCompressionLevel level;
-@property (nonatomic, readonly) BOOL crypted;
-@property (nonatomic, readonly) NSUInteger size;
-@property (nonatomic, readonly) NSDate *date;
-@property (nonatomic, readonly) NSUInteger crc32;
+- (void) finishedWriting {
+	int err= zipCloseFileInZip(_zipFile);
+	if (err != ZIP_OK) {
+		NSString *reason= [NSString stringWithFormat:@"Error closing '%@' in the zipfile", _fileNameInZip];
+		@throw [[OZZipException alloc] initWithError:err reason:reason];
+	}
+}
+
 
 @end
