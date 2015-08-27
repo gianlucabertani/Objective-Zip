@@ -3,7 +3,7 @@
 //  Objective-Zip v. 0.8.3
 //
 //  Created by Gianluca Bertani on 27/12/09.
-//  Copyright 2009-10 Flying Dolphin Studio. All rights reserved.
+//  Copyright 2009-2015 Gianluca Bertani. All rights reserved.
 //
 //  Redistribution and use in source and binary forms, with or without 
 //  modification, are permitted provided that the following conditions 
@@ -33,22 +33,13 @@
 
 #import <Foundation/Foundation.h>
 
-#import "OZZipFile.h"
+#import "OZZipCompressionLevel.h"
 
 
-@interface OZFileInZipInfo : NSObject {
-	
-@private
-	NSUInteger _length;
-	OZZipCompressionLevel _level;
-	BOOL _crypted;
-	NSUInteger _size;
-	NSDate *_date;
-	NSUInteger _crc32;
-	NSString *_name;
-}
+@interface OZFileInZipInfo : NSObject
 
-- (id) initWithName:(NSString *)name length:(NSUInteger)length level:(OZZipCompressionLevel)level crypted:(BOOL)crypted size:(NSUInteger)size date:(NSDate *)date crc32:(NSUInteger)crc32;
+#pragma mark -
+#pragma mark Properties
 
 @property (nonatomic, readonly) NSString *name;
 @property (nonatomic, readonly) NSUInteger length;
@@ -57,5 +48,6 @@
 @property (nonatomic, readonly) NSUInteger size;
 @property (nonatomic, readonly) NSDate *date;
 @property (nonatomic, readonly) NSUInteger crc32;
+
 
 @end

@@ -3,7 +3,7 @@
 //  Objective-Zip v. 0.8.3
 //
 //  Created by Gianluca Bertani on 25/12/09.
-//  Copyright 2009-10 Flying Dolphin Studio. All rights reserved.
+//  Copyright 2009-2015 Gianluca Bertani. All rights reserved.
 //
 //  Redistribution and use in source and binary forms, with or without 
 //  modification, are permitted provided that the following conditions 
@@ -34,9 +34,29 @@
 #import "OZZipException.h"
 
 
+#pragma mark -
+#pragma mark OZZipException extension
+
+@interface OZZipException () {
+    
+@private
+    NSInteger _error;
+}
+
+
+@end
+
+
+#pragma mark -
+#pragma mark OZZipException implementation
+
 @implementation OZZipException
 
-- (id) initWithReason:(NSString *)reason {
+
+#pragma mark -
+#pragma mark Initialization
+
+- (instancetype) initWithReason:(NSString *)reason {
 	if (self= [super initWithName:@"OZZipException" reason:reason userInfo:nil]) {
 		_error= 0;
 	}
@@ -44,7 +64,7 @@
 	return self;
 }
 
-- (id) initWithError:(NSInteger)error reason:(NSString *)reason {
+- (instancetype) initWithError:(NSInteger)error reason:(NSString *)reason {
 	if (self= [super initWithName:@"OZZipException" reason:reason userInfo:nil]) {
 		_error= error;
 	}
@@ -52,6 +72,11 @@
 	return self;
 }
 
+
+#pragma mark -
+#pragma mark Properties
+
 @synthesize error= _error;
+
 
 @end

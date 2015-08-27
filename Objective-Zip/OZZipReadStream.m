@@ -3,7 +3,7 @@
 //  Objective-Zip v. 0.8.3
 //
 //  Created by Gianluca Bertani on 28/12/09.
-//  Copyright 2009-10 Flying Dolphin Studio. All rights reserved.
+//  Copyright 2009-2015 Gianluca Bertani. All rights reserved.
 //
 //  Redistribution and use in source and binary forms, with or without 
 //  modification, are permitted provided that the following conditions 
@@ -32,15 +32,35 @@
 //
 
 #import "OZZipReadStream.h"
+#import "OZZipReadStream+Internals.h"
 #import "OZZipException.h"
+#import "OZZipException+Internals.h"
 
-#include "unzip.h"
 
+#pragma mark -
+#pragma mark OZZipReadStream extension
+
+@interface OZZipReadStream () {
+    NSString *_fileNameInZip;
+    
+@private
+    unzFile _unzFile;
+}
+
+
+@end
+
+
+#pragma mark -
+#pragma mark OZZipReadStream implementation
 
 @implementation OZZipReadStream
 
 
-- (id) initWithUnzFileStruct:(unzFile)unzFile fileNameInZip:(NSString *)fileNameInZip {
+#pragma mark -
+#pragma mark Initialization
+
+- (instancetype) initWithUnzFileStruct:(unzFile)unzFile fileNameInZip:(NSString *)fileNameInZip {
 	if (self= [super init]) {
 		_unzFile= unzFile;
 		_fileNameInZip= fileNameInZip;
@@ -48,6 +68,10 @@
 	
 	return self;
 }
+
+
+#pragma mark -
+#pragma mark Reading data
 
 - (NSUInteger) readDataWithBuffer:(NSMutableData *)buffer {
 	int err= unzReadCurrentFile(_unzFile, [buffer mutableBytes], [buffer length]);

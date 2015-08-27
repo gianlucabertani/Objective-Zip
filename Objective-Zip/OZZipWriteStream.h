@@ -3,7 +3,7 @@
 //  Objective-Zip v. 0.8.3
 //
 //  Created by Gianluca Bertani on 25/12/09.
-//  Copyright 2009-10 Flying Dolphin Studio. All rights reserved.
+//  Copyright 2009-2015 Gianluca Bertani. All rights reserved.
 //
 //  Redistribution and use in source and binary forms, with or without 
 //  modification, are permitted provided that the following conditions 
@@ -33,19 +33,15 @@
 
 #import <Foundation/Foundation.h>
 
-#include "zip.h"
+
+@interface OZZipWriteStream : NSObject
 
 
-@interface OZZipWriteStream : NSObject {
-	NSString *_fileNameInZip;
-
-@private
-	zipFile _zipFile;
-}
-
-- (id) initWithZipFileStruct:(zipFile)zipFile fileNameInZip:(NSString *)fileNameInZip;
+#pragma mark -
+#pragma mark Writing data
 
 - (void) writeData:(NSData *)data;
 - (void) finishedWriting;
+
 
 @end

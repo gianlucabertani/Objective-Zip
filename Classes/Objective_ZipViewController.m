@@ -32,11 +32,7 @@
 //
 
 #import "Objective_ZipViewController.h"
-#import "../Objective-Zip/OZZipFile.h"
-#import "../Objective-Zip/OZZipException.h"
-#import "../Objective-Zip/OZFileInZipInfo.h"
-#import "../Objective-Zip/OZZipWriteStream.h"
-#import "../Objective-Zip/OZZipReadStream.h"
+#import "Objective-Zip.h"
 
 #define HUGE_TEST_BLOCK_LENGTH             (50000)
 #define HUGE_TEST_NUMBER_OF_BLOCKS        (100000)

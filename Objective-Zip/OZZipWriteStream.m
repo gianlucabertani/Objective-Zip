@@ -3,7 +3,7 @@
 //  Objective-Zip v. 0.8.3
 //
 //  Created by Gianluca Bertani on 25/12/09.
-//  Copyright 2009-10 Flying Dolphin Studio. All rights reserved.
+//  Copyright 2009-2015 Gianluca Bertani. All rights reserved.
 //
 //  Redistribution and use in source and binary forms, with or without 
 //  modification, are permitted provided that the following conditions 
@@ -32,15 +32,35 @@
 //
 
 #import "OZZipWriteStream.h"
+#import "OZZipWriteStream+Internals.h"
 #import "OZZipException.h"
+#import "OZZipException+Internals.h"
 
-#include "zip.h"
 
+#pragma mark -
+#pragma mark OZZipWriteStream extension
+
+@interface OZZipWriteStream () {
+    NSString *_fileNameInZip;
+    
+@private
+    zipFile _zipFile;
+}
+
+
+@end
+
+
+#pragma mark -
+#pragma mark OZZipWriteStream implementation
 
 @implementation OZZipWriteStream
 
 
-- (id) initWithZipFileStruct:(zipFile)zipFile fileNameInZip:(NSString *)fileNameInZip {
+#pragma mark -
+#pragma mark Initialization
+
+- (instancetype) initWithZipFileStruct:(zipFile)zipFile fileNameInZip:(NSString *)fileNameInZip {
 	if (self= [super init]) {
 		_zipFile= zipFile;
 		_fileNameInZip= fileNameInZip;
@@ -48,6 +68,10 @@
 	
 	return self;
 }
+
+
+#pragma mark -
+#pragma mark Writing data
 
 - (void) writeData:(NSData *)data {
 	int err= zipWriteInFileInZip(_zipFile, [data bytes], [data length]);

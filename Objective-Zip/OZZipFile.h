@@ -3,7 +3,7 @@
 //  Objective-Zip v. 0.8.3
 //
 //  Created by Gianluca Bertani on 25/12/09.
-//  Copyright 2009-10 Flying Dolphin Studio. All rights reserved.
+//  Copyright 2009-2015 Gianluca Bertani. All rights reserved.
 //
 //  Redistribution and use in source and binary forms, with or without 
 //  modification, are permitted provided that the following conditions 
@@ -33,55 +33,60 @@
 
 #import <Foundation/Foundation.h>
 
-#include "zip.h"
-#include "unzip.h"
+#import "OZZipFileMode.h"
+#import "OZZipCompressionLevel.h"
 
-
-typedef enum {
-	OZZipFileModeUnzip,
-	OZZipFileModeCreate,
-	OZZipFileModeAppend
-} OZZipFileMode;
-
-typedef enum {
-	OZZipCompressionLevelDefault= -1,
-	OZZipCompressionLevelNone= 0,
-	OZZipCompressionLevelFastest= 1,
-	OZZipCompressionLevelBest= 9
-} OZZipCompressionLevel;	
 
 @class OZZipReadStream;
 @class OZZipWriteStream;
 @class OZFileInZipInfo;
 
-@interface OZZipFile : NSObject {
-	NSString *_fileName;
-	OZZipFileMode _mode;
+@interface OZZipFile : NSObject
 
-@private
-	zipFile _zipFile;
-	unzFile _unzFile;
-}
 
-- (id) initWithFileName:(NSString *)fileName mode:(OZZipFileMode)mode;
+#pragma mark -
+#pragma mark Initialization
+
+- (instancetype) initWithFileName:(NSString *)fileName mode:(OZZipFileMode)mode;
+
+
+#pragma mark -
+#pragma mark File writing
 
 - (OZZipWriteStream *) writeFileInZipWithName:(NSString *)fileNameInZip compressionLevel:(OZZipCompressionLevel)compressionLevel;
 - (OZZipWriteStream *) writeFileInZipWithName:(NSString *)fileNameInZip fileDate:(NSDate *)fileDate compressionLevel:(OZZipCompressionLevel)compressionLevel;
 - (OZZipWriteStream *) writeFileInZipWithName:(NSString *)fileNameInZip fileDate:(NSDate *)fileDate compressionLevel:(OZZipCompressionLevel)compressionLevel password:(NSString *)password crc32:(NSUInteger)crc32;
 
-- (NSString*) fileName;
-- (NSUInteger) numFilesInZip;
-- (NSArray *) listFileInZipInfos;
+
+#pragma mark -
+#pragma mark File seeking and info
 
 - (void) goToFirstFileInZip;
 - (BOOL) goToNextFileInZip;
 - (BOOL) locateFileInZip:(NSString *)fileNameInZip;
 
+- (NSArray *) listFileInZipInfos;
 - (OZFileInZipInfo *) getCurrentFileInZipInfo;
+
+
+#pragma mark -
+#pragma mark File reading
 
 - (OZZipReadStream *) readCurrentFileInZip;
 - (OZZipReadStream *) readCurrentFileInZipWithPassword:(NSString *)password;
 
+
+#pragma mark -
+#pragma mark Closing
+
 - (void) close;
+
+
+#pragma mark -
+#pragma mark Properties
+
+@property (nonatomic, readonly) NSString *fileName;
+@property (nonatomic, readonly) NSUInteger numFilesInZip;
+
 
 @end

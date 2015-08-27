@@ -3,7 +3,7 @@
 //  Objective-Zip v. 0.8.3
 //
 //  Created by Gianluca Bertani on 28/12/09.
-//  Copyright 2009-10 Flying Dolphin Studio. All rights reserved.
+//  Copyright 2009-2015 Gianluca Bertani. All rights reserved.
 //
 //  Redistribution and use in source and binary forms, with or without 
 //  modification, are permitted provided that the following conditions 
@@ -33,19 +33,15 @@
 
 #import <Foundation/Foundation.h>
 
-#include "unzip.h"
+
+@interface OZZipReadStream : NSObject
 
 
-@interface OZZipReadStream : NSObject {
-	NSString *_fileNameInZip;
-	
-@private
-	unzFile _unzFile;
-}
-
-- (id) initWithUnzFileStruct:(unzFile)unzFile fileNameInZip:(NSString *)fileNameInZip;
+#pragma mark -
+#pragma mark Reading data
 
 - (NSUInteger) readDataWithBuffer:(NSMutableData *)buffer;
 - (void) finishedReading;
+
 
 @end

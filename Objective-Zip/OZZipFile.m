@@ -3,7 +3,7 @@
 //  Objective-Zip v. 0.8.3
 //
 //  Created by Gianluca Bertani on 25/12/09.
-//  Copyright 2009-10 Flying Dolphin Studio. All rights reserved.
+//  Copyright 2009-2015 Gianluca Bertani. All rights reserved.
 //
 //  Redistribution and use in source and binary forms, with or without 
 //  modification, are permitted provided that the following conditions 
@@ -33,17 +33,46 @@
 
 #import "OZZipFile.h"
 #import "OZZipException.h"
+#import "OZZipException+Internals.h"
 #import "OZZipReadStream.h"
+#import "OZZipReadStream+Internals.h"
 #import "OZZipWriteStream.h"
+#import "OZZipWriteStream+Internals.h"
 #import "OZFileInZipInfo.h"
+#import "OZFileInZipInfo+Internals.h"
+
+#include "zip.h"
+#include "unzip.h"
 
 #define FILE_IN_ZIP_MAX_NAME_LENGTH (256)
 
 
+#pragma mark -
+#pragma mark OZZipFile extension
+
+@interface OZZipFile () {
+    NSString *_fileName;
+    OZZipFileMode _mode;
+    
+@private
+    zipFile _zipFile;
+    unzFile _unzFile;
+}
+
+
+@end
+
+
+#pragma mark -
+#pragma mark OZZipFile implementation
+
 @implementation OZZipFile
 
 
-- (id) initWithFileName:(NSString *)fileName mode:(OZZipFileMode)mode {
+#pragma mark -
+#pragma mark Initialization
+
+- (instancetype) initWithFileName:(NSString *)fileName mode:(OZZipFileMode)mode {
 	if (self= [super init]) {
 		_fileName= fileName;
 		_mode= mode;
@@ -83,6 +112,9 @@
 	return self;
 }
 
+
+#pragma mark -
+#pragma mark File writing
 
 - (OZZipWriteStream *) writeFileInZipWithName:(NSString *)fileNameInZip compressionLevel:(OZZipCompressionLevel)compressionLevel {
 	if (_mode == OZZipFileModeUnzip) {
@@ -193,44 +225,9 @@
 	return [[OZZipWriteStream alloc] initWithZipFileStruct:_zipFile fileNameInZip:fileNameInZip];
 }
 
-- (NSString*) fileName {
-	return _fileName;
-}
 
-- (NSUInteger) numFilesInZip {
-	if (_mode != OZZipFileModeUnzip) {
-		NSString *reason= [NSString stringWithFormat:@"Operation not permitted without Unzip mode"];
-		@throw [[OZZipException alloc] initWithReason:reason];
-	}
-	
-	unz_global_info64 gi;
-	int err= unzGetGlobalInfo64(_unzFile, &gi);
-	if (err != UNZ_OK) {
-		NSString *reason= [NSString stringWithFormat:@"Error getting global info in '%@'", _fileName];
-		@throw [[OZZipException alloc] initWithError:err reason:reason];
-	}
-	
-	return gi.number_entry;
-}
-
-- (NSArray *) listFileInZipInfos {
-	int num= [self numFilesInZip];
-	if (num < 1)
-		return [[NSArray alloc] init];
-	
-	NSMutableArray *files= [[NSMutableArray alloc] initWithCapacity:num];
-
-	[self goToFirstFileInZip];
-	for (int i= 0; i < num; i++) {
-		OZFileInZipInfo *info= [self getCurrentFileInZipInfo];
-		[files addObject:info];
-
-		if ((i +1) < num)
-			[self goToNextFileInZip];
-	}
-
-	return files;
-}
+#pragma mark -
+#pragma mark File seeking and info
 
 - (void) goToFirstFileInZip {
 	if (_mode != OZZipFileModeUnzip) {
@@ -279,6 +276,25 @@
 	}
 	
 	return YES;
+}
+
+- (NSArray *) listFileInZipInfos {
+    int num= [self numFilesInZip];
+    if (num < 1)
+        return [[NSArray alloc] init];
+    
+    NSMutableArray *files= [[NSMutableArray alloc] initWithCapacity:num];
+    
+    [self goToFirstFileInZip];
+    for (int i= 0; i < num; i++) {
+        OZFileInZipInfo *info= [self getCurrentFileInZipInfo];
+        [files addObject:info];
+        
+        if ((i +1) < num)
+            [self goToNextFileInZip];
+    }
+    
+    return files;
 }
 
 - (OZFileInZipInfo *) getCurrentFileInZipInfo {
@@ -330,6 +346,10 @@
 	OZFileInZipInfo *info= [[OZFileInZipInfo alloc] initWithName:name length:file_info.uncompressed_size level:level crypted:crypted size:file_info.compressed_size date:date crc32:file_info.crc];
 	return info;
 }
+
+
+#pragma mark -
+#pragma mark File reading
 
 - (OZZipReadStream *) readCurrentFileInZip {
 	if (_mode != OZZipFileModeUnzip) {
@@ -383,6 +403,10 @@
 	return [[OZZipReadStream alloc] initWithUnzFileStruct:_unzFile fileNameInZip:fileNameInZip];
 }
 
+
+#pragma mark -
+#pragma mark Closing
+
 - (void) close {
 	switch (_mode) {
 		case OZZipFileModeUnzip: {
@@ -417,6 +441,34 @@
 			@throw [[OZZipException alloc] initWithReason:reason];
 		}
 	}
+}
+
+
+#pragma mark -
+#pragma mark Properties
+
+@dynamic fileName;
+
+- (NSString*) fileName {
+    return _fileName;
+}
+
+@dynamic numFilesInZip;
+
+- (NSUInteger) numFilesInZip {
+    if (_mode != OZZipFileModeUnzip) {
+        NSString *reason= [NSString stringWithFormat:@"Operation not permitted without Unzip mode"];
+        @throw [[OZZipException alloc] initWithReason:reason];
+    }
+    
+    unz_global_info64 gi;
+    int err= unzGetGlobalInfo64(_unzFile, &gi);
+    if (err != UNZ_OK) {
+        NSString *reason= [NSString stringWithFormat:@"Error getting global info in '%@'", _fileName];
+        @throw [[OZZipException alloc] initWithError:err reason:reason];
+    }
+    
+    return gi.number_entry;
 }
 
 
