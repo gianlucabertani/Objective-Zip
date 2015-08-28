@@ -74,7 +74,7 @@
 #pragma mark Writing data
 
 - (void) writeData:(NSData *)data {
-	int err= zipWriteInFileInZip(_zipFile, [data bytes], [data length]);
+	int err= zipWriteInFileInZip(_zipFile, [data bytes], (uInt) [data length]);
 	if (err < 0) {
 		NSString *reason= [NSString stringWithFormat:@"Error writing '%@' in the zipfile", _fileNameInZip];
 		@throw [[OZZipException alloc] initWithError:err reason:reason];
