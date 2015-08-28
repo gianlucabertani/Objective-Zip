@@ -48,6 +48,7 @@
 #pragma mark Initialization
 
 - (instancetype) initWithFileName:(NSString *)fileName mode:(OZZipFileMode)mode;
+- (instancetype) initWithFileName:(NSString *)fileName mode:(OZZipFileMode)mode legacy32BitMode:(BOOL)legacy32BitMode;
 
 
 #pragma mark -
@@ -86,6 +87,9 @@
 #pragma mark Properties
 
 @property (nonatomic, readonly) NSString *fileName;
+@property (nonatomic, readonly) OZZipFileMode mode;
+@property (nonatomic, readonly) BOOL legacy32BitMode;
+
 @property (nonatomic, readonly) NSUInteger numFilesInZip;
 
 

@@ -53,6 +53,7 @@
 @interface OZZipFile () {
     NSString *_fileName;
     OZZipFileMode _mode;
+    BOOL _legacy32BitMode;
     
 @private
     zipFile _zipFile;
@@ -73,13 +74,22 @@
 #pragma mark Initialization
 
 - (instancetype) initWithFileName:(NSString *)fileName mode:(OZZipFileMode)mode {
+    return [self initWithFileName:fileName mode:mode legacy32BitMode:NO];
+}
+
+- (instancetype) initWithFileName:(NSString *)fileName mode:(OZZipFileMode)mode legacy32BitMode:(BOOL)legacy32BitMode {
 	if (self= [super init]) {
 		_fileName= fileName;
 		_mode= mode;
+        _legacy32BitMode= legacy32BitMode;
 		
+        const char *path= [_fileName cStringUsingEncoding:NSUTF8StringEncoding];
 		switch (mode) {
 			case OZZipFileModeUnzip:
-				_unzFile= unzOpen64([_fileName cStringUsingEncoding:NSUTF8StringEncoding]);
+                
+                // Support for legacy 32 bit mode: here we use 32 or 64 bit version
+                // alternatively, as internal (common) version is not exposed
+                _unzFile= (_legacy32BitMode ? unzOpen(path) : unzOpen64(path));
 				if (_unzFile == NULL) {
 					NSString *reason= [NSString stringWithFormat:@"Can't open '%@'", _fileName];
 					@throw [[OZZipException alloc] initWithReason:reason];
@@ -87,7 +97,9 @@
 				break;
 				
 			case OZZipFileModeCreate:
-				_zipFile= zipOpen64([_fileName cStringUsingEncoding:NSUTF8StringEncoding], APPEND_STATUS_CREATE);
+                
+                // Support for legacy 32 bit mode: here we use the common version
+                _zipFile= zipOpen3(path, APPEND_STATUS_CREATE, 0, NULL, NULL);
 				if (_zipFile == NULL) {
 					NSString *reason= [NSString stringWithFormat:@"Can't open '%@'", _fileName];
 					@throw [[OZZipException alloc] initWithReason:reason];
@@ -95,7 +107,9 @@
 				break;
 				
 			case OZZipFileModeAppend:
-				_zipFile= zipOpen64([_fileName cStringUsingEncoding:NSUTF8StringEncoding], APPEND_STATUS_ADDINZIP);
+                
+                // Support for legacy 32 bit mode: here we use the common version
+                _zipFile= zipOpen3(path, APPEND_STATUS_ADDINZIP, 0, NULL, NULL);
 				if (_zipFile == NULL) {
 					NSString *reason= [NSString stringWithFormat:@"Can't open '%@'", _fileName];
 					@throw [[OZZipException alloc] initWithReason:reason];
@@ -136,15 +150,18 @@
 	zi.external_fa= 0;
 	zi.dosDate= 0;
 	
-	int err= zipOpenNewFileInZip3_64(
-									 _zipFile,
+    // Support for legacy 32 bit mode: here we use the common version,
+    // passing a flag to tell if it is a 32 or 64 bit file
+	int err= zipOpenNewFileInZip3_64(_zipFile,
 									 [fileNameInZip cStringUsingEncoding:NSUTF8StringEncoding],
 									 &zi,
 									 NULL, 0, NULL, 0, NULL,
 									 (compressionLevel != OZZipCompressionLevelNone) ? Z_DEFLATED : 0,
 									 compressionLevel, 0,
 									 -MAX_WBITS, DEF_MEM_LEVEL, Z_DEFAULT_STRATEGY,
-									 NULL, 0, 1);
+                                     NULL, 0,
+                                     (_legacy32BitMode ? 0 : 1));
+    
 	if (err != ZIP_OK) {
 		NSString *reason= [NSString stringWithFormat:@"Error opening '%@' in zipfile", fileNameInZip];
 		@throw [[OZZipException alloc] initWithError:err reason:reason];
@@ -172,15 +189,18 @@
 	zi.external_fa= 0;
 	zi.dosDate= 0;
 	
-	int err= zipOpenNewFileInZip3_64(
-									 _zipFile,
+    // Support for legacy 32 bit mode: here we use the common version,
+    // passing a flag to tell if it is a 32 or 64 bit file
+	int err= zipOpenNewFileInZip3_64(_zipFile,
 									 [fileNameInZip cStringUsingEncoding:NSUTF8StringEncoding],
 									 &zi,
 									 NULL, 0, NULL, 0, NULL,
 									 (compressionLevel != OZZipCompressionLevelNone) ? Z_DEFLATED : 0,
 									 compressionLevel, 0,
 									 -MAX_WBITS, DEF_MEM_LEVEL, Z_DEFAULT_STRATEGY,
-									 NULL, 0, 1);
+									 NULL, 0,
+                                     (_legacy32BitMode ? 0 : 1));
+    
 	if (err != ZIP_OK) {
 		NSString *reason= [NSString stringWithFormat:@"Error opening '%@' in zipfile", fileNameInZip];
 		@throw [[OZZipException alloc] initWithError:err reason:reason];
@@ -208,15 +228,18 @@
 	zi.external_fa= 0;
 	zi.dosDate= 0;
 	
-	int err= zipOpenNewFileInZip3_64(
-									 _zipFile,
+    // Support for legacy 32 bit mode: here we use the common version,
+    // passing a flag to tell if it is a 32 or 64 bit file
+	int err= zipOpenNewFileInZip3_64(_zipFile,
 									 [fileNameInZip cStringUsingEncoding:NSUTF8StringEncoding],
 									 &zi,
 									 NULL, 0, NULL, 0, NULL,
 									 (compressionLevel != OZZipCompressionLevelNone) ? Z_DEFLATED : 0,
 									 compressionLevel, 0,
 									 -MAX_WBITS, DEF_MEM_LEVEL, Z_DEFAULT_STRATEGY,
-									 [password cStringUsingEncoding:NSUTF8StringEncoding], crc32, 1);
+									 [password cStringUsingEncoding:NSUTF8StringEncoding], crc32,
+                                     (_legacy32BitMode ? 0 : 1));
+    
 	if (err != ZIP_OK) {
 		NSString *reason= [NSString stringWithFormat:@"Error opening '%@' in zipfile", fileNameInZip];
 		@throw [[OZZipException alloc] initWithError:err reason:reason];
@@ -279,7 +302,7 @@
 }
 
 - (NSArray *) listFileInZipInfos {
-    int num= [self numFilesInZip];
+    NSUInteger num= [self numFilesInZip];
     if (num < 1)
         return [[NSArray alloc] init];
     
@@ -306,6 +329,8 @@
 	char filename_inzip[FILE_IN_ZIP_MAX_NAME_LENGTH];
 	unz_file_info64 file_info;
 	
+    // Support for legacy 32 bit mode: here we use the 64 bit version,
+    // as it also internally called from the 32 bit version
 	int err= unzGetCurrentFileInfo64(_unzFile, &file_info, filename_inzip, sizeof(filename_inzip), NULL, 0, NULL, 0);
 	if (err != UNZ_OK) {
 		NSString *reason= [NSString stringWithFormat:@"Error getting current file info in '%@'", _fileName];
@@ -360,6 +385,8 @@
 	char filename_inzip[FILE_IN_ZIP_MAX_NAME_LENGTH];
 	unz_file_info64 file_info;
 	
+    // Support for legacy 32 bit mode: here we use the 64 bit version,
+    // as it also internally called from the 32 bit version
 	int err= unzGetCurrentFileInfo64(_unzFile, &file_info, filename_inzip, sizeof(filename_inzip), NULL, 0, NULL, 0);
 	if (err != UNZ_OK) {
 		NSString *reason= [NSString stringWithFormat:@"Error getting current file info in '%@'", _fileName];
@@ -386,6 +413,8 @@
 	char filename_inzip[FILE_IN_ZIP_MAX_NAME_LENGTH];
 	unz_file_info64 file_info;
 	
+    // Support for legacy 32 bit mode: here we use the 64 bit version,
+    // as it also internally called from the 32 bit version
 	int err= unzGetCurrentFileInfo64(_unzFile, &file_info, filename_inzip, sizeof(filename_inzip), NULL, 0, NULL, 0);
 	if (err != UNZ_OK) {
 		NSString *reason= [NSString stringWithFormat:@"Error getting current file info in '%@'", _fileName];
@@ -447,11 +476,9 @@
 #pragma mark -
 #pragma mark Properties
 
-@dynamic fileName;
-
-- (NSString*) fileName {
-    return _fileName;
-}
+@synthesize fileName= _fileName;
+@synthesize mode= _mode;
+@synthesize legacy32BitMode= _legacy32BitMode;
 
 @dynamic numFilesInZip;
 
@@ -461,14 +488,30 @@
         @throw [[OZZipException alloc] initWithReason:reason];
     }
     
-    unz_global_info64 gi;
-    int err= unzGetGlobalInfo64(_unzFile, &gi);
-    if (err != UNZ_OK) {
-        NSString *reason= [NSString stringWithFormat:@"Error getting global info in '%@'", _fileName];
-        @throw [[OZZipException alloc] initWithError:err reason:reason];
+    // Support for legacy 32 bit mode: here we use the 32 or 64 bit
+    // version alternatively, as there is not internal (common) version
+    if (_legacy32BitMode) {
+        unz_global_info gi;
+        
+        int err= unzGetGlobalInfo(_unzFile, &gi);
+        if (err != UNZ_OK) {
+            NSString *reason= [NSString stringWithFormat:@"Error getting global info in '%@'", _fileName];
+            @throw [[OZZipException alloc] initWithError:err reason:reason];
+        }
+        
+        return gi.number_entry;
+        
+    } else {
+        unz_global_info64 gi;
+        
+        int err= unzGetGlobalInfo64(_unzFile, &gi);
+        if (err != UNZ_OK) {
+            NSString *reason= [NSString stringWithFormat:@"Error getting global info in '%@'", _fileName];
+            @throw [[OZZipException alloc] initWithError:err reason:reason];
+        }
+        
+        return gi.number_entry;
     }
-    
-    return gi.number_entry;
 }
 
 
