@@ -33,6 +33,8 @@
 
 #import <Foundation/Foundation.h>
 
+#define ERROR_NO_SUCH_FILE             (-9001)
+
 
 @interface OZZipException : NSException 
 

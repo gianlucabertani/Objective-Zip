@@ -33,11 +33,33 @@
 
 #import "OZZipException.h"
 
+#define ERROR_WRAP_BEGIN \
+    @try {
+
+#define ERROR_WRAP_END(err) \
+    } @catch (OZZipException *ze) { \
+        if (ze.error) { \
+            if (err) { \
+                *err= [NSError errorWithDomain:@"ObjectiveZipErrorDomain" \
+                    code:ze.error \
+                    userInfo:@{NSLocalizedDescriptionKey: ze.name, \
+                        NSLocalizedFailureReasonErrorKey: ze.reason}]; \
+            } \
+        } else \
+            @throw ze; \
+    } @catch (NSException *exc) { \
+        @throw exc; \
+    }
+
+
 @interface OZZipException (Internals)
 
 
 #pragma mark -
 #pragma mark Initialization
+
++ (OZZipException *) zipExceptionWithReason:(NSString *)format, ...;
++ (OZZipException *) zipExceptionWithError:(NSInteger)error reason:(NSString *)format, ...;
 
 - (instancetype) initWithReason:(NSString *)reason;
 - (instancetype) initWithError:(NSInteger)error reason:(NSString *)reason;

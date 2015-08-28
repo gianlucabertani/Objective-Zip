@@ -44,6 +44,7 @@
 - (IBAction) zipUnzip2;
 - (IBAction) zipCheck1;
 - (IBAction) zipCheck2;
+- (IBAction) errorWrapping;
 
 @end
 

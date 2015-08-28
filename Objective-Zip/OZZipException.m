@@ -56,6 +56,28 @@
 #pragma mark -
 #pragma mark Initialization
 
++ (OZZipException *) zipExceptionWithReason:(NSString *)format, ... {
+
+    // Variable arguments formatting
+    va_list arguments;
+    va_start(arguments, format);
+    NSString *reason= [[NSString alloc] initWithFormat:format arguments:arguments];
+    va_end(arguments);
+    
+    return [[OZZipException alloc] initWithReason:reason];
+}
+
++ (OZZipException *) zipExceptionWithError:(NSInteger)error reason:(NSString *)format, ... {
+    
+    // Variable arguments formatting
+    va_list arguments;
+    va_start(arguments, format);
+    NSString *reason= [[NSString alloc] initWithFormat:format arguments:arguments];
+    va_end(arguments);
+    
+    return [[OZZipException alloc] initWithError:error reason:reason];
+}
+
 - (instancetype) initWithReason:(NSString *)reason {
 	if (self= [super initWithName:@"OZZipException" reason:reason userInfo:nil]) {
 		_error= 0;

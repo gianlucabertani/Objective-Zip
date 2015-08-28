@@ -50,6 +50,12 @@
 - (instancetype) initWithFileName:(NSString *)fileName mode:(OZZipFileMode)mode;
 - (instancetype) initWithFileName:(NSString *)fileName mode:(OZZipFileMode)mode legacy32BitMode:(BOOL)legacy32BitMode;
 
+#pragma mark -
+#pragma mark Initialization (NSError variants)
+
+- (instancetype) initWithFileName:(NSString *)fileName mode:(OZZipFileMode)mode error:(NSError * __autoreleasing *)error;
+- (instancetype) initWithFileName:(NSString *)fileName mode:(OZZipFileMode)mode legacy32BitMode:(BOOL)legacy32BitMode error:(NSError * __autoreleasing *)error;
+
 
 #pragma mark -
 #pragma mark File writing
@@ -60,14 +66,35 @@
 
 
 #pragma mark -
+#pragma mark File writing (NSError variants)
+
+- (OZZipWriteStream *) writeFileInZipWithName:(NSString *)fileNameInZip compressionLevel:(OZZipCompressionLevel)compressionLevel error:(NSError * __autoreleasing *)error;
+- (OZZipWriteStream *) writeFileInZipWithName:(NSString *)fileNameInZip fileDate:(NSDate *)fileDate compressionLevel:(OZZipCompressionLevel)compressionLevel error:(NSError * __autoreleasing *)error;
+- (OZZipWriteStream *) writeFileInZipWithName:(NSString *)fileNameInZip fileDate:(NSDate *)fileDate compressionLevel:(OZZipCompressionLevel)compressionLevel password:(NSString *)password crc32:(NSUInteger)crc32 error:(NSError * __autoreleasing *)error;
+
+
+#pragma mark -
 #pragma mark File seeking and info
 
 - (void) goToFirstFileInZip;
 - (BOOL) goToNextFileInZip;
 - (BOOL) locateFileInZip:(NSString *)fileNameInZip;
 
+- (NSUInteger) numFilesInZip;
 - (NSArray *) listFileInZipInfos;
 - (OZFileInZipInfo *) getCurrentFileInZipInfo;
+
+
+#pragma mark -
+#pragma mark File seeking and info (NSError variants)
+
+- (void) goToFirstFileInZipWithError:(NSError * __autoreleasing *)error;
+- (BOOL) goToNextFileInZipWithError:(NSError * __autoreleasing *)error;
+- (BOOL) locateFileInZip:(NSString *)fileNameInZip error:(NSError * __autoreleasing *)error;
+
+- (NSUInteger) numFilesInZipWithError:(NSError * __autoreleasing *)error;
+- (NSArray *) listFileInZipInfosWithError:(NSError * __autoreleasing *)error;
+- (OZFileInZipInfo *) getCurrentFileInZipInfoWithError:(NSError * __autoreleasing *)error;
 
 
 #pragma mark -
@@ -78,9 +105,22 @@
 
 
 #pragma mark -
+#pragma mark File reading (NSError variants)
+
+- (OZZipReadStream *) readCurrentFileInZipWithError:(NSError * __autoreleasing *)error;
+- (OZZipReadStream *) readCurrentFileInZipWithPassword:(NSString *)password error:(NSError * __autoreleasing *)error;
+
+
+#pragma mark -
 #pragma mark Closing
 
 - (void) close;
+
+
+#pragma mark -
+#pragma mark Closing (NSError variants)
+
+- (void) closeWithError:(NSError * __autoreleasing *)error;
 
 
 #pragma mark -
@@ -89,8 +129,6 @@
 @property (nonatomic, readonly) NSString *fileName;
 @property (nonatomic, readonly) OZZipFileMode mode;
 @property (nonatomic, readonly) BOOL legacy32BitMode;
-
-@property (nonatomic, readonly) NSUInteger numFilesInZip;
 
 
 @end

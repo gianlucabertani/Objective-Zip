@@ -38,6 +38,7 @@
 
 @interface OZFileInZipInfo : NSObject
 
+
 #pragma mark -
 #pragma mark Properties
 

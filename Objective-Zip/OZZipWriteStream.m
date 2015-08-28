@@ -75,18 +75,34 @@
 
 - (void) writeData:(NSData *)data {
 	int err= zipWriteInFileInZip(_zipFile, [data bytes], (uInt) [data length]);
-	if (err < 0) {
-		NSString *reason= [NSString stringWithFormat:@"Error writing '%@' in the zipfile", _fileNameInZip];
-		@throw [[OZZipException alloc] initWithError:err reason:reason];
-	}
+	if (err < 0)
+		@throw [OZZipException zipExceptionWithError:err reason:@"Error writing '%@' in the zipfile", _fileNameInZip];
 }
 
 - (void) finishedWriting {
 	int err= zipCloseFileInZip(_zipFile);
-	if (err != ZIP_OK) {
-		NSString *reason= [NSString stringWithFormat:@"Error closing '%@' in the zipfile", _fileNameInZip];
-		@throw [[OZZipException alloc] initWithError:err reason:reason];
-	}
+	if (err != ZIP_OK)
+		@throw [OZZipException zipExceptionWithError:err reason:@"Error closing '%@' in the zipfile", _fileNameInZip];
+}
+
+
+#pragma mark -
+#pragma mark Writing data (NSError variants)
+
+- (void) writeData:(NSData *)data error:(NSError * __autoreleasing *)error {
+    ERROR_WRAP_BEGIN {
+        
+        [self writeData:data];
+        
+    } ERROR_WRAP_END(error);
+}
+
+- (void) finishedWritingWithError:(NSError * __autoreleasing *)error {
+    ERROR_WRAP_BEGIN {
+        
+        [self finishedWriting];
+        
+    } ERROR_WRAP_END(error);
 }
 
 

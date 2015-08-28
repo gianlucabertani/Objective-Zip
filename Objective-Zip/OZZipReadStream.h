@@ -44,4 +44,11 @@
 - (void) finishedReading;
 
 
+#pragma mark -
+#pragma mark Reading data (NSError variants)
+
+- (NSUInteger) readDataWithBuffer:(NSMutableData *)buffer error:(NSError * __autoreleasing *)error;
+- (void) finishedReadingWithError:(NSError * __autoreleasing *)error;
+
+
 @end

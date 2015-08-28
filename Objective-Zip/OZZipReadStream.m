@@ -75,20 +75,36 @@
 
 - (NSUInteger) readDataWithBuffer:(NSMutableData *)buffer {
 	int err= unzReadCurrentFile(_unzFile, [buffer mutableBytes], (uInt) [buffer length]);
-	if (err < 0) {
-		NSString *reason= [NSString stringWithFormat:@"Error reading '%@' in the zipfile", _fileNameInZip];
-		@throw [[OZZipException alloc] initWithError:err reason:reason];
-	}
+	if (err < 0)
+		@throw [OZZipException zipExceptionWithError:err reason:@"Error reading '%@' in the zipfile", _fileNameInZip];
 	
 	return err;
 }
 
 - (void) finishedReading {
 	int err= unzCloseCurrentFile(_unzFile);
-	if (err != UNZ_OK) {
-		NSString *reason= [NSString stringWithFormat:@"Error closing '%@' in the zipfile", _fileNameInZip];
-		@throw [[OZZipException alloc] initWithError:err reason:reason];
-	}
+	if (err != UNZ_OK)
+		@throw [OZZipException zipExceptionWithError:err reason:@"Error closing '%@' in the zipfile", _fileNameInZip];
+}
+
+
+#pragma mark -
+#pragma mark Reading data (NSError variants)
+
+- (NSUInteger) readDataWithBuffer:(NSMutableData *)buffer error:(NSError * __autoreleasing *)error {
+    ERROR_WRAP_BEGIN {
+        
+        [self readDataWithBuffer:buffer];
+        
+    } ERROR_WRAP_END(error);
+}
+
+- (void) finishedReadingWithError:(NSError * __autoreleasing *)error {
+    ERROR_WRAP_BEGIN {
+        
+        [self finishedReading];
+        
+    } ERROR_WRAP_END(error);
 }
 
 
