@@ -40,7 +40,7 @@
 #pragma mark -
 #pragma mark Initialization
 
-- (instancetype) initWithName:(NSString *)name length:(NSUInteger)length level:(OZZipCompressionLevel)level crypted:(BOOL)crypted size:(NSUInteger)size date:(NSDate *)date crc32:(NSUInteger)crc32;
+- (instancetype) initWithName:(NSString *)name length:(unsigned long long)length level:(OZZipCompressionLevel)level crypted:(BOOL)crypted size:(unsigned long long)size date:(NSDate *)date crc32:(NSUInteger)crc32;
 
 
 @end

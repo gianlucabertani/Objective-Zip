@@ -339,7 +339,7 @@
         if (err != UNZ_OK)
             @throw [OZZipException zipExceptionWithError:err reason:@"Error getting global info of '%@'", _fileName];
         
-        return gi.number_entry;
+        return (NSUInteger) gi.number_entry;
     }
 }
 
@@ -406,7 +406,13 @@
 	NSCalendar *calendar= [NSCalendar currentCalendar];
 	NSDate *date= [calendar dateFromComponents:components];
 	
-	OZFileInZipInfo *info= [[OZFileInZipInfo alloc] initWithName:name length:file_info.uncompressed_size level:level crypted:crypted size:file_info.compressed_size date:date crc32:file_info.crc];
+	OZFileInZipInfo *info= [[OZFileInZipInfo alloc] initWithName:name
+                                                          length:file_info.uncompressed_size
+                                                           level:level
+                                                         crypted:crypted
+                                                            size:file_info.compressed_size
+                                                            date:date
+                                                           crc32:file_info.crc];
 	return info;
 }
 
@@ -414,12 +420,14 @@
 #pragma mark -
 #pragma mark File seeking and info (NSError variants)
 
-- (void) goToFirstFileInZipWithError:(NSError * __autoreleasing *)error {
+- (BOOL) goToFirstFileInZipWithError:(NSError * __autoreleasing *)error {
     ERROR_WRAP_BEGIN {
         
         [self goToFirstFileInZip];
         
-    } ERROR_WRAP_END(error);
+        return YES;
+        
+    } ERROR_WRAP_END_AND_RETURN(error, NO);
 }
 
 - (BOOL) goToNextFileInZipWithError:(NSError * __autoreleasing *)error {
@@ -534,7 +542,7 @@
 #pragma mark -
 #pragma mark Closing
 
-- (void) close {
+- (BOOL) close {
 	switch (_mode) {
 		case OZZipFileModeUnzip: {
 			int err= unzClose(_unzFile);
@@ -560,17 +568,20 @@
 		default:
 			@throw [OZZipException zipExceptionWithReason:@"Unknown mode %d", _mode];
 	}
+    
+    return YES;
 }
+
 
 #pragma mark -
 #pragma mark Closing (NSError variants)
 
-- (void) closeWithError:(NSError * __autoreleasing *)error {
+- (BOOL) closeWithError:(NSError * __autoreleasing *)error {
     ERROR_WRAP_BEGIN {
         
         [self close];
         
-    } ERROR_WRAP_END(error);
+    } ERROR_WRAP_END_AND_RETURN(error, NO);
 }
 
 

@@ -88,7 +88,7 @@
 #pragma mark -
 #pragma mark File seeking and info (NSError variants)
 
-- (void) goToFirstFileInZipWithError:(NSError * __autoreleasing *)error;
+- (BOOL) goToFirstFileInZipWithError:(NSError * __autoreleasing *)error;
 - (BOOL) goToNextFileInZipWithError:(NSError * __autoreleasing *)error;
 - (BOOL) locateFileInZip:(NSString *)fileNameInZip error:(NSError * __autoreleasing *)error;
 
@@ -114,13 +114,13 @@
 #pragma mark -
 #pragma mark Closing
 
-- (void) close;
+- (BOOL) close;
 
 
 #pragma mark -
 #pragma mark Closing (NSError variants)
 
-- (void) closeWithError:(NSError * __autoreleasing *)error;
+- (BOOL) closeWithError:(NSError * __autoreleasing *)error;
 
 
 #pragma mark -

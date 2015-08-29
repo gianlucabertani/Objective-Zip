@@ -40,10 +40,10 @@
 @interface OZFileInZipInfo () {
     
 @private
-    NSUInteger _length;
+    unsigned long long _length;
     OZZipCompressionLevel _level;
     BOOL _crypted;
-    NSUInteger _size;
+    unsigned long long _size;
     NSDate *_date;
     NSUInteger _crc32;
     NSString *_name;
@@ -62,7 +62,7 @@
 #pragma mark -
 #pragma mark Initialization
 
-- (instancetype) initWithName:(NSString *)name length:(NSUInteger)length level:(OZZipCompressionLevel)level crypted:(BOOL)crypted size:(NSUInteger)size date:(NSDate *)date crc32:(NSUInteger)crc32 {
+- (instancetype) initWithName:(NSString *)name length:(unsigned long long)length level:(OZZipCompressionLevel)level crypted:(BOOL)crypted size:(unsigned long long)size date:(NSDate *)date crc32:(NSUInteger)crc32 {
 	if (self= [super init]) {
 		_name= name;
 		_length= length;

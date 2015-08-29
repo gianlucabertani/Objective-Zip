@@ -89,20 +89,24 @@
 #pragma mark -
 #pragma mark Writing data (NSError variants)
 
-- (void) writeData:(NSData *)data error:(NSError * __autoreleasing *)error {
+- (BOOL) writeData:(NSData *)data error:(NSError * __autoreleasing *)error {
     ERROR_WRAP_BEGIN {
         
         [self writeData:data];
         
-    } ERROR_WRAP_END(error);
+        return YES;
+        
+    } ERROR_WRAP_END_AND_RETURN(error, NO);
 }
 
-- (void) finishedWritingWithError:(NSError * __autoreleasing *)error {
+- (BOOL) finishedWritingWithError:(NSError * __autoreleasing *)error {
     ERROR_WRAP_BEGIN {
         
         [self finishedWriting];
         
-    } ERROR_WRAP_END(error);
+        return YES;
+        
+    } ERROR_WRAP_END_AND_RETURN(error, NO);
 }
 
 

@@ -99,12 +99,14 @@
     } ERROR_WRAP_END_AND_RETURN(error, 0);
 }
 
-- (void) finishedReadingWithError:(NSError * __autoreleasing *)error {
+- (BOOL) finishedReadingWithError:(NSError * __autoreleasing *)error {
     ERROR_WRAP_BEGIN {
         
         [self finishedReading];
         
-    } ERROR_WRAP_END(error);
+        return YES;
+        
+    } ERROR_WRAP_END_AND_RETURN(error, NO);
 }
 
 

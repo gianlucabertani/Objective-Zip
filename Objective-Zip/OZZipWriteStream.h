@@ -47,8 +47,8 @@
 #pragma mark -
 #pragma mark Writing data (NSError variants)
 
-- (void) writeData:(NSData *)data error:(NSError * __autoreleasing *)error;
-- (void) finishedWritingWithError:(NSError * __autoreleasing *)error;
+- (BOOL) writeData:(NSData *)data error:(NSError * __autoreleasing *)error;
+- (BOOL) finishedWritingWithError:(NSError * __autoreleasing *)error;
 
 
 @end

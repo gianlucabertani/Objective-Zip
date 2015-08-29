@@ -10,8 +10,8 @@
 
 #import "Objective-Zip.h"
 
-#define HUGE_TEST_BLOCK_LENGTH             (50000)
-#define HUGE_TEST_NUMBER_OF_BLOCKS        (100000)
+#define HUGE_TEST_BLOCK_LENGTH             (50000LL)
+#define HUGE_TEST_NUMBER_OF_BLOCKS        (100000LL)
 
 #define MAC_TEST_ZIP                           (@"UEsDBBQACAAIAPWF10IAAAAAAAAAAAAAAAANABAAdGVzdF9maWxlLnR4dFVYDACQCsdRjQrHUfYB9gHzT8pKTS7JLEvVjcosUPBNTFYoSS0uUUjLzEnlAgBQSwcIlXE92h4AAAAcAAAAUEsDBAoAAAAAAACG10IAAAAAAAAAAAAAAAAJABAAX19NQUNPU1gvVVgMAKAKx1GgCsdR9gH2AVBLAwQUAAgACAD1hddCAAAAAAAAAAAAAAAAGAAQAF9fTUFDT1NYLy5fdGVzdF9maWxlLnR4dFVYDACQCsdRjQrHUfYB9gFjYBVjZ2BiYPBNTFbwD1aIUIACkBgDJxAbAXElEIP4qxmIAo4hIUFQJkjHHCDmR1PCiBAXT87P1UssKMhJ1QtJrShxzUvOT8nMSwdKlpak6VpYGxqbGBmaW1qYAABQSwcIcBqNwF0AAACrAAAAUEsBAhUDFAAIAAgA9YXXQpVxPdoeAAAAHAAAAA0ADAAAAAAAAAAAQKSBAAAAAHRlc3RfZmlsZS50eHRVWAgAkArHUY0Kx1FQSwECFQMKAAAAAAAAhtdCAAAAAAAAAAAAAAAACQAMAAAAAAAAAABA/UFpAAAAX19NQUNPU1gvVVgIAKAKx1GgCsdRUEsBAhUDFAAIAAgA9YXXQnAajcBdAAAAqwAAABgADAAAAAAAAAAAQKSBoAAAAF9fTUFDT1NYLy5fdGVzdF9maWxlLnR4dFVYCACQCsdRjQrHUVBLBQYAAAAAAwADANwAAABTAQAAAAA=")
 #define WIN_TEST_ZIP                           (@"UEsDBBQAAAAAAMmF10L4VbPKIQAAACEAAAANAAAAdGVzdF9maWxlLnR4dE9iamVjdGl2ZS1aaXAgV2luZG93cyB0ZXN0IGZpbGUNClBLAQIUABQAAAAAAMmF10L4VbPKIQAAACEAAAANAAAAAAAAAAEAIAAAAAAAAAB0ZXN0X2ZpbGUudHh0UEsFBgAAAAABAAEAOwAAAEwAAAAAAA==")
@@ -218,7 +218,7 @@
             [stream writeData:data];
             
             if (i % 100 == 0)
-                NSLog(@"Test 2: written %lu KB...", ([data length] / 1024) * (i +1));
+                NSLog(@"Test 2: written %lu KB...", (unsigned long) ([data length] / 1024) * (i +1));
         }
         
         NSLog(@"Test 2: closing file's stream...");
@@ -234,6 +234,18 @@
         OZZipFile *unzipFile= [[OZZipFile alloc] initWithFileName:filePath mode:OZZipFileModeUnzip];
         
         XCTAssertNotNil(unzipFile);
+        
+        NSLog(@"Test 1: reading file infos...");
+        
+        NSArray *infos= [unzipFile listFileInZipInfos];
+        
+        XCTAssertEqual(1, infos.count);
+        
+        OZFileInZipInfo *info1= [infos objectAtIndex:0];
+        
+        XCTAssertEqual(info1.length, HUGE_TEST_NUMBER_OF_BLOCKS * HUGE_TEST_BLOCK_LENGTH);
+        
+        NSLog(@"Test 1: - %@ %@ %lu (%d)", info1.name, info1.date, (unsigned long) info1.size, info1.level);
         
         NSLog(@"Test 2: opening file...");
         
@@ -254,7 +266,7 @@
             XCTAssertEqual(0, range.location);
             
             if (i % 100 == 0)
-                NSLog(@"Test 2: read %lu KB...", ([buffer length] / 1024) * (i +1));
+                NSLog(@"Test 2: read %lu KB...", (unsigned long) ([buffer length] / 1024) * (i +1));
         }
         
         NSLog(@"Test 2: closing file's stream...");
