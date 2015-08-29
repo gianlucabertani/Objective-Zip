@@ -7,59 +7,89 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		1D3623260D0F684500981E51 /* Objective_ZipAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D3623250D0F684500981E51 /* Objective_ZipAppDelegate.m */; };
-		1D60589B0D05DD56006BFB54 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; };
-		1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
-		1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
-		288765A50DF7441C002DB57D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 288765A40DF7441C002DB57D /* CoreGraphics.framework */; };
-		2899E5220DE3E06400AC0155 /* Objective_ZipViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2899E5210DE3E06400AC0155 /* Objective_ZipViewController.xib */; };
-		28AD733F0D9D9553002E5188 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28AD733E0D9D9553002E5188 /* MainWindow.xib */; };
-		28D7ACF80DDB3853001CB0EB /* Objective_ZipViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 28D7ACF70DDB3853001CB0EB /* Objective_ZipViewController.m */; };
-		8C14E8191773A09F00B84597 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8C14E8181773A09F00B84597 /* Security.framework */; };
-		8C1D598D1771057D006D69C3 /* GETTING_STARTED.md in Resources */ = {isa = PBXBuildFile; fileRef = 8C1D598B1771057D006D69C3 /* GETTING_STARTED.md */; };
-		8C1D598E1771057D006D69C3 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 8C1D598C1771057D006D69C3 /* README.md */; };
-		8C6D352D10E56A9000B63EFA /* ioapi.c in Sources */ = {isa = PBXBuildFile; fileRef = 8C6D352510E56A9000B63EFA /* ioapi.c */; };
-		8C6D352F10E56A9000B63EFA /* unzip.c in Sources */ = {isa = PBXBuildFile; fileRef = 8C6D352910E56A9000B63EFA /* unzip.c */; };
-		8C6D353010E56A9000B63EFA /* zip.c in Sources */ = {isa = PBXBuildFile; fileRef = 8C6D352B10E56A9000B63EFA /* zip.c */; };
-		8C6D354010E56BD300B63EFA /* OZZipFile.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C6D353F10E56BD300B63EFA /* OZZipFile.m */; };
-		8C6D356B10E56F4D00B63EFA /* OZZipException.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C6D356A10E56F4D00B63EFA /* OZZipException.m */; };
-		8C6D357610E5797600B63EFA /* OZZipWriteStream.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C6D357510E5797600B63EFA /* OZZipWriteStream.m */; };
-		8C83F49510E7CBCB002FB3CB /* OZFileInZipInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C83F49410E7CBCB002FB3CB /* OZFileInZipInfo.m */; };
-		8C8F2D3A10EBC94B00F75833 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 8C8F2D3910EBC94B00F75833 /* Default.png */; };
-		8C8F2D9310EBCE0300F75833 /* ObjectiveZipIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 8C8F2D9210EBCE0300F75833 /* ObjectiveZipIcon.png */; };
-		8CBE431810E95FA300AC9ED3 /* OZZipReadStream.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CBE431710E95FA300AC9ED3 /* OZZipReadStream.m */; };
-		8CD8B40317766067005212EC /* adler32.c in Sources */ = {isa = PBXBuildFile; fileRef = 8CD8B3E917766067005212EC /* adler32.c */; };
-		8CD8B40417766067005212EC /* compress.c in Sources */ = {isa = PBXBuildFile; fileRef = 8CD8B3EA17766067005212EC /* compress.c */; };
-		8CD8B40517766067005212EC /* crc32.c in Sources */ = {isa = PBXBuildFile; fileRef = 8CD8B3EB17766067005212EC /* crc32.c */; };
-		8CD8B40617766067005212EC /* deflate.c in Sources */ = {isa = PBXBuildFile; fileRef = 8CD8B3ED17766067005212EC /* deflate.c */; };
-		8CD8B40717766067005212EC /* gzclose.c in Sources */ = {isa = PBXBuildFile; fileRef = 8CD8B3EF17766067005212EC /* gzclose.c */; };
-		8CD8B40817766067005212EC /* gzlib.c in Sources */ = {isa = PBXBuildFile; fileRef = 8CD8B3F117766067005212EC /* gzlib.c */; };
-		8CD8B40917766067005212EC /* gzread.c in Sources */ = {isa = PBXBuildFile; fileRef = 8CD8B3F217766067005212EC /* gzread.c */; };
-		8CD8B40A17766067005212EC /* gzwrite.c in Sources */ = {isa = PBXBuildFile; fileRef = 8CD8B3F317766067005212EC /* gzwrite.c */; };
-		8CD8B40B17766067005212EC /* infback.c in Sources */ = {isa = PBXBuildFile; fileRef = 8CD8B3F417766067005212EC /* infback.c */; };
-		8CD8B40C17766067005212EC /* inffast.c in Sources */ = {isa = PBXBuildFile; fileRef = 8CD8B3F517766067005212EC /* inffast.c */; };
-		8CD8B40D17766067005212EC /* inflate.c in Sources */ = {isa = PBXBuildFile; fileRef = 8CD8B3F817766067005212EC /* inflate.c */; };
-		8CD8B40E17766067005212EC /* inftrees.c in Sources */ = {isa = PBXBuildFile; fileRef = 8CD8B3FA17766067005212EC /* inftrees.c */; };
-		8CD8B40F17766067005212EC /* trees.c in Sources */ = {isa = PBXBuildFile; fileRef = 8CD8B3FC17766067005212EC /* trees.c */; };
-		8CD8B41017766067005212EC /* uncompr.c in Sources */ = {isa = PBXBuildFile; fileRef = 8CD8B3FE17766067005212EC /* uncompr.c */; };
-		8CD8B41117766067005212EC /* zutil.c in Sources */ = {isa = PBXBuildFile; fileRef = 8CD8B40117766067005212EC /* zutil.c */; };
-		8CE370031777427E0082BEE9 /* mac_test_file.zip in Resources */ = {isa = PBXBuildFile; fileRef = 8CE370011777427E0082BEE9 /* mac_test_file.zip */; };
-		8CE370041777427E0082BEE9 /* win_test_file.zip in Resources */ = {isa = PBXBuildFile; fileRef = 8CE370021777427E0082BEE9 /* win_test_file.zip */; };
+		8CC2FC631B91E63E00D5E05F /* libObjective-Zip.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8CC2FC581B91E63E00D5E05F /* libObjective-Zip.a */; };
+		8CC2FC7E1B91E65200D5E05F /* libObjective-Zip_OS_X.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8CC2FC731B91E65200D5E05F /* libObjective-Zip_OS_X.a */; };
+		8CC2FC8A1B91E6F000D5E05F /* OZZipFile.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C6D353F10E56BD300B63EFA /* OZZipFile.m */; };
+		8CC2FC8B1B91E6F000D5E05F /* OZZipException.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C6D356A10E56F4D00B63EFA /* OZZipException.m */; };
+		8CC2FC8C1B91E6F000D5E05F /* OZZipWriteStream.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C6D357510E5797600B63EFA /* OZZipWriteStream.m */; };
+		8CC2FC8D1B91E6F000D5E05F /* OZFileInZipInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C83F49410E7CBCB002FB3CB /* OZFileInZipInfo.m */; };
+		8CC2FC8E1B91E6F000D5E05F /* OZZipReadStream.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CBE431710E95FA300AC9ED3 /* OZZipReadStream.m */; };
+		8CC2FC8F1B91E6FD00D5E05F /* ioapi.c in Sources */ = {isa = PBXBuildFile; fileRef = 8C6D352510E56A9000B63EFA /* ioapi.c */; };
+		8CC2FC901B91E6FD00D5E05F /* unzip.c in Sources */ = {isa = PBXBuildFile; fileRef = 8C6D352910E56A9000B63EFA /* unzip.c */; };
+		8CC2FC911B91E6FD00D5E05F /* zip.c in Sources */ = {isa = PBXBuildFile; fileRef = 8C6D352B10E56A9000B63EFA /* zip.c */; };
+		8CC2FC921B91E6FD00D5E05F /* adler32.c in Sources */ = {isa = PBXBuildFile; fileRef = 8CD8B3E917766067005212EC /* adler32.c */; };
+		8CC2FC931B91E6FD00D5E05F /* compress.c in Sources */ = {isa = PBXBuildFile; fileRef = 8CD8B3EA17766067005212EC /* compress.c */; };
+		8CC2FC941B91E6FD00D5E05F /* crc32.c in Sources */ = {isa = PBXBuildFile; fileRef = 8CD8B3EB17766067005212EC /* crc32.c */; };
+		8CC2FC951B91E6FD00D5E05F /* deflate.c in Sources */ = {isa = PBXBuildFile; fileRef = 8CD8B3ED17766067005212EC /* deflate.c */; };
+		8CC2FC961B91E6FD00D5E05F /* gzclose.c in Sources */ = {isa = PBXBuildFile; fileRef = 8CD8B3EF17766067005212EC /* gzclose.c */; };
+		8CC2FC971B91E6FD00D5E05F /* gzlib.c in Sources */ = {isa = PBXBuildFile; fileRef = 8CD8B3F117766067005212EC /* gzlib.c */; };
+		8CC2FC981B91E6FD00D5E05F /* gzread.c in Sources */ = {isa = PBXBuildFile; fileRef = 8CD8B3F217766067005212EC /* gzread.c */; };
+		8CC2FC991B91E6FD00D5E05F /* gzwrite.c in Sources */ = {isa = PBXBuildFile; fileRef = 8CD8B3F317766067005212EC /* gzwrite.c */; };
+		8CC2FC9A1B91E6FD00D5E05F /* infback.c in Sources */ = {isa = PBXBuildFile; fileRef = 8CD8B3F417766067005212EC /* infback.c */; };
+		8CC2FC9B1B91E6FD00D5E05F /* inffast.c in Sources */ = {isa = PBXBuildFile; fileRef = 8CD8B3F517766067005212EC /* inffast.c */; };
+		8CC2FC9C1B91E6FD00D5E05F /* inflate.c in Sources */ = {isa = PBXBuildFile; fileRef = 8CD8B3F817766067005212EC /* inflate.c */; };
+		8CC2FC9D1B91E6FD00D5E05F /* inftrees.c in Sources */ = {isa = PBXBuildFile; fileRef = 8CD8B3FA17766067005212EC /* inftrees.c */; };
+		8CC2FC9E1B91E6FD00D5E05F /* trees.c in Sources */ = {isa = PBXBuildFile; fileRef = 8CD8B3FC17766067005212EC /* trees.c */; };
+		8CC2FC9F1B91E6FD00D5E05F /* uncompr.c in Sources */ = {isa = PBXBuildFile; fileRef = 8CD8B3FE17766067005212EC /* uncompr.c */; };
+		8CC2FCA01B91E6FD00D5E05F /* zutil.c in Sources */ = {isa = PBXBuildFile; fileRef = 8CD8B40117766067005212EC /* zutil.c */; };
+		8CC2FCA11B91E70D00D5E05F /* OZZipFile.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C6D353F10E56BD300B63EFA /* OZZipFile.m */; };
+		8CC2FCA21B91E70D00D5E05F /* OZZipException.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C6D356A10E56F4D00B63EFA /* OZZipException.m */; };
+		8CC2FCA31B91E70D00D5E05F /* OZZipWriteStream.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C6D357510E5797600B63EFA /* OZZipWriteStream.m */; };
+		8CC2FCA41B91E70D00D5E05F /* OZFileInZipInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C83F49410E7CBCB002FB3CB /* OZFileInZipInfo.m */; };
+		8CC2FCA51B91E70D00D5E05F /* OZZipReadStream.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CBE431710E95FA300AC9ED3 /* OZZipReadStream.m */; };
+		8CC2FCA61B91E71700D5E05F /* ioapi.c in Sources */ = {isa = PBXBuildFile; fileRef = 8C6D352510E56A9000B63EFA /* ioapi.c */; };
+		8CC2FCA71B91E71700D5E05F /* unzip.c in Sources */ = {isa = PBXBuildFile; fileRef = 8C6D352910E56A9000B63EFA /* unzip.c */; };
+		8CC2FCA81B91E71700D5E05F /* zip.c in Sources */ = {isa = PBXBuildFile; fileRef = 8C6D352B10E56A9000B63EFA /* zip.c */; };
+		8CC2FCA91B91E71700D5E05F /* adler32.c in Sources */ = {isa = PBXBuildFile; fileRef = 8CD8B3E917766067005212EC /* adler32.c */; };
+		8CC2FCAA1B91E71700D5E05F /* compress.c in Sources */ = {isa = PBXBuildFile; fileRef = 8CD8B3EA17766067005212EC /* compress.c */; };
+		8CC2FCAB1B91E71700D5E05F /* crc32.c in Sources */ = {isa = PBXBuildFile; fileRef = 8CD8B3EB17766067005212EC /* crc32.c */; };
+		8CC2FCAC1B91E71700D5E05F /* deflate.c in Sources */ = {isa = PBXBuildFile; fileRef = 8CD8B3ED17766067005212EC /* deflate.c */; };
+		8CC2FCAD1B91E71700D5E05F /* gzclose.c in Sources */ = {isa = PBXBuildFile; fileRef = 8CD8B3EF17766067005212EC /* gzclose.c */; };
+		8CC2FCAE1B91E71700D5E05F /* gzlib.c in Sources */ = {isa = PBXBuildFile; fileRef = 8CD8B3F117766067005212EC /* gzlib.c */; };
+		8CC2FCAF1B91E71700D5E05F /* gzread.c in Sources */ = {isa = PBXBuildFile; fileRef = 8CD8B3F217766067005212EC /* gzread.c */; };
+		8CC2FCB01B91E71700D5E05F /* gzwrite.c in Sources */ = {isa = PBXBuildFile; fileRef = 8CD8B3F317766067005212EC /* gzwrite.c */; };
+		8CC2FCB11B91E71700D5E05F /* infback.c in Sources */ = {isa = PBXBuildFile; fileRef = 8CD8B3F417766067005212EC /* infback.c */; };
+		8CC2FCB21B91E71700D5E05F /* inffast.c in Sources */ = {isa = PBXBuildFile; fileRef = 8CD8B3F517766067005212EC /* inffast.c */; };
+		8CC2FCB31B91E71700D5E05F /* inflate.c in Sources */ = {isa = PBXBuildFile; fileRef = 8CD8B3F817766067005212EC /* inflate.c */; };
+		8CC2FCB41B91E71700D5E05F /* inftrees.c in Sources */ = {isa = PBXBuildFile; fileRef = 8CD8B3FA17766067005212EC /* inftrees.c */; };
+		8CC2FCB51B91E71700D5E05F /* trees.c in Sources */ = {isa = PBXBuildFile; fileRef = 8CD8B3FC17766067005212EC /* trees.c */; };
+		8CC2FCB61B91E71700D5E05F /* uncompr.c in Sources */ = {isa = PBXBuildFile; fileRef = 8CD8B3FE17766067005212EC /* uncompr.c */; };
+		8CC2FCB71B91E71700D5E05F /* zutil.c in Sources */ = {isa = PBXBuildFile; fileRef = 8CD8B40117766067005212EC /* zutil.c */; };
+		8CC2FCB91B91EB3500D5E05F /* ObjectiveZip_Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CC2FCB81B91EB3500D5E05F /* ObjectiveZip_Tests.m */; };
+		8CC2FCBA1B91EB3500D5E05F /* ObjectiveZip_Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CC2FCB81B91EB3500D5E05F /* ObjectiveZip_Tests.m */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		8CC2FC641B91E63E00D5E05F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 8CC2FC571B91E63E00D5E05F;
+			remoteInfo = "Objective-Zip";
+		};
+		8CC2FC7F1B91E65200D5E05F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 8CC2FC721B91E65200D5E05F;
+			remoteInfo = "Objective-Zip OS X";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		8CC2FC561B91E63E00D5E05F /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "include/$(PRODUCT_NAME)";
+			dstSubfolderSpec = 16;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		1D30AB110D05D00D00671497 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
-		1D3623240D0F684500981E51 /* Objective_ZipAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Objective_ZipAppDelegate.h; sourceTree = "<group>"; };
-		1D3623250D0F684500981E51 /* Objective_ZipAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Objective_ZipAppDelegate.m; sourceTree = "<group>"; };
-		1D6058910D05DD3D006BFB54 /* Objective-Zip.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Objective-Zip.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		1DF5F4DF0D08C38300B7A737 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
-		288765A40DF7441C002DB57D /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
-		2899E5210DE3E06400AC0155 /* Objective_ZipViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = Objective_ZipViewController.xib; sourceTree = "<group>"; };
-		28AD733E0D9D9553002E5188 /* MainWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainWindow.xib; sourceTree = "<group>"; };
-		28D7ACF60DDB3853001CB0EB /* Objective_ZipViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Objective_ZipViewController.h; sourceTree = "<group>"; };
-		28D7ACF70DDB3853001CB0EB /* Objective_ZipViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Objective_ZipViewController.m; sourceTree = "<group>"; };
-		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		32CA4F630368D1EE00C91783 /* Objective_Zip_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Objective_Zip_Prefix.pch; sourceTree = "<group>"; };
 		8C14E8181773A09F00B84597 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		8C1D598B1771057D006D69C3 /* GETTING_STARTED.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = GETTING_STARTED.md; sourceTree = "<group>"; };
 		8C1D598C1771057D006D69C3 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
@@ -78,10 +108,14 @@
 		8C6D357510E5797600B63EFA /* OZZipWriteStream.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OZZipWriteStream.m; path = "Objective-Zip/OZZipWriteStream.m"; sourceTree = "<group>"; };
 		8C83F49310E7CBCB002FB3CB /* OZFileInZipInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OZFileInZipInfo.h; path = "Objective-Zip/OZFileInZipInfo.h"; sourceTree = "<group>"; };
 		8C83F49410E7CBCB002FB3CB /* OZFileInZipInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OZFileInZipInfo.m; path = "Objective-Zip/OZFileInZipInfo.m"; sourceTree = "<group>"; };
-		8C8F2D3910EBC94B00F75833 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
-		8C8F2D9210EBCE0300F75833 /* ObjectiveZipIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ObjectiveZipIcon.png; sourceTree = "<group>"; };
 		8CBE431610E95FA300AC9ED3 /* OZZipReadStream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OZZipReadStream.h; path = "Objective-Zip/OZZipReadStream.h"; sourceTree = "<group>"; };
 		8CBE431710E95FA300AC9ED3 /* OZZipReadStream.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OZZipReadStream.m; path = "Objective-Zip/OZZipReadStream.m"; sourceTree = "<group>"; };
+		8CC2FC581B91E63E00D5E05F /* libObjective-Zip.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libObjective-Zip.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		8CC2FC621B91E63E00D5E05F /* Objective-Zip Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Objective-Zip Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		8CC2FC681B91E63E00D5E05F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8CC2FC731B91E65200D5E05F /* libObjective-Zip_OS_X.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libObjective-Zip_OS_X.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		8CC2FC7D1B91E65200D5E05F /* Objective-Zip OS X Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Objective-Zip OS X Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		8CC2FCB81B91EB3500D5E05F /* ObjectiveZip_Tests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ObjectiveZip_Tests.m; path = "Objective-Zip Tests/ObjectiveZip_Tests.m"; sourceTree = SOURCE_ROOT; };
 		8CC6A7931B8F5B360062D97E /* Objective-Zip.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "Objective-Zip.h"; path = "Objective-Zip/Objective-Zip.h"; sourceTree = "<group>"; };
 		8CC6A7941B8F5C370062D97E /* OZZipFileMode.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = OZZipFileMode.h; path = "Objective-Zip/OZZipFileMode.h"; sourceTree = "<group>"; };
 		8CC6A7951B8F5C810062D97E /* OZZipCompressionLevel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = OZZipCompressionLevel.h; path = "Objective-Zip/OZZipCompressionLevel.h"; sourceTree = "<group>"; };
@@ -115,41 +149,49 @@
 		8CD8B40017766067005212EC /* zlib.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = zlib.h; path = ZLib/zlib.h; sourceTree = "<group>"; };
 		8CD8B40117766067005212EC /* zutil.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = zutil.c; path = ZLib/zutil.c; sourceTree = "<group>"; };
 		8CD8B40217766067005212EC /* zutil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = zutil.h; path = ZLib/zutil.h; sourceTree = "<group>"; };
-		8CE370011777427E0082BEE9 /* mac_test_file.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = mac_test_file.zip; sourceTree = "<group>"; };
-		8CE370021777427E0082BEE9 /* win_test_file.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = win_test_file.zip; sourceTree = "<group>"; };
-		8D1107310486CEB800E47090 /* Objective_Zip-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Objective_Zip-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		1D60588F0D05DD3D006BFB54 /* Frameworks */ = {
+		8CC2FC551B91E63E00D5E05F /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8C14E8191773A09F00B84597 /* Security.framework in Frameworks */,
-				1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */,
-				1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */,
-				288765A50DF7441C002DB57D /* CoreGraphics.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8CC2FC5F1B91E63E00D5E05F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8CC2FC631B91E63E00D5E05F /* libObjective-Zip.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8CC2FC701B91E65200D5E05F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8CC2FC7A1B91E65200D5E05F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8CC2FC7E1B91E65200D5E05F /* libObjective-Zip_OS_X.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		080E96DDFE201D6D7F000001 /* Classes */ = {
-			isa = PBXGroup;
-			children = (
-				1D3623240D0F684500981E51 /* Objective_ZipAppDelegate.h */,
-				1D3623250D0F684500981E51 /* Objective_ZipAppDelegate.m */,
-				28D7ACF60DDB3853001CB0EB /* Objective_ZipViewController.h */,
-				28D7ACF70DDB3853001CB0EB /* Objective_ZipViewController.m */,
-			);
-			path = Classes;
-			sourceTree = "<group>";
-		};
 		19C28FACFE9D520D11CA2CBB /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				1D6058910D05DD3D006BFB54 /* Objective-Zip.app */,
+				8CC2FC581B91E63E00D5E05F /* libObjective-Zip.a */,
+				8CC2FC621B91E63E00D5E05F /* Objective-Zip Tests.xctest */,
+				8CC2FC731B91E65200D5E05F /* libObjective-Zip_OS_X.a */,
+				8CC2FC7D1B91E65200D5E05F /* Objective-Zip OS X Tests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -160,9 +202,7 @@
 				8C6D353B10E56BA400B63EFA /* Objective-Zip */,
 				8C6D350110E56A4B00B63EFA /* MiniZip */,
 				8CD8B3E817766056005212EC /* ZLib */,
-				080E96DDFE201D6D7F000001 /* Classes */,
-				29B97315FDCFA39411CA2CEA /* Other Sources */,
-				29B97317FDCFA39411CA2CEA /* Resources */,
+				8CC2FC661B91E63E00D5E05F /* Objective-Zip Tests */,
 				29B97323FDCFA39411CA2CEA /* Frameworks */,
 				19C28FACFE9D520D11CA2CBB /* Products */,
 				8C1D598B1771057D006D69C3 /* GETTING_STARTED.md */,
@@ -171,36 +211,11 @@
 			name = CustomTemplate;
 			sourceTree = "<group>";
 		};
-		29B97315FDCFA39411CA2CEA /* Other Sources */ = {
-			isa = PBXGroup;
-			children = (
-				32CA4F630368D1EE00C91783 /* Objective_Zip_Prefix.pch */,
-				29B97316FDCFA39411CA2CEA /* main.m */,
-			);
-			name = "Other Sources";
-			sourceTree = "<group>";
-		};
-		29B97317FDCFA39411CA2CEA /* Resources */ = {
-			isa = PBXGroup;
-			children = (
-				8CE370011777427E0082BEE9 /* mac_test_file.zip */,
-				8CE370021777427E0082BEE9 /* win_test_file.zip */,
-				8C8F2D9210EBCE0300F75833 /* ObjectiveZipIcon.png */,
-				8C8F2D3910EBC94B00F75833 /* Default.png */,
-				2899E5210DE3E06400AC0155 /* Objective_ZipViewController.xib */,
-				28AD733E0D9D9553002E5188 /* MainWindow.xib */,
-				8D1107310486CEB800E47090 /* Objective_Zip-Info.plist */,
-			);
-			name = Resources;
-			sourceTree = "<group>";
-		};
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
 				8C14E8181773A09F00B84597 /* Security.framework */,
-				1DF5F4DF0D08C38300B7A737 /* UIKit.framework */,
 				1D30AB110D05D00D00671497 /* Foundation.framework */,
-				288765A40DF7441C002DB57D /* CoreGraphics.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -243,6 +258,25 @@
 			name = "Objective-Zip";
 			sourceTree = "<group>";
 		};
+		8CC2FC661B91E63E00D5E05F /* Objective-Zip Tests */ = {
+			isa = PBXGroup;
+			children = (
+				8CC2FCB81B91EB3500D5E05F /* ObjectiveZip_Tests.m */,
+				8CC2FC671B91E63E00D5E05F /* Supporting Files */,
+			);
+			name = "Objective-Zip Tests";
+			path = "Objective-ZipTests";
+			sourceTree = "<group>";
+		};
+		8CC2FC671B91E63E00D5E05F /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				8CC2FC681B91E63E00D5E05F /* Info.plist */,
+			);
+			name = "Supporting Files";
+			path = "../Objective-Zip Tests";
+			sourceTree = "<group>";
+		};
 		8CD8B3E817766056005212EC /* ZLib */ = {
 			isa = PBXGroup;
 			children = (
@@ -278,14 +312,25 @@
 		};
 /* End PBXGroup section */
 
+/* Begin PBXHeadersBuildPhase section */
+		8CC2FC711B91E65200D5E05F /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
 /* Begin PBXNativeTarget section */
-		1D6058900D05DD3D006BFB54 /* Objective-Zip */ = {
+		8CC2FC571B91E63E00D5E05F /* Objective-Zip */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 1D6058960D05DD3E006BFB54 /* Build configuration list for PBXNativeTarget "Objective-Zip" */;
+			buildConfigurationList = 8CC2FC691B91E63E00D5E05F /* Build configuration list for PBXNativeTarget "Objective-Zip" */;
 			buildPhases = (
-				1D60588D0D05DD3D006BFB54 /* Resources */,
-				1D60588E0D05DD3D006BFB54 /* Sources */,
-				1D60588F0D05DD3D006BFB54 /* Frameworks */,
+				8CC2FC541B91E63E00D5E05F /* Sources */,
+				8CC2FC551B91E63E00D5E05F /* Frameworks */,
+				8CC2FC561B91E63E00D5E05F /* CopyFiles */,
+				8CC2FCBC1B91ECB000D5E05F /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -293,8 +338,61 @@
 			);
 			name = "Objective-Zip";
 			productName = "Objective-Zip";
-			productReference = 1D6058910D05DD3D006BFB54 /* Objective-Zip.app */;
-			productType = "com.apple.product-type.application";
+			productReference = 8CC2FC581B91E63E00D5E05F /* libObjective-Zip.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		8CC2FC611B91E63E00D5E05F /* Objective-Zip Tests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8CC2FC6C1B91E63E00D5E05F /* Build configuration list for PBXNativeTarget "Objective-Zip Tests" */;
+			buildPhases = (
+				8CC2FC5E1B91E63E00D5E05F /* Sources */,
+				8CC2FC5F1B91E63E00D5E05F /* Frameworks */,
+				8CC2FC601B91E63E00D5E05F /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				8CC2FC651B91E63E00D5E05F /* PBXTargetDependency */,
+			);
+			name = "Objective-Zip Tests";
+			productName = "Objective-ZipTests";
+			productReference = 8CC2FC621B91E63E00D5E05F /* Objective-Zip Tests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		8CC2FC721B91E65200D5E05F /* Objective-Zip OS X */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8CC2FC841B91E65300D5E05F /* Build configuration list for PBXNativeTarget "Objective-Zip OS X" */;
+			buildPhases = (
+				8CC2FC6F1B91E65200D5E05F /* Sources */,
+				8CC2FC701B91E65200D5E05F /* Frameworks */,
+				8CC2FC711B91E65200D5E05F /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Objective-Zip OS X";
+			productName = "Objective-Zip OS X";
+			productReference = 8CC2FC731B91E65200D5E05F /* libObjective-Zip_OS_X.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		8CC2FC7C1B91E65200D5E05F /* Objective-Zip OS X Tests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8CC2FC871B91E65300D5E05F /* Build configuration list for PBXNativeTarget "Objective-Zip OS X Tests" */;
+			buildPhases = (
+				8CC2FC791B91E65200D5E05F /* Sources */,
+				8CC2FC7A1B91E65200D5E05F /* Frameworks */,
+				8CC2FC7B1B91E65200D5E05F /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				8CC2FC801B91E65200D5E05F /* PBXTargetDependency */,
+			);
+			name = "Objective-Zip OS X Tests";
+			productName = "Objective-Zip OS XTests";
+			productReference = 8CC2FC7D1B91E65200D5E05F /* Objective-Zip OS X Tests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
 
@@ -303,6 +401,20 @@
 			isa = PBXProject;
 			attributes = {
 				LastUpgradeCheck = 0640;
+				TargetAttributes = {
+					8CC2FC571B91E63E00D5E05F = {
+						CreatedOnToolsVersion = 6.4;
+					};
+					8CC2FC611B91E63E00D5E05F = {
+						CreatedOnToolsVersion = 6.4;
+					};
+					8CC2FC721B91E65200D5E05F = {
+						CreatedOnToolsVersion = 6.4;
+					};
+					8CC2FC7C1B91E65200D5E05F = {
+						CreatedOnToolsVersion = 6.4;
+					};
+				};
 			};
 			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "Objective-Zip" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -318,117 +430,486 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				1D6058900D05DD3D006BFB54 /* Objective-Zip */,
+				8CC2FC571B91E63E00D5E05F /* Objective-Zip */,
+				8CC2FC611B91E63E00D5E05F /* Objective-Zip Tests */,
+				8CC2FC721B91E65200D5E05F /* Objective-Zip OS X */,
+				8CC2FC7C1B91E65200D5E05F /* Objective-Zip OS X Tests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		1D60588D0D05DD3D006BFB54 /* Resources */ = {
+		8CC2FC601B91E63E00D5E05F /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				28AD733F0D9D9553002E5188 /* MainWindow.xib in Resources */,
-				2899E5220DE3E06400AC0155 /* Objective_ZipViewController.xib in Resources */,
-				8C8F2D3A10EBC94B00F75833 /* Default.png in Resources */,
-				8C8F2D9310EBCE0300F75833 /* ObjectiveZipIcon.png in Resources */,
-				8C1D598D1771057D006D69C3 /* GETTING_STARTED.md in Resources */,
-				8C1D598E1771057D006D69C3 /* README.md in Resources */,
-				8CE370031777427E0082BEE9 /* mac_test_file.zip in Resources */,
-				8CE370041777427E0082BEE9 /* win_test_file.zip in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8CC2FC7B1B91E65200D5E05F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		8CC2FCBC1B91ECB000D5E05F /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "##########################################\n#\n# c.f. http://stackoverflow.com/questions/3520977/build-fat-static-library-device-simulator-using-xcode-and-sdk-4\n#\n# Version 2.7\n#\n# Latest Change:\n# - Supports iPhone 5 / iPod Touch 5 (uses Apple's workaround to lipo bug)\n#\n# Purpose:\n#   Automatically create a Universal static library for iPhone + iPad + iPhone Simulator from within XCode\n#\n# Author: Adam Martin - http://twitter.com/redglassesapps\n# Based on: original script from Eonil (main changes: Eonil's script WILL NOT WORK in Xcode GUI - it WILL CRASH YOUR COMPUTER)\n#\n\nset -e\nset -o pipefail\n\n#################[ Tests: helps workaround any future bugs in Xcode ]########\n#\nDEBUG_THIS_SCRIPT=\"false\"\n\nif [ $DEBUG_THIS_SCRIPT = \"true\" ]\nthen\necho \"########### TESTS #############\"\necho \"Use the following variables when debugging this script; note that they may change on recursions\"\necho \"BUILD_DIR = $BUILD_DIR\"\necho \"BUILD_ROOT = $BUILD_ROOT\"\necho \"CONFIGURATION_BUILD_DIR = $CONFIGURATION_BUILD_DIR\"\necho \"BUILT_PRODUCTS_DIR = $BUILT_PRODUCTS_DIR\"\necho \"CONFIGURATION_TEMP_DIR = $CONFIGURATION_TEMP_DIR\"\necho \"TARGET_BUILD_DIR = $TARGET_BUILD_DIR\"\nfi\n\n#####################[ part 1 ]##################\n# First, work out the BASESDK version number (NB: Apple ought to report this, but they hide it)\n#    (incidental: searching for substrings in sh is a nightmare! Sob)\n\nSDK_VERSION=$(echo ${SDK_NAME} | grep -o '.\\{3\\}$')\n\n# Next, work out if we're in SIM or DEVICE\n\nif [ ${PLATFORM_NAME} = \"iphonesimulator\" ]\nthen\nOTHER_SDK_TO_BUILD=iphoneos${SDK_VERSION}\nelse\nOTHER_SDK_TO_BUILD=iphonesimulator${SDK_VERSION}\nfi\n\necho \"XCode has selected SDK: ${PLATFORM_NAME} with version: ${SDK_VERSION} (although back-targetting: ${IPHONEOS_DEPLOYMENT_TARGET})\"\necho \"...therefore, OTHER_SDK_TO_BUILD = ${OTHER_SDK_TO_BUILD}\"\n#\n#####################[ end of part 1 ]##################\n\n#####################[ part 2 ]##################\n#\n# IF this is the original invocation, invoke WHATEVER other builds are required\n#\n# Xcode is already building ONE target...\n#\n# ...but this is a LIBRARY, so Apple is wrong to set it to build just one.\n# ...we need to build ALL targets\n# ...we MUST NOT re-build the target that is ALREADY being built: Xcode WILL CRASH YOUR COMPUTER if you try this (infinite recursion!)\n#\n#\n# So: build ONLY the missing platforms/configurations.\n\nif [ \"true\" == ${ALREADYINVOKED:-false} ]\nthen\necho \"RECURSION: I am NOT the root invocation, so I'm NOT going to recurse\"\nelse\n# CRITICAL:\n# Prevent infinite recursion (Xcode sucks)\nexport ALREADYINVOKED=\"true\"\n\necho \"RECURSION: I am the root ... recursing all missing build targets NOW...\"\necho \"RECURSION: ...about to invoke: xcodebuild -configuration \\\"${CONFIGURATION}\\\" -project \\\"${PROJECT_NAME}.xcodeproj\\\" -target \\\"${TARGET_NAME}\\\" -sdk \\\"${OTHER_SDK_TO_BUILD}\\\" ${ACTION} RUN_CLANG_STATIC_ANALYZER=NO\" BUILD_DIR=\\\"${BUILD_DIR}\\\" BUILD_ROOT=\\\"${BUILD_ROOT}\\\" SYMROOT=\\\"${SYMROOT}\\\"\n\nxcodebuild -configuration \"${CONFIGURATION}\" -project \"${PROJECT_NAME}.xcodeproj\" -target \"${TARGET_NAME}\" -sdk \"${OTHER_SDK_TO_BUILD}\" ${ACTION} RUN_CLANG_STATIC_ANALYZER=NO BUILD_DIR=\"${BUILD_DIR}\" BUILD_ROOT=\"${BUILD_ROOT}\" SYMROOT=\"${SYMROOT}\"\n\nACTION=\"build\"\n\n#Merge all platform binaries as a fat binary for each configurations.\n\n# Calculate where the (multiple) built files are coming from:\nCURRENTCONFIG_DEVICE_DIR=${SYMROOT}/${CONFIGURATION}-iphoneos\nCURRENTCONFIG_SIMULATOR_DIR=${SYMROOT}/${CONFIGURATION}-iphonesimulator\n\necho \"Taking device build from: ${CURRENTCONFIG_DEVICE_DIR}\"\necho \"Taking simulator build from: ${CURRENTCONFIG_SIMULATOR_DIR}\"\n\nCREATING_UNIVERSAL_DIR=${SYMROOT}/${CONFIGURATION}-universal\necho \"...I will output a universal build to: ${CREATING_UNIVERSAL_DIR}\"\n\n# ... remove the products of previous runs of this script\n#      NB: this directory is ONLY created by this script - it should be safe to delete!\n\nrm -rf \"${CREATING_UNIVERSAL_DIR}\"\nmkdir \"${CREATING_UNIVERSAL_DIR}\"\n\n#\necho \"lipo: for current configuration (${CONFIGURATION}) creating output file: ${CREATING_UNIVERSAL_DIR}/${EXECUTABLE_NAME}\"\nxcrun -sdk iphoneos lipo -create -output \"${CREATING_UNIVERSAL_DIR}/${EXECUTABLE_NAME}\" \"${CURRENTCONFIG_DEVICE_DIR}/${EXECUTABLE_NAME}\" \"${CURRENTCONFIG_SIMULATOR_DIR}/${EXECUTABLE_NAME}\"\n\n#########\n#\n# Added: StackOverflow suggestion to also copy \"include\" files\n#    (untested, but should work OK)\n#\necho \"Fetching headers from ${PUBLIC_HEADERS_FOLDER_PATH}\"\necho \"  (if you embed your library project in another project, you will need to add\"\necho \"   a \"User Search Headers\" build setting of: (NB INCLUDE THE DOUBLE QUOTES BELOW!)\"\necho '        \"$(TARGET_BUILD_DIR)/usr/local/include/\"'\nif [ -d \"${CURRENTCONFIG_DEVICE_DIR}${PUBLIC_HEADERS_FOLDER_PATH}\" ]\nthen\nmkdir -p \"${CREATING_UNIVERSAL_DIR}${PUBLIC_HEADERS_FOLDER_PATH}\"\n# * needs to be outside the double quotes?\ncp -r \"${CURRENTCONFIG_DEVICE_DIR}${PUBLIC_HEADERS_FOLDER_PATH}\"* \"${CREATING_UNIVERSAL_DIR}${PUBLIC_HEADERS_FOLDER_PATH}\"\nfi\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
-		1D60588E0D05DD3D006BFB54 /* Sources */ = {
+		8CC2FC541B91E63E00D5E05F /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1D60589B0D05DD56006BFB54 /* main.m in Sources */,
-				1D3623260D0F684500981E51 /* Objective_ZipAppDelegate.m in Sources */,
-				28D7ACF80DDB3853001CB0EB /* Objective_ZipViewController.m in Sources */,
-				8C6D352D10E56A9000B63EFA /* ioapi.c in Sources */,
-				8C6D352F10E56A9000B63EFA /* unzip.c in Sources */,
-				8C6D353010E56A9000B63EFA /* zip.c in Sources */,
-				8C6D354010E56BD300B63EFA /* OZZipFile.m in Sources */,
-				8C6D356B10E56F4D00B63EFA /* OZZipException.m in Sources */,
-				8C6D357610E5797600B63EFA /* OZZipWriteStream.m in Sources */,
-				8C83F49510E7CBCB002FB3CB /* OZFileInZipInfo.m in Sources */,
-				8CBE431810E95FA300AC9ED3 /* OZZipReadStream.m in Sources */,
-				8CD8B40317766067005212EC /* adler32.c in Sources */,
-				8CD8B40417766067005212EC /* compress.c in Sources */,
-				8CD8B40517766067005212EC /* crc32.c in Sources */,
-				8CD8B40617766067005212EC /* deflate.c in Sources */,
-				8CD8B40717766067005212EC /* gzclose.c in Sources */,
-				8CD8B40817766067005212EC /* gzlib.c in Sources */,
-				8CD8B40917766067005212EC /* gzread.c in Sources */,
-				8CD8B40A17766067005212EC /* gzwrite.c in Sources */,
-				8CD8B40B17766067005212EC /* infback.c in Sources */,
-				8CD8B40C17766067005212EC /* inffast.c in Sources */,
-				8CD8B40D17766067005212EC /* inflate.c in Sources */,
-				8CD8B40E17766067005212EC /* inftrees.c in Sources */,
-				8CD8B40F17766067005212EC /* trees.c in Sources */,
-				8CD8B41017766067005212EC /* uncompr.c in Sources */,
-				8CD8B41117766067005212EC /* zutil.c in Sources */,
+				8CC2FC8F1B91E6FD00D5E05F /* ioapi.c in Sources */,
+				8CC2FC901B91E6FD00D5E05F /* unzip.c in Sources */,
+				8CC2FC911B91E6FD00D5E05F /* zip.c in Sources */,
+				8CC2FC921B91E6FD00D5E05F /* adler32.c in Sources */,
+				8CC2FC931B91E6FD00D5E05F /* compress.c in Sources */,
+				8CC2FC941B91E6FD00D5E05F /* crc32.c in Sources */,
+				8CC2FC951B91E6FD00D5E05F /* deflate.c in Sources */,
+				8CC2FC961B91E6FD00D5E05F /* gzclose.c in Sources */,
+				8CC2FC971B91E6FD00D5E05F /* gzlib.c in Sources */,
+				8CC2FC981B91E6FD00D5E05F /* gzread.c in Sources */,
+				8CC2FC991B91E6FD00D5E05F /* gzwrite.c in Sources */,
+				8CC2FC9A1B91E6FD00D5E05F /* infback.c in Sources */,
+				8CC2FC9B1B91E6FD00D5E05F /* inffast.c in Sources */,
+				8CC2FC9C1B91E6FD00D5E05F /* inflate.c in Sources */,
+				8CC2FC9D1B91E6FD00D5E05F /* inftrees.c in Sources */,
+				8CC2FC9E1B91E6FD00D5E05F /* trees.c in Sources */,
+				8CC2FC9F1B91E6FD00D5E05F /* uncompr.c in Sources */,
+				8CC2FCA01B91E6FD00D5E05F /* zutil.c in Sources */,
+				8CC2FC8A1B91E6F000D5E05F /* OZZipFile.m in Sources */,
+				8CC2FC8B1B91E6F000D5E05F /* OZZipException.m in Sources */,
+				8CC2FC8C1B91E6F000D5E05F /* OZZipWriteStream.m in Sources */,
+				8CC2FC8D1B91E6F000D5E05F /* OZFileInZipInfo.m in Sources */,
+				8CC2FC8E1B91E6F000D5E05F /* OZZipReadStream.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8CC2FC5E1B91E63E00D5E05F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8CC2FCB91B91EB3500D5E05F /* ObjectiveZip_Tests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8CC2FC6F1B91E65200D5E05F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8CC2FCA61B91E71700D5E05F /* ioapi.c in Sources */,
+				8CC2FCA71B91E71700D5E05F /* unzip.c in Sources */,
+				8CC2FCA81B91E71700D5E05F /* zip.c in Sources */,
+				8CC2FCA91B91E71700D5E05F /* adler32.c in Sources */,
+				8CC2FCAA1B91E71700D5E05F /* compress.c in Sources */,
+				8CC2FCAB1B91E71700D5E05F /* crc32.c in Sources */,
+				8CC2FCAC1B91E71700D5E05F /* deflate.c in Sources */,
+				8CC2FCAD1B91E71700D5E05F /* gzclose.c in Sources */,
+				8CC2FCAE1B91E71700D5E05F /* gzlib.c in Sources */,
+				8CC2FCAF1B91E71700D5E05F /* gzread.c in Sources */,
+				8CC2FCB01B91E71700D5E05F /* gzwrite.c in Sources */,
+				8CC2FCB11B91E71700D5E05F /* infback.c in Sources */,
+				8CC2FCB21B91E71700D5E05F /* inffast.c in Sources */,
+				8CC2FCB31B91E71700D5E05F /* inflate.c in Sources */,
+				8CC2FCB41B91E71700D5E05F /* inftrees.c in Sources */,
+				8CC2FCB51B91E71700D5E05F /* trees.c in Sources */,
+				8CC2FCB61B91E71700D5E05F /* uncompr.c in Sources */,
+				8CC2FCB71B91E71700D5E05F /* zutil.c in Sources */,
+				8CC2FCA11B91E70D00D5E05F /* OZZipFile.m in Sources */,
+				8CC2FCA21B91E70D00D5E05F /* OZZipException.m in Sources */,
+				8CC2FCA31B91E70D00D5E05F /* OZZipWriteStream.m in Sources */,
+				8CC2FCA41B91E70D00D5E05F /* OZFileInZipInfo.m in Sources */,
+				8CC2FCA51B91E70D00D5E05F /* OZZipReadStream.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8CC2FC791B91E65200D5E05F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8CC2FCBA1B91EB3500D5E05F /* ObjectiveZip_Tests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		8CC2FC651B91E63E00D5E05F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 8CC2FC571B91E63E00D5E05F /* Objective-Zip */;
+			targetProxy = 8CC2FC641B91E63E00D5E05F /* PBXContainerItemProxy */;
+		};
+		8CC2FC801B91E65200D5E05F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 8CC2FC721B91E65200D5E05F /* Objective-Zip OS X */;
+			targetProxy = 8CC2FC7F1B91E65200D5E05F /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin XCBuildConfiguration section */
-		1D6058940D05DD3E006BFB54 /* Debug */ = {
+		8CC2FC6A1B91E63E00D5E05F /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Gianluca Bertani (42HXKD6D45)";
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = Objective_Zip_Prefix.pch;
-				GCC_PREPROCESSOR_DEFINITIONS = "";
-				GCC_THUMB_SUPPORT = NO;
-				INFOPLIST_FILE = "Objective_Zip-Info.plist";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
-				PRODUCT_NAME = "Objective-Zip";
-				PROVISIONING_PROFILE = "8D9AD182-36E0-47FE-AB6B-E87632E60994";
+				MTL_ENABLE_DEBUG_INFO = YES;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
 			};
 			name = Debug;
 		};
-		1D6058950D05DD3E006BFB54 /* Release */ = {
+		8CC2FC6B1B91E63E00D5E05F /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Gianluca Bertani (42HXKD6D45)";
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = YES;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = Objective_Zip_Prefix.pch;
-				GCC_PREPROCESSOR_DEFINITIONS = "";
-				GCC_THUMB_SUPPORT = NO;
-				INFOPLIST_FILE = "Objective_Zip-Info.plist";
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
-				PRODUCT_NAME = "Objective-Zip";
-				PROVISIONING_PROFILE = "8D9AD182-36E0-47FE-AB6B-E87632E60994";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		8CC2FC6D1B91E63E00D5E05F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				INFOPLIST_FILE = "Objective-Zip Tests/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		8CC2FC6E1B91E63E00D5E05F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				INFOPLIST_FILE = "Objective-Zip Tests/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		8CC2FC851B91E65300D5E05F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				EXECUTABLE_PREFIX = lib;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "Objective-Zip_OS_X";
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		8CC2FC861B91E65300D5E05F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				EXECUTABLE_PREFIX = lib;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "Objective-Zip_OS_X";
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		8CC2FC881B91E65300D5E05F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+					"$(inherited)",
+				);
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				INFOPLIST_FILE = "Objective-Zip Tests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		8CC2FC891B91E65300D5E05F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+					"$(inherited)",
+				);
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				INFOPLIST_FILE = "Objective-Zip Tests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
 			};
 			name = Release;
 		};
 		C01FCF4F08A954540054247B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Developer: Gianluca Bertani (42HXKD6D45)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Gianluca Bertani (42HXKD6D45)";
 				GCC_C_LANGUAGE_STANDARD = c99;
-				GCC_THUMB_SUPPORT = NO;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 3.1.2;
 				ONLY_ACTIVE_ARCH = YES;
-				PROVISIONING_PROFILE = "8D9AD182-36E0-47FE-AB6B-E87632E60994";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "8D920AE2-DF44-48C7-A9B5-0AB3D42590BB";
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -436,15 +917,9 @@
 		C01FCF5008A954540054247B /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Developer: Gianluca Bertani (42HXKD6D45)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Gianluca Bertani (42HXKD6D45)";
 				GCC_C_LANGUAGE_STANDARD = c99;
-				GCC_THUMB_SUPPORT = NO;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 3.1.2;
-				PROVISIONING_PROFILE = "8D9AD182-36E0-47FE-AB6B-E87632E60994";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "8D920AE2-DF44-48C7-A9B5-0AB3D42590BB";
 				SDKROOT = iphoneos;
 			};
 			name = Release;
@@ -452,14 +927,37 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		1D6058960D05DD3E006BFB54 /* Build configuration list for PBXNativeTarget "Objective-Zip" */ = {
+		8CC2FC691B91E63E00D5E05F /* Build configuration list for PBXNativeTarget "Objective-Zip" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				1D6058940D05DD3E006BFB54 /* Debug */,
-				1D6058950D05DD3E006BFB54 /* Release */,
+				8CC2FC6A1B91E63E00D5E05F /* Debug */,
+				8CC2FC6B1B91E63E00D5E05F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+		};
+		8CC2FC6C1B91E63E00D5E05F /* Build configuration list for PBXNativeTarget "Objective-Zip Tests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8CC2FC6D1B91E63E00D5E05F /* Debug */,
+				8CC2FC6E1B91E63E00D5E05F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		8CC2FC841B91E65300D5E05F /* Build configuration list for PBXNativeTarget "Objective-Zip OS X" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8CC2FC851B91E65300D5E05F /* Debug */,
+				8CC2FC861B91E65300D5E05F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		8CC2FC871B91E65300D5E05F /* Build configuration list for PBXNativeTarget "Objective-Zip OS X Tests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8CC2FC881B91E65300D5E05F /* Debug */,
+				8CC2FC891B91E65300D5E05F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
 		};
 		C01FCF4E08A954540054247B /* Build configuration list for PBXProject "Objective-Zip" */ = {
 			isa = XCConfigurationList;
