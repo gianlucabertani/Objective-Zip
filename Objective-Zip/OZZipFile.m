@@ -127,7 +127,7 @@
         
         return [self initWithFileName:fileName mode:mode];
     
-    } ERROR_WRAP_END(error);
+    } ERROR_WRAP_END_AND_RETURN(error, nil);
 }
 
 - (instancetype) initWithFileName:(NSString *)fileName mode:(OZZipFileMode)mode legacy32BitMode:(BOOL)legacy32BitMode error:(NSError *__autoreleasing *)error {
@@ -135,7 +135,7 @@
 
         return [self initWithFileName:fileName mode:mode legacy32BitMode:legacy32BitMode];
 
-    } ERROR_WRAP_END(error);
+    } ERROR_WRAP_END_AND_RETURN(error, nil);
 }
 
 
@@ -257,7 +257,7 @@
         
         return [self writeFileInZipWithName:fileNameInZip compressionLevel:compressionLevel];
         
-    } ERROR_WRAP_END(error);
+    } ERROR_WRAP_END_AND_RETURN(error, nil);
 }
 
 - (OZZipWriteStream *) writeFileInZipWithName:(NSString *)fileNameInZip fileDate:(NSDate *)fileDate compressionLevel:(OZZipCompressionLevel)compressionLevel error:(NSError * __autoreleasing *)error {
@@ -265,7 +265,7 @@
         
         return [self writeFileInZipWithName:fileNameInZip fileDate:fileDate compressionLevel:compressionLevel];
         
-    } ERROR_WRAP_END(error);
+    } ERROR_WRAP_END_AND_RETURN(error, nil);
 }
 
 - (OZZipWriteStream *) writeFileInZipWithName:(NSString *)fileNameInZip fileDate:(NSDate *)fileDate compressionLevel:(OZZipCompressionLevel)compressionLevel password:(NSString *)password crc32:(NSUInteger)crc32 error:(NSError * __autoreleasing *)error {
@@ -273,7 +273,7 @@
         
         return [self writeFileInZipWithName:fileNameInZip fileDate:fileDate compressionLevel:compressionLevel password:password crc32:crc32];
         
-    } ERROR_WRAP_END(error);
+    } ERROR_WRAP_END_AND_RETURN(error, nil);
 }
 
 
@@ -427,7 +427,7 @@
         
         return [self goToNextFileInZip];
         
-    } ERROR_WRAP_END(error);
+    } ERROR_WRAP_END_AND_RETURN(error, NO);
 }
 
 - (BOOL) locateFileInZip:(NSString *)fileNameInZip error:(NSError * __autoreleasing *)error {
@@ -435,7 +435,7 @@
         
         return [self locateFileInZip:fileNameInZip];
         
-    } ERROR_WRAP_END(error);
+    } ERROR_WRAP_END_AND_RETURN(error, NO);
 }
 
 - (NSUInteger) numFilesInZipWithError:(NSError * __autoreleasing *)error {
@@ -443,7 +443,7 @@
         
         return [self numFilesInZip];
         
-    } ERROR_WRAP_END(error);
+    } ERROR_WRAP_END_AND_RETURN(error, 0);
 }
 
 - (NSArray *) listFileInZipInfosWithError:(NSError * __autoreleasing *)error {
@@ -451,7 +451,7 @@
         
         return [self listFileInZipInfos];
         
-    } ERROR_WRAP_END(error);
+    } ERROR_WRAP_END_AND_RETURN(error, nil);
 }
 
 - (OZFileInZipInfo *) getCurrentFileInZipInfoWithError:(NSError * __autoreleasing *)error {
@@ -459,7 +459,7 @@
         
         return [self getCurrentFileInZipInfo];
         
-    } ERROR_WRAP_END(error);
+    } ERROR_WRAP_END_AND_RETURN(error, nil);
 }
 
 
@@ -519,7 +519,7 @@
         
         return [self readCurrentFileInZip];
         
-    } ERROR_WRAP_END(error);
+    } ERROR_WRAP_END_AND_RETURN(error, nil);
 }
 
 - (OZZipReadStream *) readCurrentFileInZipWithPassword:(NSString *)password error:(NSError * __autoreleasing *)error {
@@ -527,7 +527,7 @@
         
         return [self readCurrentFileInZipWithPassword:password];
         
-    } ERROR_WRAP_END(error);
+    } ERROR_WRAP_END_AND_RETURN(error, nil);
 }
 
 

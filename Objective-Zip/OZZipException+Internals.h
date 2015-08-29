@@ -51,6 +51,22 @@
         @throw exc; \
     }
 
+#define ERROR_WRAP_END_AND_RETURN(err, ret) \
+    } @catch (OZZipException *ze) { \
+        if (ze.error) { \
+            if (err) { \
+                *err= [NSError errorWithDomain:@"ObjectiveZipErrorDomain" \
+                    code:ze.error \
+                    userInfo:@{NSLocalizedDescriptionKey: ze.name, \
+                        NSLocalizedFailureReasonErrorKey: ze.reason}]; \
+            } \
+            return ret; \
+        } else \
+            @throw ze; \
+    } @catch (NSException *exc) { \
+        @throw exc; \
+    }
+
 
 @interface OZZipException (Internals)
 

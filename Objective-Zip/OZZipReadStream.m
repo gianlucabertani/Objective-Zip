@@ -96,7 +96,7 @@
         
         [self readDataWithBuffer:buffer];
         
-    } ERROR_WRAP_END(error);
+    } ERROR_WRAP_END_AND_RETURN(error, 0);
 }
 
 - (void) finishedReadingWithError:(NSError * __autoreleasing *)error {
