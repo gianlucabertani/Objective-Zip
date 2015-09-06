@@ -42,7 +42,7 @@
 #pragma mark -
 #pragma mark Initialization
 
-- (instancetype) initWithZipFileStruct:(zipFile)zipFile fileNameInZip:(NSString *)fileNameInZip;
+- (nonnull instancetype) initWithZipFileStruct:(nonnull zipFile)zipFile fileNameInZip:(nonnull NSString *)fileNameInZip;
 
 
 @end

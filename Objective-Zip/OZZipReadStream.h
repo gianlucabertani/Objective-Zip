@@ -40,15 +40,15 @@
 #pragma mark -
 #pragma mark Reading data
 
-- (NSUInteger) readDataWithBuffer:(NSMutableData *)buffer;
+- (NSUInteger) readDataWithBuffer:(nonnull NSMutableData *)buffer;
 - (void) finishedReading;
 
 
 #pragma mark -
 #pragma mark Reading data (NSError variants)
 
-- (NSUInteger) readDataWithBuffer:(NSMutableData *)buffer error:(NSError * __autoreleasing *)error;
-- (BOOL) finishedReadingWithError:(NSError * __autoreleasing *)error;
+- (NSUInteger) readDataWithBuffer:(nonnull NSMutableData *)buffer error:(NSError * __autoreleasing __nullable * __nullable)error;
+- (BOOL) finishedReadingWithError:(NSError * __autoreleasing __nullable * __nullable)error;
 
 
 @end

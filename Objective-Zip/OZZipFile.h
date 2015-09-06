@@ -47,30 +47,30 @@
 #pragma mark -
 #pragma mark Initialization
 
-- (instancetype) initWithFileName:(NSString *)fileName mode:(OZZipFileMode)mode;
-- (instancetype) initWithFileName:(NSString *)fileName mode:(OZZipFileMode)mode legacy32BitMode:(BOOL)legacy32BitMode;
+- (nonnull instancetype) initWithFileName:(nonnull NSString *)fileName mode:(OZZipFileMode)mode;
+- (nonnull instancetype) initWithFileName:(nonnull NSString *)fileName mode:(OZZipFileMode)mode legacy32BitMode:(BOOL)legacy32BitMode;
 
 #pragma mark -
 #pragma mark Initialization (NSError variants)
 
-- (instancetype) initWithFileName:(NSString *)fileName mode:(OZZipFileMode)mode error:(NSError * __autoreleasing *)error;
-- (instancetype) initWithFileName:(NSString *)fileName mode:(OZZipFileMode)mode legacy32BitMode:(BOOL)legacy32BitMode error:(NSError * __autoreleasing *)error;
+- (nullable instancetype) initWithFileName:(nonnull NSString *)fileName mode:(OZZipFileMode)mode error:(NSError * __autoreleasing __nullable * __nullable)error;
+- (nullable instancetype) initWithFileName:(nonnull NSString *)fileName mode:(OZZipFileMode)mode legacy32BitMode:(BOOL)legacy32BitMode error:(NSError * __autoreleasing __nullable * __nullable)error;
 
 
 #pragma mark -
 #pragma mark File writing
 
-- (OZZipWriteStream *) writeFileInZipWithName:(NSString *)fileNameInZip compressionLevel:(OZZipCompressionLevel)compressionLevel;
-- (OZZipWriteStream *) writeFileInZipWithName:(NSString *)fileNameInZip fileDate:(NSDate *)fileDate compressionLevel:(OZZipCompressionLevel)compressionLevel;
-- (OZZipWriteStream *) writeFileInZipWithName:(NSString *)fileNameInZip fileDate:(NSDate *)fileDate compressionLevel:(OZZipCompressionLevel)compressionLevel password:(NSString *)password crc32:(NSUInteger)crc32;
+- (nonnull OZZipWriteStream *) writeFileInZipWithName:(nonnull NSString *)fileNameInZip compressionLevel:(OZZipCompressionLevel)compressionLevel;
+- (nonnull OZZipWriteStream *) writeFileInZipWithName:(nonnull NSString *)fileNameInZip fileDate:(nonnull NSDate *)fileDate compressionLevel:(OZZipCompressionLevel)compressionLevel;
+- (nonnull OZZipWriteStream *) writeFileInZipWithName:(nonnull NSString *)fileNameInZip fileDate:(nonnull NSDate *)fileDate compressionLevel:(OZZipCompressionLevel)compressionLevel password:(nonnull NSString *)password crc32:(NSUInteger)crc32;
 
 
 #pragma mark -
 #pragma mark File writing (NSError variants)
 
-- (OZZipWriteStream *) writeFileInZipWithName:(NSString *)fileNameInZip compressionLevel:(OZZipCompressionLevel)compressionLevel error:(NSError * __autoreleasing *)error;
-- (OZZipWriteStream *) writeFileInZipWithName:(NSString *)fileNameInZip fileDate:(NSDate *)fileDate compressionLevel:(OZZipCompressionLevel)compressionLevel error:(NSError * __autoreleasing *)error;
-- (OZZipWriteStream *) writeFileInZipWithName:(NSString *)fileNameInZip fileDate:(NSDate *)fileDate compressionLevel:(OZZipCompressionLevel)compressionLevel password:(NSString *)password crc32:(NSUInteger)crc32 error:(NSError * __autoreleasing *)error;
+- (nullable OZZipWriteStream *) writeFileInZipWithName:(nonnull NSString *)fileNameInZip compressionLevel:(OZZipCompressionLevel)compressionLevel error:(NSError * __autoreleasing __nullable * __nullable)error;
+- (nullable OZZipWriteStream *) writeFileInZipWithName:(nonnull NSString *)fileNameInZip fileDate:(nonnull NSDate *)fileDate compressionLevel:(OZZipCompressionLevel)compressionLevel error:(NSError * __autoreleasing __nullable * __nullable)error;
+- (nullable OZZipWriteStream *) writeFileInZipWithName:(nonnull NSString *)fileNameInZip fileDate:(nonnull NSDate *)fileDate compressionLevel:(OZZipCompressionLevel)compressionLevel password:(nonnull NSString *)password crc32:(NSUInteger)crc32 error:(NSError * __autoreleasing __nullable * __nullable)error;
 
 
 #pragma mark -
@@ -78,37 +78,37 @@
 
 - (void) goToFirstFileInZip;
 - (BOOL) goToNextFileInZip;
-- (BOOL) locateFileInZip:(NSString *)fileNameInZip;
+- (BOOL) locateFileInZip:(nonnull NSString *)fileNameInZip;
 
 - (NSUInteger) numFilesInZip;
-- (NSArray *) listFileInZipInfos;
-- (OZFileInZipInfo *) getCurrentFileInZipInfo;
+- (nonnull NSArray *) listFileInZipInfos;
+- (nonnull OZFileInZipInfo *) getCurrentFileInZipInfo;
 
 
 #pragma mark -
 #pragma mark File seeking and info (NSError variants)
 
-- (BOOL) goToFirstFileInZipWithError:(NSError * __autoreleasing *)error;
-- (BOOL) goToNextFileInZipWithError:(NSError * __autoreleasing *)error;
-- (BOOL) locateFileInZip:(NSString *)fileNameInZip error:(NSError * __autoreleasing *)error;
+- (BOOL) goToFirstFileInZipWithError:(NSError * __autoreleasing __nullable * __nullable)error;
+- (BOOL) goToNextFileInZipWithError:(NSError * __autoreleasing __nullable * __nullable)error;
+- (BOOL) locateFileInZip:(nonnull NSString *)fileNameInZip error:(NSError * __autoreleasing __nullable * __nullable)error;
 
-- (NSUInteger) numFilesInZipWithError:(NSError * __autoreleasing *)error;
-- (NSArray *) listFileInZipInfosWithError:(NSError * __autoreleasing *)error;
-- (OZFileInZipInfo *) getCurrentFileInZipInfoWithError:(NSError * __autoreleasing *)error;
+- (NSUInteger) numFilesInZipWithError:(NSError * __autoreleasing __nullable * __nullable)error;
+- (nullable NSArray *) listFileInZipInfosWithError:(NSError * __autoreleasing __nullable * __nullable)error;
+- (nullable OZFileInZipInfo *) getCurrentFileInZipInfoWithError:(NSError * __autoreleasing __nullable * __nullable)error;
 
 
 #pragma mark -
 #pragma mark File reading
 
-- (OZZipReadStream *) readCurrentFileInZip;
-- (OZZipReadStream *) readCurrentFileInZipWithPassword:(NSString *)password;
+- (nonnull OZZipReadStream *) readCurrentFileInZip;
+- (nonnull OZZipReadStream *) readCurrentFileInZipWithPassword:(nonnull NSString *)password;
 
 
 #pragma mark -
 #pragma mark File reading (NSError variants)
 
-- (OZZipReadStream *) readCurrentFileInZipWithError:(NSError * __autoreleasing *)error;
-- (OZZipReadStream *) readCurrentFileInZipWithPassword:(NSString *)password error:(NSError * __autoreleasing *)error;
+- (nullable OZZipReadStream *) readCurrentFileInZipWithError:(NSError * __autoreleasing __nullable * __nullable)error;
+- (nullable OZZipReadStream *) readCurrentFileInZipWithPassword:(nonnull NSString *)password error:(NSError * __autoreleasing __nullable * __nullable)error;
 
 
 #pragma mark -
@@ -120,13 +120,13 @@
 #pragma mark -
 #pragma mark Closing (NSError variants)
 
-- (BOOL) closeWithError:(NSError * __autoreleasing *)error;
+- (BOOL) closeWithError:(NSError * __autoreleasing __nullable * __nullable)error;
 
 
 #pragma mark -
 #pragma mark Properties
 
-@property (nonatomic, readonly) NSString *fileName;
+@property (nonatomic, readonly, nonnull) NSString *fileName;
 @property (nonatomic, readonly) OZZipFileMode mode;
 @property (nonatomic, readonly) BOOL legacy32BitMode;
 

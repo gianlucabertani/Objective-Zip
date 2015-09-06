@@ -42,7 +42,7 @@
 #pragma mark -
 #pragma mark Initialization
 
-- (instancetype) initWithUnzFileStruct:(unzFile)unzFile fileNameInZip:(NSString *)fileNameInZip;
+- (nonnull instancetype) initWithUnzFileStruct:(nonnull unzFile)unzFile fileNameInZip:(nonnull NSString *)fileNameInZip;
 
 
 @end

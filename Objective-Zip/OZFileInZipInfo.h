@@ -42,12 +42,12 @@
 #pragma mark -
 #pragma mark Properties
 
-@property (nonatomic, readonly) NSString *name;
+@property (nonatomic, readonly, nonnull) NSString *name;
 @property (nonatomic, readonly) unsigned long long length;
 @property (nonatomic, readonly) OZZipCompressionLevel level;
 @property (nonatomic, readonly) BOOL crypted;
 @property (nonatomic, readonly) unsigned long long size;
-@property (nonatomic, readonly) NSDate *date;
+@property (nonatomic, readonly, nonnull) NSDate *date;
 @property (nonatomic, readonly) NSUInteger crc32;
 
 

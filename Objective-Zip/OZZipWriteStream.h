@@ -40,15 +40,15 @@
 #pragma mark -
 #pragma mark Writing data
 
-- (void) writeData:(NSData *)data;
+- (void) writeData:(nonnull NSData *)data;
 - (void) finishedWriting;
 
 
 #pragma mark -
 #pragma mark Writing data (NSError variants)
 
-- (BOOL) writeData:(NSData *)data error:(NSError * __autoreleasing *)error;
-- (BOOL) finishedWritingWithError:(NSError * __autoreleasing *)error;
+- (BOOL) writeData:(nonnull NSData *)data error:(NSError * __autoreleasing __nullable * __nullable)error;
+- (BOOL) finishedWritingWithError:(NSError * __autoreleasing __nullable * __nullable)error;
 
 
 @end
