@@ -210,7 +210,7 @@
 
 - (void) test02ZipAndUnzip5GB {
     
-#warning Remove to enable this test, but be careful: takes 5 minutes and consumes 5 GB of disk space
+// TODO Remove to enable this test, but be careful: takes 5 minutes and consumes 5 GB of disk space
     return;
     
     NSString *documentsDir= [NSHomeDirectory() stringByAppendingPathComponent:@"Documents"];

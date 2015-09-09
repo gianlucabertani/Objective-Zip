@@ -646,14 +646,14 @@ local int unzGoToNextDisk(unzFile file)
     if (s == NULL)
         return UNZ_PARAMERROR;
     pfile_in_zip_read_info = s->pfile_in_zip_read;
-    number_disk_next = s->number_disk;
+    number_disk_next = (int) s->number_disk;
 
     if ((pfile_in_zip_read_info != NULL) && (pfile_in_zip_read_info->rest_read_uncompressed > 0))
         /* We are currently reading a file and we need the next sequential disk */
         number_disk_next += 1;
     else
         /* Goto the disk for the current file */
-        number_disk_next = s->cur_file_info.disk_num_start;
+        number_disk_next = (int) s->cur_file_info.disk_num_start;
 
     if (number_disk_next != s->number_disk)
     {
@@ -1390,8 +1390,8 @@ extern int ZEXPORT unzReadCurrentFile(unzFile file, voidp buf, unsigned len)
             uInt total_bytes_read = 0;
 
             if (pfile_in_zip_read_info->stream.next_in != NULL)
-                bytes_not_read = pfile_in_zip_read_info->read_buffer + UNZ_BUFSIZE - 
-                    pfile_in_zip_read_info->stream.next_in;
+                bytes_not_read = (uInt) (pfile_in_zip_read_info->read_buffer + UNZ_BUFSIZE -
+                    pfile_in_zip_read_info->stream.next_in);
             bytes_to_read -= bytes_not_read;
             if (bytes_not_read > 0)
                 memcpy(pfile_in_zip_read_info->read_buffer, pfile_in_zip_read_info->stream.next_in, bytes_not_read);
@@ -1407,7 +1407,7 @@ extern int ZEXPORT unzReadCurrentFile(unzFile file, voidp buf, unsigned len)
                         ZLIB_FILEFUNC_SEEK_SET) != 0)
                     return UNZ_ERRNO;
 
-                bytes_read = ZREAD64(pfile_in_zip_read_info->z_filefunc, pfile_in_zip_read_info->filestream,
+                bytes_read = (int) ZREAD64(pfile_in_zip_read_info->z_filefunc, pfile_in_zip_read_info->filestream,
                           pfile_in_zip_read_info->read_buffer + bytes_not_read + total_bytes_read,
                           bytes_to_read - total_bytes_read);
 
