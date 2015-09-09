@@ -542,7 +542,7 @@
 #pragma mark -
 #pragma mark Closing
 
-- (BOOL) close {
+- (void) close {
 	switch (_mode) {
 		case OZZipFileModeUnzip: {
 			int err= unzClose(_unzFile);
@@ -568,8 +568,6 @@
 		default:
 			@throw [OZZipException zipExceptionWithReason:@"Unknown mode %d", _mode];
 	}
-    
-    return YES;
 }
 
 
@@ -580,6 +578,8 @@
     ERROR_WRAP_BEGIN {
         
         [self close];
+        
+        return YES;
         
     } ERROR_WRAP_END_AND_RETURN(error, NO);
 }

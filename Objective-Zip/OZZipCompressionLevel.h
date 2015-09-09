@@ -35,11 +35,36 @@
 #define Objective_Zip_OZZipCompressionLevel_h
 
 
+/**
+ @brief Compression level to be used to compress new files added to the zip
+ file.
+ */
 typedef enum {
+    
+    /**
+     @brief Compression level that compresses the new file somewhere inbetween
+     OZZipCompressionLevelBest and OZZipCompressionLevelFastest.
+     */
     OZZipCompressionLevelDefault= -1,
+    
+    /**
+     @brief Compression level that does not compress the new file, it is
+     stored as is.
+     */
     OZZipCompressionLevelNone= 0,
+    
+    /**
+     @brief Compression level that compresses the new file as fast as
+     possible, corresponding to the least compression.
+     */
     OZZipCompressionLevelFastest= 1,
+    
+    /**
+     @brief Compression level that compresses the new file as much as
+     possible, corresponding to the slowest compression.
+     */
     OZZipCompressionLevelBest= 9
+    
 } OZZipCompressionLevel;
 
 

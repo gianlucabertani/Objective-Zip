@@ -36,12 +36,27 @@
 #define ERROR_NO_SUCH_FILE             (-9001)
 
 
+/**
+ @brief OZZipException is a custom exception type to quickly discern between
+ error originated during the zip/unzip process or elsewhere.
+ </p>All exceptions thrown by Objective-Zip are of OZZipException type.</p>
+ */
 @interface OZZipException : NSException 
 
 
 #pragma mark -
 #pragma mark Properties
 
+/**
+ @brief Underlying error code provided by MiniZip/ZLib libraries. May be
+ <code>0</code> if the exception originated in the Objective-Zip layer.
+ <p>Common error codes are:<ul>
+ <li>-1: System error.
+ <li>-103: Bad zip file.
+ <li>-104: Internal error.
+ <li>-105: CRC error.
+ </ul></p>
+ */
 @property (nonatomic, readonly) NSInteger error;
 
 

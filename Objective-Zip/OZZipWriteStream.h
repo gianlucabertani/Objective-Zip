@@ -34,20 +34,60 @@
 #import <Foundation/Foundation.h>
 
 
+/**
+ @brief OZZipWriteStream implements a write stream and provides services to
+ write content to a new file in the zip file.
+ */
 @interface OZZipWriteStream : NSObject
 
 
 #pragma mark -
 #pragma mark Writing data
 
+/**
+ @brief Compresses and writes data to the new file in the zip file.
+ <p>Data are compressed depending on the choice of compression level specified
+ during creation of the write stream.</p>
+ @param data The data to be compressed and written.
+ @throws OZZipException If the data could not be written due to an error.
+ */
 - (void) writeData:(nonnull NSData *)data;
+
+/**
+ @brief Closes the write stream.
+ <p>Once you have finished writing data to the new file, it is important to 
+ close the stream so system resources may be freed.</p>
+ <p>Note: after the stream has been closed any subsequent write will result in 
+ an error.</p>
+ @throws OZZipException If the stream could not be closed due to an error.
+ */
 - (void) finishedWriting;
 
 
 #pragma mark -
 #pragma mark Writing data (NSError variants)
 
+/**
+ @brief Compresses and writes data to the new file in the zip file.
+ <p>Data are compressed depending on the choice of compression level specified
+ during creation of the write stream.</p>
+ @param data The data to be compressed and written.
+ @param error If passed, may be filled with an NSError is case data could
+ not be written.
+ */
 - (BOOL) writeData:(nonnull NSData *)data error:(NSError * __autoreleasing __nullable * __nullable)error;
+
+/**
+ @brief Closes the write stream.
+ <p>Once you have finished writing data to the new file, it is important to
+ close the stream so system resources may be freed.</p>
+ <p>Note: after the stream has been closed any subsequent write will result in
+ an error.</p>
+ @param error If passed, may be filled with an NSError is case the stream could
+ not be closed.
+ @return <code>YES</code> if the stream has been closed, <code>NO</code> if
+ the stream could not be closed due to an error.
+ */
 - (BOOL) finishedWritingWithError:(NSError * __autoreleasing __nullable * __nullable)error;
 
 

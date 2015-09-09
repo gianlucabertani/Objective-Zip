@@ -34,11 +34,27 @@
 #ifndef Objective_Zip_OZZipFileMode_h
 #define Objective_Zip_OZZipFileMode_h
 
-
+/**
+ @brief Access mode for opening a zip file.
+ */
 typedef enum {
+    
+    /**
+     @brief Acces mode for opening the zip file for reading.
+     */
     OZZipFileModeUnzip,
-    OZZipFileModeCreate,
+    
+    /**
+     @brief Acces mode for opening the zip file for creation.
+     <br/>Note: if the file already exists the behavior is unspecified.
+     */
+     OZZipFileModeCreate,
+    
+    /**
+     @brief Acces mode for opening the zip file for writing.
+     */
     OZZipFileModeAppend
+    
 } OZZipFileMode;
 
 
