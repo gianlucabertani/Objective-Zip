@@ -149,6 +149,13 @@
 		8CD8B40017766067005212EC /* zlib.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = zlib.h; path = ZLib/zlib.h; sourceTree = "<group>"; };
 		8CD8B40117766067005212EC /* zutil.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = zutil.c; path = ZLib/zutil.c; sourceTree = "<group>"; };
 		8CD8B40217766067005212EC /* zutil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = zutil.h; path = ZLib/zutil.h; sourceTree = "<group>"; };
+		8CFA78221BA097AE001F3C5F /* OZZipFile+Standard.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "OZZipFile+Standard.h"; path = "Objective-Zip/OZZipFile+Standard.h"; sourceTree = "<group>"; };
+		8CFA78231BA097C3001F3C5F /* OZZipFile+NSError.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "OZZipFile+NSError.h"; path = "Objective-Zip/OZZipFile+NSError.h"; sourceTree = "<group>"; };
+		8CFA78241BA098D3001F3C5F /* Objective-Zip+NSError.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "Objective-Zip+NSError.h"; path = "Objective-Zip/Objective-Zip+NSError.h"; sourceTree = "<group>"; };
+		8CFA78251BA0992D001F3C5F /* OZZipWriteStream+Standard.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "OZZipWriteStream+Standard.h"; path = "Objective-Zip/OZZipWriteStream+Standard.h"; sourceTree = "<group>"; };
+		8CFA78261BA0993B001F3C5F /* OZZipWriteStream+NSError.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "OZZipWriteStream+NSError.h"; path = "Objective-Zip/OZZipWriteStream+NSError.h"; sourceTree = "<group>"; };
+		8CFA78271BA0994B001F3C5F /* OZZipReadStream+Standard.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "OZZipReadStream+Standard.h"; path = "Objective-Zip/OZZipReadStream+Standard.h"; sourceTree = "<group>"; };
+		8CFA78281BA0995A001F3C5F /* OZZipReadStream+NSError.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "OZZipReadStream+NSError.h"; path = "Objective-Zip/OZZipReadStream+NSError.h"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -238,7 +245,10 @@
 			isa = PBXGroup;
 			children = (
 				8CC6A7931B8F5B360062D97E /* Objective-Zip.h */,
+				8CFA78241BA098D3001F3C5F /* Objective-Zip+NSError.h */,
 				8C6D353E10E56BD300B63EFA /* OZZipFile.h */,
+				8CFA78221BA097AE001F3C5F /* OZZipFile+Standard.h */,
+				8CFA78231BA097C3001F3C5F /* OZZipFile+NSError.h */,
 				8C6D353F10E56BD300B63EFA /* OZZipFile.m */,
 				8CC6A7941B8F5C370062D97E /* OZZipFileMode.h */,
 				8CC6A7951B8F5C810062D97E /* OZZipCompressionLevel.h */,
@@ -246,12 +256,16 @@
 				8CC6A7961B8F5F570062D97E /* OZZipException+Internals.h */,
 				8C6D356A10E56F4D00B63EFA /* OZZipException.m */,
 				8C6D357410E5797600B63EFA /* OZZipWriteStream.h */,
+				8CFA78251BA0992D001F3C5F /* OZZipWriteStream+Standard.h */,
+				8CFA78261BA0993B001F3C5F /* OZZipWriteStream+NSError.h */,
 				8CC6A7971B8F5F780062D97E /* OZZipWriteStream+Internals.h */,
 				8C6D357510E5797600B63EFA /* OZZipWriteStream.m */,
 				8C83F49310E7CBCB002FB3CB /* OZFileInZipInfo.h */,
 				8CC6A7981B8F5F950062D97E /* OZFileInZipInfo+Internals.h */,
 				8C83F49410E7CBCB002FB3CB /* OZFileInZipInfo.m */,
 				8CBE431610E95FA300AC9ED3 /* OZZipReadStream.h */,
+				8CFA78271BA0994B001F3C5F /* OZZipReadStream+Standard.h */,
+				8CFA78281BA0995A001F3C5F /* OZZipReadStream+NSError.h */,
 				8CC6A7991B8F5FB40062D97E /* OZZipReadStream+Internals.h */,
 				8CBE431710E95FA300AC9ED3 /* OZZipReadStream.m */,
 			);
@@ -934,6 +948,7 @@
 				8CC2FC6B1B91E63E00D5E05F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		8CC2FC6C1B91E63E00D5E05F /* Build configuration list for PBXNativeTarget "Objective-Zip Tests" */ = {
 			isa = XCConfigurationList;
@@ -942,6 +957,7 @@
 				8CC2FC6E1B91E63E00D5E05F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		8CC2FC841B91E65300D5E05F /* Build configuration list for PBXNativeTarget "Objective-Zip OS X" */ = {
 			isa = XCConfigurationList;
@@ -950,6 +966,7 @@
 				8CC2FC861B91E65300D5E05F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		8CC2FC871B91E65300D5E05F /* Build configuration list for PBXNativeTarget "Objective-Zip OS X Tests" */ = {
 			isa = XCConfigurationList;
@@ -958,6 +975,7 @@
 				8CC2FC891B91E65300D5E05F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		C01FCF4E08A954540054247B /* Build configuration list for PBXProject "Objective-Zip" */ = {
 			isa = XCConfigurationList;

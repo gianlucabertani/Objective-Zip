@@ -32,11 +32,17 @@
 //
 
 #import "OZZipFile.h"
+#import "OZZipFile+Standard.h"
+#import "OZZipFile+NSError.h"
 #import "OZZipException.h"
 #import "OZZipException+Internals.h"
 #import "OZZipReadStream.h"
+#import "OZZipReadStream+Standard.h"
+#import "OZZipReadStream+NSError.h"
 #import "OZZipReadStream+Internals.h"
 #import "OZZipWriteStream.h"
+#import "OZZipWriteStream+Standard.h"
+#import "OZZipWriteStream+NSError.h"
 #import "OZZipWriteStream+Internals.h"
 #import "OZFileInZipInfo.h"
 #import "OZFileInZipInfo+Internals.h"

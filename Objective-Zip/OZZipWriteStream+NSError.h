@@ -1,8 +1,8 @@
 //
-//  Objective-Zip.h
-//  Objective-Zip v. 0.8.3
+//  OZZipWriteStream+NSError.h
+//  Objective-Zip
 //
-//  Created by Gianluca Bertani on 27/08/15.
+//  Created by Gianluca Bertani on 09/09/15.
 //  Copyright 2009-2015 Gianluca Bertani. All rights reserved.
 //
 //  Redistribution and use in source and binary forms, with or without
@@ -31,13 +31,37 @@
 //  POSSIBILITY OF SUCH DAMAGE.
 //
 
-#import "OZZipFile.h"
-#import "OZZipFile+Standard.h"
-#import "OZZipFileMode.h"
-#import "OZZipCompressionLevel.h"
-#import "OZZipException.h"
 #import "OZZipWriteStream.h"
-#import "OZZipWriteStream+Standard.h"
-#import "OZZipReadStream.h"
-#import "OZZipReadStream+Standard.h"
-#import "OZFileInZipInfo.h"
+
+
+@interface OZZipWriteStream (NSError)
+
+
+#pragma mark -
+#pragma mark Writing data (NSError variants)
+
+/**
+ @brief Compresses and writes data to the new file in the zip file.
+ <p>Data are compressed depending on the choice of compression level specified
+ during creation of the write stream.</p>
+ @param data The data to be compressed and written.
+ @param error If passed, may be filled with an NSError is case data could
+ not be written.
+ */
+- (BOOL) writeData:(nonnull NSData *)data error:(NSError * __autoreleasing __nullable * __nullable)error;
+
+/**
+ @brief Closes the write stream.
+ <p>Once you have finished writing data to the new file, it is important to
+ close the stream so system resources may be freed.</p>
+ <p>Note: after the stream has been closed any subsequent write will result in
+ an error.</p>
+ @param error If passed, may be filled with an NSError is case the stream could
+ not be closed.
+ @return <code>YES</code> if the stream has been closed, <code>NO</code> if
+ the stream could not be closed due to an error.
+ */
+- (BOOL) finishedWritingWithError:(NSError * __autoreleasing __nullable * __nullable)error;
+
+
+@end

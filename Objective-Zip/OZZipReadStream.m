@@ -32,6 +32,8 @@
 //
 
 #import "OZZipReadStream.h"
+#import "OZZipReadStream+Standard.h"
+#import "OZZipReadStream+NSError.h"
 #import "OZZipReadStream+Internals.h"
 #import "OZZipException.h"
 #import "OZZipException+Internals.h"

@@ -1,8 +1,8 @@
 //
-//  Objective-Zip.h
-//  Objective-Zip v. 0.8.3
+//  OZZipReadStream+NSError.h
+//  Objective-Zip
 //
-//  Created by Gianluca Bertani on 27/08/15.
+//  Created by Gianluca Bertani on 09/09/15.
 //  Copyright 2009-2015 Gianluca Bertani. All rights reserved.
 //
 //  Redistribution and use in source and binary forms, with or without
@@ -31,13 +31,38 @@
 //  POSSIBILITY OF SUCH DAMAGE.
 //
 
-#import "OZZipFile.h"
-#import "OZZipFile+Standard.h"
-#import "OZZipFileMode.h"
-#import "OZZipCompressionLevel.h"
-#import "OZZipException.h"
-#import "OZZipWriteStream.h"
-#import "OZZipWriteStream+Standard.h"
 #import "OZZipReadStream.h"
-#import "OZZipReadStream+Standard.h"
-#import "OZFileInZipInfo.h"
+
+
+@interface OZZipReadStream (NSError)
+
+
+#pragma mark -
+#pragma mark Reading data (NSError variants)
+
+/**
+ @brief Reads and uncompresses data from the file in the zip file and stores
+ them in the specified buffer.
+ @param buffer The buffer where read and uncompressed data must be stored.
+ @param error If passed, may be filled with an NSError is case data could
+ not be read.
+ @return The number of uncompressed bytes read, <code>0</code> if the end of
+ the file has been reached or data could not be read due to an error.
+ */
+- (NSUInteger) readDataWithBuffer:(nonnull NSMutableData *)buffer error:(NSError * __autoreleasing __nullable * __nullable)error;
+
+/**
+ @brief Closes the read steam.
+ <p>Once you have finished read data to the file, it is important to close
+ the stream so system resources may be freed.</p>
+ <p>Note: after the stream has been closed any subsequent read will result in
+ an error.</p>
+ @param error If passed, may be filled with an NSError is case the stream could
+ not be closed.
+ @return <code>YES</code> if the stream has been closed, <code>NO</code> if
+ the stream could not be closed due to an error.
+ */
+- (BOOL) finishedReadingWithError:(NSError * __autoreleasing __nullable * __nullable)error;
+
+
+@end

@@ -1,8 +1,8 @@
 //
-//  Objective-Zip.h
-//  Objective-Zip v. 0.8.3
+//  Objective-Zip+NSError.h
+//  Objective-Zip
 //
-//  Created by Gianluca Bertani on 27/08/15.
+//  Created by Gianluca Bertani on 09/09/15.
 //  Copyright 2009-2015 Gianluca Bertani. All rights reserved.
 //
 //  Redistribution and use in source and binary forms, with or without
@@ -32,12 +32,12 @@
 //
 
 #import "OZZipFile.h"
-#import "OZZipFile+Standard.h"
+#import "OZZipFile+NSError.h"
 #import "OZZipFileMode.h"
 #import "OZZipCompressionLevel.h"
 #import "OZZipException.h"
 #import "OZZipWriteStream.h"
-#import "OZZipWriteStream+Standard.h"
+#import "OZZipWriteStream+NSError.h"
 #import "OZZipReadStream.h"
-#import "OZZipReadStream+Standard.h"
+#import "OZZipReadStream+NSError.h"
 #import "OZFileInZipInfo.h"
