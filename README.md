@@ -14,9 +14,8 @@ an object-oriented friendly way.
 What is contained here
 ----------------------
 
-The source repository contains a sample application with full
-sources for ZLib, MiniZip and Objective-Zip, together with a unit test
-UI. The versions included are:
+The source repository contains full sources for ZLib, MiniZip and
+Objective-Zip, together with some unit tests. The versions included are:
 
 - 1.2.8 for [ZLib](http://zlib.net).
 - 1.1 for [MiniZip](https://github.com/nmoinvaz/minizip).
@@ -32,7 +31,7 @@ informations.
 Getting started
 ---------------
 
-Please see [Getting Started](https://github.com/flyingdolphinstudio/Objective-Zip/blob/master/GETTING_STARTED.md).
+Please see [Getting Started](https://github.com/gianlucabertani/Objective-Zip/blob/master/GETTING_STARTED.md).
 
 
 License
@@ -43,6 +42,19 @@ The library is distributed under the New BSD License.
 
 Version history
 ---------------
+
+Version 1.0.0:
+
+- Added official podspec to distribute via CocoaPods.
+- Added API docs.
+- Added nullability annotations.
+- Refactored DIY tests as unit tests.
+- Added targets for static libraries.
+- Added alternative interfaces with NSError pattern in place of exceptions.
+- Added support for legacy 32-bit zip files.
+- Added class prefix "OZ" to make Objective-Zip a good citizen.
+- Fully ARC-ified (removed ARCHelper)
+- Some code clean-up.
 
 Version 0.8.3:
 
@@ -91,7 +103,7 @@ Version 0.7.0:
 Compatibility
 -------------
 
-Version 0.8.3 has been tested with iOS from 5.1 to 6.1, but should be
-compatible with earlier versions too. Le me know of any issues that
-should arise.
+Version 1.0.0 has been tested with iOS up to 8.4.1 and OS X up to 10.10.5, but
+should be compatible with earlier versions too, down to iOS 5.1 and OS X 10.7.
+Le me know of any issues that should arise.
 

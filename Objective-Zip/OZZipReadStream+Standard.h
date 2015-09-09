@@ -1,6 +1,6 @@
 //
 //  OZZipReadStream+Standard.h
-//  Objective-Zip
+//  Objective-Zip v. 1.0.0
 //
 //  Created by Gianluca Bertani on 09/09/15.
 //  Copyright 2009-2015 Gianluca Bertani. All rights reserved.

@@ -11,29 +11,40 @@ the zip wrapping.
 Adding Objective-Zip to your project
 ------------------------------------
 
-The library is distributed as source only, so simply download the unit
-test application and copy-paste these directories in your own project:
+The library is distributed via CocoaPods, you can add a dependency in you pod
+file with the following line:
 
-- ARCHelper
-- ZLib
-- MiniZip
-- Objective-Zip
+    pod 'Objective-Zip', '~> 1.0'
 
-The first two are simply copies of the distribution of version 1.2.7 of
-ZLib and of version 1.1 of MiniZip (which is itself part of ZLib
-contributions), while the third is their Objective-C wrapper.
+You can then access Objective-Zip classes with the following import
+statement if you plan to use exception handling:
+
+```objective-c
+#import "Objective-Zip.h"
+```
+
+Alternatively you can use the following import statement if you plan to use
+Apple's NSError pattern:
+
+```objective-c
+#import "Objective-Zip+NSError.h"
+```
+
+More on error handling at the end of this document.
 
 
 Main concepts
 -------------
 
 Objective-Zip is centered on a class called (with a lack of fantasy)
-ZipFile. It can be created with the common Objective-C procedure of an
+OZZipFile. It can be created with the common Objective-C procedure of an
 alloc followed by an init, specifying in the latter if the zip file is
 being created, appended or unzipped:
 
-	ZipFile *zipFile= [[ZipFile alloc] initWithFileName:@"test.zip"
-		mode:ZipFileModeCreate];
+```objective-c
+OZZipFile *zipFile= [[OZZipFile alloc] initWithFileName:@"test.zip"
+    mode:OZZipFileModeCreate];
+```
 
 Creating and appending are both write-only modalities, while unzipping
 is a read-only modality. You can not request reading operations on a
@@ -46,36 +57,40 @@ Adding a file to a zip file
 
 The ZipFile class has a couple of methods to add new files to a zip
 file, one of which keeps the file in clear and the other encrypts it
-with a password. Both methods return an instance of a ZipWriteStream
+with a password. Both methods return an instance of a OZZipWriteStream
 class, which will be used solely for the scope of writing the content of
 the file, and then must be closed:
 
-	ZipWriteStream *stream= [zipFile writeFileInZipWithName:@"abc.txt"
-		compressionLevel:ZipCompressionLevelBest];
+```objective-c
+OZZipWriteStream *stream= [zipFile writeFileInZipWithName:@"abc.txt"
+    compressionLevel:OZZipCompressionLevelBest];
 
-	[stream writeData:abcData];
-	[stream finishedWriting];
+[stream writeData:abcData];
+[stream finishedWriting];
+```
 
 
 Reading a file from a zip file
 ------------------------------
 
-The ZipFile class, when used in unzip mode, must be treated like a
+The OZZipFile class, when used in unzip mode, must be treated like a
 cursor: you position the instance on a file at a time, either by
 step-forwarding or by locating the file by name. Once you are on the
-correct file, you can obtain an instance of a ZipReadStream that will
+correct file, you can obtain an instance of a OZZipReadStream that will
 let you read the content (and then must be closed):
 
-	ZipFile *unzipFile= [[ZipFile alloc] initWithFileName:@"test.zip"
-		mode:ZipFileModeUnzip];
+```objective-c
+OZZipFile *unzipFile= [[OZZipFile alloc] initWithFileName:@"test.zip"
+    mode:OZZipFileModeUnzip];
 
-	[unzipFile goToFirstFileInZip];
+[unzipFile goToFirstFileInZip];
 
-	ZipReadStream *read= [unzipFile readCurrentFileInZip];
-	NSMutableData *data= [[NSMutableData alloc] initWithLength:256];
-	int bytesRead= [read readDataWithBuffer:data];
+OZZipReadStream *read= [unzipFile readCurrentFileInZip];
+NSMutableData *data= [[NSMutableData alloc] initWithLength:256];
+int bytesRead= [read readDataWithBuffer:data];
 
-	[read finishedReading];
+[read finishedReading];
+```
 
 Note that the NSMutableData instance that acts as the read buffer must
 have been set with a length greater than 0: the readDataWithBuffer API
@@ -91,25 +106,27 @@ contained in zip by filling an NSArray with instances of FileInZipInfo
 class. You can then use its name property to locate the file inside the
 zip and expand it:
 
-	ZipFile *unzipFile= [[ZipFile alloc] initWithFileName:@"test.zip"
-		mode:ZipFileModeUnzip];
+```objective-c
+OZZipFile *unzipFile= [[OZZipFile alloc] initWithFileName:@"test.zip"
+    mode:ZipFileModeUnzip];
 
-	NSArray *infos= [unzipFile listFileInZipInfos];
-	for (FileInZipInfo *info in infos) {
-		NSLog(@"- %@ %@ %d (%d)", info.name, info.date, info.size,
-    		info.level);
+NSArray *infos= [unzipFile listFileInZipInfos];
+for (OZFileInZipInfo *info in infos) {
+    NSLog(@"- %@ %@ %d (%d)", info.name, info.date, info.size,
+        info.level);
 
-		// Locate the file in the zip
-		[unzipFile locateFileInZip:info.name];
+    // Locate the file in the zip
+    [unzipFile locateFileInZip:info.name];
 
-		// Expand the file in memory
-		ZipReadStream *read= [unzipFile readCurrentFileInZip];
-		NSMutableData *data= [[NSMutableData alloc] initWithLength:256];
-		int bytesRead= [read readDataWithBuffer:data];
-		[read finishedReading];
-	}
+    // Expand the file in memory
+    OZZipReadStream *read= [unzipFile readCurrentFileInZip];
+    NSMutableData *data= [[NSMutableData alloc] initWithLength:256];
+    int bytesRead= [read readDataWithBuffer:data];
+    [read finishedReading];
+}
+```
 
-Note that the FileInZipInfo class provide two sizes:
+Note that the OZFileInZipInfo class provide two sizes:
 
 - **length** is the original (uncompressed) file size, while
 - **size** is the compressed file size.
@@ -118,10 +135,12 @@ Note that the FileInZipInfo class provide two sizes:
 Closing the zip file
 --------------------
 
-Remember, when you are done, to close your ZipFile instance to avoid
+Remember, when you are done, to close your OZZipFile instance to avoid
 file corruption problems:
 
-	[zipFile close];
+```objective-c
+[zipFile close];
+```
 
 
 Notes
@@ -134,9 +153,9 @@ File/folder hierarchy inide the zip
 Please note that inside the zip files there is no representation of a
 file-folder hierarchy: it is simply embedded in file names (i.e.: a file
 with a name like "x/y/z/file.txt"). It is up to the program that
-extracts the files to consider these file names as expressing a
-structure and rebuild it on the file system (and viceversa during
-creation). Common zippers/unzippers simply follow this rule.
+extracts files to consider these file names as expressing a structure and
+rebuild it on the file system (and viceversa during creation). Common
+zippers/unzippers simply follow this rule.
 
 
 Memory management
@@ -145,42 +164,69 @@ Memory management
 If you need to extract huge files that cannot be contained in memory,
 you can do so using a read-then-write buffered loop like this:
 
-	NSFileHandle *file= [NSFileHandle fileHandleForWritingAtPath:filePath];
-	NSMutableData *buffer= [[NSMutableData alloc]
-		initWithLength:BUFFER_SIZE];
+```objective-c
+NSFileHandle *file= [NSFileHandle fileHandleForWritingAtPath:filePath];
+NSMutableData *buffer= [[NSMutableData alloc]
+    initWithLength:BUFFER_SIZE];
 
-	ZipReadStream *read= [unzipFile readCurrentFileInZip];
+OZZipReadStream *read= [unzipFile readCurrentFileInZip];
 
-	// Read-then-write buffered loop
-	do {
+// Read-then-write buffered loop
+do {
 
-		// Reset buffer length
-		[buffer setLength:BUFFER_SIZE];
+    // Reset buffer length
+    [buffer setLength:BUFFER_SIZE];
 
-		// Expand next chunk of bytes
-		int bytesRead= [read readDataWithBuffer:buffer];
-		if (bytesRead > 0) {
+    // Expand next chunk of bytes
+    int bytesRead= [read readDataWithBuffer:buffer];
+    if (bytesRead > 0) {
 
-			// Write what we have read
-			[buffer setLength:bytesRead];
-			[file writeData:buffer];
+        // Write what we have read
+        [buffer setLength:bytesRead];
+        [file writeData:buffer];
 
-		} else
-			break;
+    } else
+        break;
 
-	} while (YES);
+} while (YES);
 
-	// Clean up
-	[file closeFile];
-	[read finishedReading];
-	[buffer release];
+// Clean up
+[file closeFile];
+[read finishedReading];
+[buffer release];
+```
 
 
-Exception handling
-------------------
+Error handling
+--------------
 
-If something goes wrong during an operation, Objective-Zip will always
-throw an exception of class ZipException, which contains a property with
-the specific error number of MiniZip. With that number you are supposed
-to find the reason of the error.
+Objective-Zip provides two kinds of error handling:
+
+- standard exception handling;
+- Apple's NSError pattern.
+
+With standard exception handling, Objective-Zip will throw an exception of
+class OZZipException any time an error occurs (programmer or runtime errors).
+
+To use standard exception handling import Objective-Zip in your project with
+this statement:
+
+```objective-c
+#import "Objective-Zip.h"
+```
+
+With Apple's NSError pattern, Objective-Zip will expect a NSError
+pointer-to-pointer argument and will fill it with an NSError instance
+whenever a runtime error occurs. Will revert to throwing an exception (of
+OZZipException class) in case of programmer errors.
+
+To use Apple's NSError pattern import Objective-Zip in your project with this
+statement:
+
+```objective-c
+#import "Objective-Zip+NSError.h"
+```
+
+Apple's NSError pattern is of course mandatory with Swift programming
+language, since it does not support exception handling.
 
