@@ -91,7 +91,6 @@
 /* Begin PBXFileReference section */
 		1D30AB110D05D00D00671497 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		8C14E8181773A09F00B84597 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
-		8C1D598B1771057D006D69C3 /* GETTING_STARTED.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = GETTING_STARTED.md; sourceTree = "<group>"; };
 		8C1D598C1771057D006D69C3 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
 		8C6D352410E56A9000B63EFA /* crypt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = crypt.h; path = MiniZip/crypt.h; sourceTree = "<group>"; };
 		8C6D352510E56A9000B63EFA /* ioapi.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = ioapi.c; path = MiniZip/ioapi.c; sourceTree = "<group>"; };
@@ -212,7 +211,6 @@
 				8CC2FC661B91E63E00D5E05F /* Objective-Zip Tests */,
 				29B97323FDCFA39411CA2CEA /* Frameworks */,
 				19C28FACFE9D520D11CA2CBB /* Products */,
-				8C1D598B1771057D006D69C3 /* GETTING_STARTED.md */,
 				8C1D598C1771057D006D69C3 /* README.md */,
 			);
 			name = CustomTemplate;
