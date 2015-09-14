@@ -39,7 +39,7 @@
  @brief Compression level to be used to compress new files added to the zip
  file.
  */
-typedef enum {
+typedef NS_ENUM(NSInteger, OZZipCompressionLevel) {
     
     /**
      @brief Compression level that compresses the new file somewhere inbetween
@@ -64,8 +64,7 @@ typedef enum {
      possible, corresponding to the slowest compression.
      */
     OZZipCompressionLevelBest= 9
-    
-} OZZipCompressionLevel;
+};
 
 
 #endif

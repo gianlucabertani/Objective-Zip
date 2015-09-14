@@ -37,7 +37,7 @@
 /**
  @brief Access mode for opening a zip file.
  */
-typedef enum {
+typedef NS_ENUM(NSInteger, OZZipFileMode) {
     
     /**
      @brief Acces mode for opening the zip file for reading.
@@ -54,8 +54,7 @@ typedef enum {
      @brief Acces mode for opening the zip file for writing.
      */
     OZZipFileModeAppend
-    
-} OZZipFileMode;
+};
 
 
 #endif

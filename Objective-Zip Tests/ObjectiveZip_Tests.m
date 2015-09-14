@@ -135,13 +135,13 @@
         
         XCTAssertEqualWithAccuracy([[NSDate date] timeIntervalSinceReferenceDate], [info1.date timeIntervalSinceReferenceDate] + 86400, 5.0);
         
-        NSLog(@"Test 1: - %@ %@ %lu (%d)", info1.name, info1.date, (unsigned long) info1.size, info1.level);
+        NSLog(@"Test 1: - %@ %@ %lu (%ld)", info1.name, info1.date, (unsigned long) info1.size, (long) info1.level);
         
         OZFileInZipInfo *info2= [infos objectAtIndex:1];
         
         XCTAssertEqualWithAccuracy([[NSDate date] timeIntervalSinceReferenceDate], [info2.date timeIntervalSinceReferenceDate], 5.0);
         
-        NSLog(@"Test 1: - %@ %@ %lu (%d)", info2.name, info2.date, (unsigned long) info2.size, info2.level);
+        NSLog(@"Test 1: - %@ %@ %lu (%ld)", info2.name, info2.date, (unsigned long) info2.size, (long) info2.level);
         
         NSLog(@"Test 1: opening first file...");
         
@@ -271,7 +271,7 @@
         
         XCTAssertEqual(info1.length, HUGE_TEST_NUMBER_OF_BLOCKS * HUGE_TEST_BLOCK_LENGTH);
         
-        NSLog(@"Test 1: - %@ %@ %lu (%d)", info1.name, info1.date, (unsigned long) info1.size, info1.level);
+        NSLog(@"Test 1: - %@ %@ %lu (%ld)", info1.name, info1.date, (unsigned long) info1.size, (long) info1.level);
         
         NSLog(@"Test 2: opening file...");
         
