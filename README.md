@@ -265,6 +265,12 @@ The library is distributed under the New BSD License.
 Version history
 ===============
 
+Version 1.0.1:
+
+- Fixed compatibility bugs with Swift
+- Added Swift unit tests
+- Merged back GETTING STARTED in README
+
 Version 1.0.0:
 
 - Added official podspec to distribute via CocoaPods.
@@ -325,7 +331,7 @@ Version 0.7.0:
 Compatibility
 =============
 
-Version 1.0.0 has been tested with iOS up to 8.4.1 and OS X up to 10.10.5, but
+Version 1.0.1 has been tested with iOS up to 9.0 and OS X up to 10.10.5, but
 should be compatible with earlier versions too, down to iOS 5.1 and OS X 10.7.
 Le me know of any issues that should arise.
 

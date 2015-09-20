@@ -1,6 +1,6 @@
 //
 //  OZFileInZipInfo+Internals.h
-//  Objective-Zip v. 1.0.0
+//  Objective-Zip v. 1.0.1
 //
 //  Created by Gianluca Bertani on 27/08/15.
 //  Copyright 2009-2015 Gianluca Bertani. All rights reserved.
