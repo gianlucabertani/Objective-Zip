@@ -33,7 +33,7 @@
 
 #import <Foundation/Foundation.h>
 
-#define ERROR_NO_SUCH_FILE             (-9001)
+extern const NSInteger OZ_ERROR_NO_SUCH_FILE;
 
 
 /**

@@ -48,6 +48,12 @@
 
 
 #pragma mark -
+#pragma mark OZZipException constants
+
+const NSInteger OZ_ERROR_NO_SUCH_FILE= -9001;
+
+
+#pragma mark -
 #pragma mark OZZipException implementation
 
 @implementation OZZipException

@@ -177,7 +177,7 @@
         NSMutableData *data2= [[NSMutableData alloc] initWithLength:256];
         NSUInteger bytesRead2= [read2 readDataWithBuffer:data2];
         
-        XCTAssertEqual(3, bytesRead1);
+        XCTAssertEqual(3, bytesRead2);
 
         NSString *fileText2= [[NSString alloc] initWithBytes:[data2 bytes] length:bytesRead2 encoding:NSUTF8StringEncoding];
         
@@ -448,7 +448,7 @@
         
     } @catch (OZZipException *ze) {
         
-        XCTAssertEqual(ERROR_NO_SUCH_FILE, ze.error);
+        XCTAssertEqual(OZ_ERROR_NO_SUCH_FILE, ze.error);
         
     } @catch (NSException *e) {
         NSLog(@"Test 5: generic exception caught: %@ - %@", [[e class] description], [e description]);
@@ -469,7 +469,7 @@
         
         XCTAssertNil(zipFile);
         XCTAssertNotNil(error);
-        XCTAssertEqual(ERROR_NO_SUCH_FILE, error.code);
+        XCTAssertEqual(OZ_ERROR_NO_SUCH_FILE, error.code);
         
         NSLog(@"Test 5: test terminated succesfully");
         

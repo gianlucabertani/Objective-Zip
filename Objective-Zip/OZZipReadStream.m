@@ -96,7 +96,7 @@
 - (NSUInteger) readDataWithBuffer:(NSMutableData *)buffer error:(NSError * __autoreleasing *)error {
     ERROR_WRAP_BEGIN {
         
-        [self readDataWithBuffer:buffer];
+        return [self readDataWithBuffer:buffer];
         
     } ERROR_WRAP_END_AND_RETURN(error, 0);
 }

@@ -97,7 +97,7 @@
                 // alternatively, as internal (common) version is not exposed
                 _unzFile= (_legacy32BitMode ? unzOpen(path) : unzOpen64(path));
 				if (_unzFile == NULL)
-                    @throw [OZZipException zipExceptionWithError:ERROR_NO_SUCH_FILE reason:@"Can't open '%@'", _fileName];
+                    @throw [OZZipException zipExceptionWithError:OZ_ERROR_NO_SUCH_FILE reason:@"Can't open '%@'", _fileName];
 				break;
 				
 			case OZZipFileModeCreate:
@@ -105,7 +105,7 @@
                 // Support for legacy 32 bit mode: here we use the common version
                 _zipFile= zipOpen3(path, APPEND_STATUS_CREATE, 0, NULL, NULL);
 				if (_zipFile == NULL)
-                    @throw [OZZipException zipExceptionWithError:ERROR_NO_SUCH_FILE reason:@"Can't open '%@'", _fileName];
+                    @throw [OZZipException zipExceptionWithError:OZ_ERROR_NO_SUCH_FILE reason:@"Can't open '%@'", _fileName];
 				break;
 				
 			case OZZipFileModeAppend:
@@ -113,7 +113,7 @@
                 // Support for legacy 32 bit mode: here we use the common version
                 _zipFile= zipOpen3(path, APPEND_STATUS_ADDINZIP, 0, NULL, NULL);
 				if (_zipFile == NULL)
-                    @throw [OZZipException zipExceptionWithError:ERROR_NO_SUCH_FILE reason:@"Can't open '%@'", _fileName];
+                    @throw [OZZipException zipExceptionWithError:OZ_ERROR_NO_SUCH_FILE reason:@"Can't open '%@'", _fileName];
 				break;
 				
 			default:
