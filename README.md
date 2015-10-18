@@ -42,7 +42,7 @@ Adding Objective-Zip to your project
 The library is distributed via CocoaPods, you can add a dependency in you pod
 file with the following line:
 
-pod 'Objective-Zip', '~> 1.0'
+pod 'objective-zip', '~> 1.0'
 
 You can then access Objective-Zip classes with the following import
 statement if you plan to use exception handling:
