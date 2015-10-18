@@ -351,7 +351,7 @@ Version 0.7.0:
 Compatibility
 =============
 
-Version 1.0.1 has been tested with iOS up to 9.0 and OS X up to 10.10.5, but
+Version 1.0.2 has been tested with iOS up to 9.0 and OS X up to 10.11, but
 should be compatible with earlier versions too, down to iOS 5.1 and OS X 10.7.
 Le me know of any issues that should arise.
 
