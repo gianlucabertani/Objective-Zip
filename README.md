@@ -105,7 +105,10 @@ The OZZipFile class, when used in unzip mode, must be treated like a
 cursor: you position the instance on a file at a time, either by
 step-forwarding or by locating the file by name. Once you are on the
 correct file, you can obtain an instance of a OZZipReadStream that will
-let you read the content (and then must be closed):
+let you read the content (and then must be closed).
+
+Since the file may not fit into memory, you can read it block by block using
+a buffer:
 
 ```objective-c
 OZZipFile *unzipFile= [[OZZipFile alloc] initWithFileName:@"test.zip"
@@ -114,14 +117,50 @@ OZZipFile *unzipFile= [[OZZipFile alloc] initWithFileName:@"test.zip"
 [unzipFile goToFirstFileInZip];
 
 OZZipReadStream *read= [unzipFile readCurrentFileInZip];
-NSMutableData *data= [[NSMutableData alloc] initWithLength:256];
-int bytesRead= [read readDataWithBuffer:data];
+NSMutableData *data= [[NSMutableData alloc] initWithLength:BUFFER_SIZE];
+
+do {
+
+    // Reset buffer length
+    [buffer setLength:BUFFER_SIZE];
+
+    // Read bytes and check for end of file
+    int bytesRead= [read readDataWithBuffer:data];
+    if (bytesRead <= 0)
+        break;
+
+    [buffer setLength:bytesRead];
+
+    // Do something with buffer
+
+} while (YES);
+
+[read finishedReading];
+```
+
+Alternatively, if you know in advance the file will fit into memory, you may
+preallocate a buffer big enough and read the all file at once. In the example
+below the buffer is preallocated with precisely the uncompressed size of the
+file:
+
+```objective-c
+OZZipFile *unzipFile= [[OZZipFile alloc] initWithFileName:@"test.zip"
+    mode:OZZipFileModeUnzip];
+
+[unzipFile goToFirstFileInZip];
+OZFileInZipInfo *info= [unzipFile getCurrentFileInZipInfo];
+
+OZZipReadStream *read= [unzipFile readCurrentFileInZip];
+NSMutableData *data= [[NSMutableData alloc] initWithLength:info.length];
+[read readDataWithBuffer:data];
+
+// Do something with data
 
 [read finishedReading];
 ```
 
 Note that the NSMutableData instance that acts as the read buffer must
-have been set with a length greater than 0: the readDataWithBuffer API
+have been set with a length greater than 0: the `readDataWithBuffer` API
 will use that length to know how many bytes it can fetch from the zip
 file.
 
@@ -148,7 +187,7 @@ for (OZFileInZipInfo *info in infos) {
 
     // Expand the file in memory
     OZZipReadStream *read= [unzipFile readCurrentFileInZip];
-    NSMutableData *data= [[NSMutableData alloc] initWithLength:256];
+    NSMutableData *data= [[NSMutableData alloc] initWithLength:info.length];
     int bytesRead= [read readDataWithBuffer:data];
     [read finishedReading];
 }
@@ -180,45 +219,6 @@ with a name like "x/y/z/file.txt"). It is up to the program that
 extracts files to consider these file names as expressing a structure and
 rebuild it on the file system (and viceversa during creation). Common
 zippers/unzippers simply follow this rule.
-
-
-Memory management
------------------
-
-If you need to extract huge files that cannot be contained in memory,
-you can do so using a read-then-write buffered loop like this:
-
-```objective-c
-NSFileHandle *file= [NSFileHandle fileHandleForWritingAtPath:filePath];
-NSMutableData *buffer= [[NSMutableData alloc]
-    initWithLength:BUFFER_SIZE];
-
-OZZipReadStream *read= [unzipFile readCurrentFileInZip];
-
-// Read-then-write buffered loop
-do {
-
-    // Reset buffer length
-    [buffer setLength:BUFFER_SIZE];
-
-    // Expand next chunk of bytes
-    int bytesRead= [read readDataWithBuffer:buffer];
-    if (bytesRead > 0) {
-
-        // Write what we have read
-        [buffer setLength:bytesRead];
-        [file writeData:buffer];
-
-    } else
-    break;
-
-} while (YES);
-
-// Clean up
-[file closeFile];
-[read finishedReading];
-[buffer release];
-```
 
 
 Error handling
@@ -255,6 +255,21 @@ Apple's NSError pattern is of course mandatory with Swift programming
 language, since it does not support exception handling.
 
 
+Differences in the interface
+----------------------------
+
+Note that a few minor differences exist in the standard interface vs. the
+NSError pattern interface. Specifically:
+
+* `[OZZipFile locateFileInZip:error:]` returns a `NSInteger` in place of a
+`BOOL`. Here the special values `OZLocateFileResultNotFound` and
+`OZLocateFileResultNotFound`, respectively `1` and `-1`, are used in place of
+`YES` and `NO`, since `0` is reserved for the case where an error occurred.
+* `[OZZipReadStream readDataWithBuffer:error:]` similarly returns a
+`NSInteger` in place of a `NSUInteger`. Here the special value
+`OZReadStreamResultEndOfFile`, corresponding to `-1`, is used for the
+end-of-file case, since `0` is again reserved for error occurrence.
+
 
 License
 =======
@@ -264,6 +279,11 @@ The library is distributed under the New BSD License.
 
 Version history
 ===============
+
+Version 1.0.2:
+
+- Fixed interface for `locateFileInZip` and `readDataWithBuffer` in NSError
+  version so that they correctly support Swift error handling.
 
 Version 1.0.1:
 
