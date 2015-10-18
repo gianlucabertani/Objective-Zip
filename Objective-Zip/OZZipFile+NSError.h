@@ -34,6 +34,17 @@
 #import "OZZipFile.h"
 
 
+/**
+ @brief Indicates the file could not be located in the zip file.
+ */
+static const NSInteger OZLocateFileResultNotFound= -1;
+
+/**
+ @brief Indicates the file has been successfully located in the zip file.
+ */
+static const NSInteger OZLocateFileResultFound= 1;
+
+
 @interface OZZipFile (NSError)
 
 
@@ -211,13 +222,16 @@
  <code>readCurrentFileInZip</code>.</p>
  @param error If passed, may be filled with an NSError is case the file can't
  be located.
- @return <code>YES</code> if the file has been located and selected,
- <code>NO</code> if the specified file name is not present in the zip file or
- the file could not be located due to an error.
+ @return <code>OZLocateFileResultFound</code> if the file has been located
+ and selected, <code>OZLocateFileResultNotFound</code> if the specified
+ file name is not present in the zip file, or <code>0</code> if the file could
+ not be located due to an error.
+ <br/>NOTE: return value convention is different in the standard (non-NSError
+ compliant) interface.
  @throws OZZipException If the zip file has been opened with a mode other than
  Unzip.
  */
-- (BOOL) locateFileInZip:(nonnull NSString *)fileNameInZip error:(NSError * __autoreleasing __nullable * __nullable)error;
+- (NSInteger) __attribute__((swift_error(zero_result))) locateFileInZip:(nonnull NSString *)fileNameInZip error:(NSError * __autoreleasing __nullable * __nullable)error;
 
 /**
  @brief Returns the number of files contained in the zip file.
@@ -228,7 +242,7 @@
  @throws OZZipException If the zip file has been opened with a mode other
  than Unzip.
  */
-- (NSUInteger) numFilesInZipWithError:(NSError * __autoreleasing __nullable * __nullable)error;
+- (NSUInteger) __attribute__((swift_error(zero_result))) numFilesInZipWithError:(NSError * __autoreleasing __nullable * __nullable)error;
 
 /**
  @brief Returns a list of OZFileInZipInfo with the information on all the files

@@ -208,11 +208,11 @@
     }
 }
 
+/* 
+ * Uncomment to execute this test, but be careful: takes 5 minutes and consumes 5 GB of disk space
+ *
 - (void) test02ZipAndUnzip5GB {
-    
-// TODO Remove to enable this test, but be careful: takes 5 minutes and consumes 5 GB of disk space
-    return;
-    
+ 
     NSString *documentsDir= [NSHomeDirectory() stringByAppendingPathComponent:@"Documents"];
     NSString *filePath= [documentsDir stringByAppendingPathComponent:@"huge_test.zip"];
     
@@ -319,6 +319,7 @@
         [[NSFileManager defaultManager] removeItemAtPath:filePath error:NULL];
     }
 }
+ */
 
 - (void) test03UnzipMacZipFile {
     NSString *documentsDir= [NSHomeDirectory() stringByAppendingPathComponent:@"Documents"];

@@ -93,10 +93,11 @@
 #pragma mark -
 #pragma mark Reading data (NSError variants)
 
-- (NSUInteger) readDataWithBuffer:(NSMutableData *)buffer error:(NSError * __autoreleasing *)error {
+- (NSInteger) readDataWithBuffer:(NSMutableData *)buffer error:(NSError * __autoreleasing *)error {
     ERROR_WRAP_BEGIN {
         
-        return [self readDataWithBuffer:buffer];
+        NSUInteger bytesRead= [self readDataWithBuffer:buffer];
+        return (bytesRead == 0) ? OZReadStreamResultEndOfFile : bytesRead;
         
     } ERROR_WRAP_END_AND_RETURN(error, 0);
 }

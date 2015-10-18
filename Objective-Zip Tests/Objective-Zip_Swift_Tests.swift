@@ -140,12 +140,7 @@ class Objective_Zip_Swift_Tests: XCTestCase {
             NSLog("Test 1: reading from first file's stream...")
             
             let data1 = NSMutableData(length:256)!
-
-            var error : NSError?
-            let bytesRead1 = read1.readDataWithBuffer(data1, error:&error)
-            if error != nil {
-                throw error!
-            }
+            let bytesRead1 = try read1.readDataWithBuffer(data1)
             
             XCTAssertEqual(3, bytesRead1)
             
@@ -167,11 +162,7 @@ class Objective_Zip_Swift_Tests: XCTestCase {
             NSLog("Test 1: reading from second file's stream...")
             
             let data2 = NSMutableData(length:256)!
-
-            let bytesRead2 = read2.readDataWithBuffer(data2, error:&error)
-            if error != nil {
-                throw error!
-            }
+            let bytesRead2 = try read2.readDataWithBuffer(data2)
             
             XCTAssertEqual(3, bytesRead2)
             
@@ -201,11 +192,11 @@ class Objective_Zip_Swift_Tests: XCTestCase {
         }
     }
     
+    /* 
+     * Uncomment to execute this test, but be careful: takes 5 minutes and consumes 5 GB of disk space
+     *
     func test02ZipAndUnzip5GB() {
     
-        // TODO Remove to enable this test, but be careful: takes 5 minutes and consumes 5 GB of disk space
-        return
-        
         let documentsUrl = NSURL(fileURLWithPath:NSHomeDirectory(), isDirectory:true).URLByAppendingPathComponent("Documents")
         let fileUrl = documentsUrl.URLByAppendingPathComponent("huge_test.zip")
         let filePath = fileUrl.path!
@@ -286,13 +277,9 @@ class Objective_Zip_Swift_Tests: XCTestCase {
             NSLog("Test 2: reading from file's stream...")
             
             for (var i = 0; i < HUGE_TEST_NUMBER_OF_BLOCKS; i++) {
-                var error : NSError?
-                let bytesRead = read.readDataWithBuffer(buffer, error:&error)
-                if error != nil {
-                    throw error!
-                }
+                let bytesRead = try read.readDataWithBuffer(buffer)
                 
-                XCTAssertEqual(UInt(data.length), bytesRead)
+                XCTAssertEqual(data.length, bytesRead)
                 
                 let range = buffer.rangeOfData(checkData, options:NSDataSearchOptions(), range:NSMakeRange(0, buffer.length))
                 
@@ -319,6 +306,7 @@ class Objective_Zip_Swift_Tests: XCTestCase {
             XCTFail("Error caught: \(error.code) - \(error.userInfo[NSLocalizedFailureReasonErrorKey])")
         }
     }
+     */
     
     func test03UnzipMacZipFile() -> () {
         let documentsUrl = NSURL(fileURLWithPath:NSHomeDirectory(), isDirectory:true).URLByAppendingPathComponent("Documents")
@@ -355,12 +343,7 @@ class Objective_Zip_Swift_Tests: XCTestCase {
             NSLog("Test 3: reading from file's stream...")
             
             let buffer = NSMutableData(length:1024)!
-            
-            var error : NSError?
-            let bytesRead = read.readDataWithBuffer(buffer, error:&error)
-            if error != nil {
-                throw error!
-            }
+            let bytesRead = try read.readDataWithBuffer(buffer)
             
             let fileText = NSString(bytes:buffer.bytes, length:Int(bytesRead), encoding:NSUTF8StringEncoding)
             
@@ -418,12 +401,7 @@ class Objective_Zip_Swift_Tests: XCTestCase {
             NSLog("Test 4: reading from file's stream...")
             
             let buffer = NSMutableData(length:1024)!
-            
-            var error : NSError?
-            let bytesRead = read.readDataWithBuffer(buffer, error:&error)
-            if error != nil {
-                throw error!
-            }
+            let bytesRead = try read.readDataWithBuffer(buffer)
             
             let fileText = NSString(bytes:buffer.bytes, length:Int(bytesRead), encoding:NSUTF8StringEncoding)
             

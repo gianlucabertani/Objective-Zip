@@ -47,6 +47,8 @@
  @param data The data to be compressed and written.
  @param error If passed, may be filled with an NSError is case data could
  not be written.
+ @return <code>YES</code> if data has been written, <code>NO</code> if
+ data could not be written due to an error.
  */
 - (BOOL) writeData:(nonnull NSData *)data error:(NSError * __autoreleasing __nullable * __nullable)error;
 

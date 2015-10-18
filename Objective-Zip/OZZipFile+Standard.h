@@ -199,6 +199,8 @@
  <code>readCurrentFileInZip</code>.</p>
  @return <code>YES</code> if the file has been located and selected,
  <code>NO</code> if the specified file name is not present in the zip file.
+ <br/>NOTE: return value convention is different in NSError compliant
+ interface.
  @throws OZZipException If the file can't be located due to an error or if the
  zip file has been opened with a mode other than Unzip.
  */

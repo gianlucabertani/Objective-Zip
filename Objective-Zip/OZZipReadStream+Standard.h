@@ -46,6 +46,8 @@
  @param buffer The buffer where read and uncompressed data must be stored.
  @return The number of uncompressed bytes read, <code>0</code> if the end of
  the file has been reached.
+ <br/>NOTE: return value convention is different in NSError compliant
+ interface.
  @throws OZZipException If the data could not be read due to an error.
  */
 - (NSUInteger) readDataWithBuffer:(nonnull NSMutableData *)buffer;

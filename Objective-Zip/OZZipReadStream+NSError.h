@@ -34,6 +34,12 @@
 #import "OZZipReadStream.h"
 
 
+/**
+ @brief Indicates the end of the file has been reached.
+ */
+static const NSInteger OZReadStreamResultEndOfFile= -1;
+
+
 @interface OZZipReadStream (NSError)
 
 
@@ -46,10 +52,13 @@
  @param buffer The buffer where read and uncompressed data must be stored.
  @param error If passed, may be filled with an NSError is case data could
  not be read.
- @return The number of uncompressed bytes read, <code>0</code> if the end of
- the file has been reached or data could not be read due to an error.
+ @return The number of uncompressed bytes read, <code>OZReadStreamResultEndOfFile</code>
+ if the end of the file has been reached, or <code>0</code>
+ if data could not be read due to an error.
+ <br/>NOTE: return value convention is different in the standard (non-NSError
+ compliant) interface.
  */
-- (NSUInteger) readDataWithBuffer:(nonnull NSMutableData *)buffer error:(NSError * __autoreleasing __nullable * __nullable)error;
+- (NSInteger) __attribute__((swift_error(zero_result))) readDataWithBuffer:(nonnull NSMutableData *)buffer error:(NSError * __autoreleasing __nullable * __nullable)error;
 
 /**
  @brief Closes the read steam.

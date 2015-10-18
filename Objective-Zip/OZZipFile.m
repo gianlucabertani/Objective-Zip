@@ -444,12 +444,13 @@
     } ERROR_WRAP_END_AND_RETURN(error, NO);
 }
 
-- (BOOL) locateFileInZip:(NSString *)fileNameInZip error:(NSError * __autoreleasing *)error {
+- (NSInteger) locateFileInZip:(NSString *)fileNameInZip error:(NSError * __autoreleasing *)error {
     ERROR_WRAP_BEGIN {
         
-        return [self locateFileInZip:fileNameInZip];
+        BOOL located= [self locateFileInZip:fileNameInZip];
+        return (located ? OZLocateFileResultFound : OZLocateFileResultNotFound);
         
-    } ERROR_WRAP_END_AND_RETURN(error, NO);
+    } ERROR_WRAP_END_AND_RETURN(error, 0);
 }
 
 - (NSUInteger) numFilesInZipWithError:(NSError * __autoreleasing *)error {
