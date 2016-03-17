@@ -175,7 +175,7 @@ zip and expand it:
 
 ```objective-c
 OZZipFile *unzipFile= [[OZZipFile alloc] initWithFileName:@"test.zip"
-    mode:ZipFileModeUnzip];
+    mode:OZZipFileModeUnzip];
 
 NSArray *infos= [unzipFile listFileInZipInfos];
 for (OZFileInZipInfo *info in infos) {
