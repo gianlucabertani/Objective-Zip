@@ -179,8 +179,7 @@ OZZipFile *unzipFile= [[OZZipFile alloc] initWithFileName:@"test.zip"
 
 NSArray *infos= [unzipFile listFileInZipInfos];
 for (OZFileInZipInfo *info in infos) {
-    NSLog(@"- %@ %@ %d (%d)", info.name, info.date, info.size,
-        info.level);
+    NSLog(@"- %@ %@ %llu (%d)", info.name, info.date, info.size, info.level);
 
     // Locate the file in the zip
     [unzipFile locateFileInZip:info.name];
