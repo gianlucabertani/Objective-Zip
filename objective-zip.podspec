@@ -48,6 +48,16 @@ Pod::Spec.new do |s|
   s.source_files  = "Objective-Zip/**/*.{h,m}", "MiniZip/**/*.{h,c}", "ZLib/**/*.{h,c}"
 
 
+  # ――― Publich Headers ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
+
+  s.public_header_files = ["Objective-Zip/OZZipFile.h", "Objective-Zip/OZZipFile+Standard.h", "Objective-Zip/OZZipFile+NSError.h",
+                           "Objective-Zip/OZZipFileMode.h", "Objective-Zip/OZZipCompressionLevel.h", "Objective-Zip/OZZipException.h",
+                           "Objective-Zip/OZZipWriteStream.h", "Objective-Zip/OZZipWriteStream+Standard.h",
+                           "Objective-Zip/OZZipWriteStream+NSError.h", "Objective-Zip/OZZipReadStream.h",
+                           "Objective-Zip/OZZipReadStream+Standard.h", "Objective-Zip/OZZipReadStream+NSError.h",
+                           "Objective-Zip/OZFileInZipInfo.h", "Objective-Zip/Objective-Zip.h", "Objective-Zip/Objective-Zip+NSError.h"]
+
+
   # ――― Project Settings ――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
 
   s.requires_arc = true
