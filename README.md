@@ -279,6 +279,13 @@ The library is distributed under the New BSD License.
 Version history
 ===============
 
+Version 1.0.3:
+
+- Fixed some memory leaks in MiniZip (contributed by @SheffieldKevin)
+- Silenced a warning about shifting a negative value in ZLib (contributed by Martin Winter)
+- Fixed throwing of errors so that it is compatible with Swift 3 (contributed by @andyj-at-aspin)
+- Fixed typos and errors in README (contributed by @deni2s)
+
 Version 1.0.2:
 
 - Fixed interface for `locateFileInZip` and `readDataWithBuffer` in NSError
@@ -350,7 +357,7 @@ Version 0.7.0:
 Compatibility
 =============
 
-Version 1.0.2 has been tested with iOS up to 9.0 and OS X up to 10.11, but
+Version 1.0.3 has been tested with iOS up to 9.3 and OS X up to 10.11, but
 should be compatible with earlier versions too, down to iOS 5.1 and OS X 10.7.
 Le me know of any issues that should arise.
 

@@ -1,6 +1,6 @@
 //
 //  OZZipFile+Standard.h
-//  Objective-Zip v. 1.0.2
+//  Objective-Zip v. 1.0.3
 //
 //  Created by Gianluca Bertani on 09/09/15.
 //  Copyright 2009-2015 Gianluca Bertani. All rights reserved.
