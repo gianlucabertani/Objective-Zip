@@ -58,7 +58,7 @@ static const NSInteger OZReadStreamResultEndOfFile= -1;
  <br/>NOTE: return value convention is different in the standard (non-NSError
  compliant) interface.
  */
-- (NSInteger) __attribute__((swift_error(zero_result))) readDataWithBuffer:(nonnull NSMutableData *)buffer error:(NSError * __autoreleasing __nullable * __nullable)error;
+- (NSInteger) __attribute__((swift_error(nonnull_error))) readDataWithBuffer:(nonnull NSMutableData *)buffer error:(NSError * __autoreleasing __nullable * __nullable)error;
 
 /**
  @brief Closes the read steam.
