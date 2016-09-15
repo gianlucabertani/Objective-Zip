@@ -50,9 +50,9 @@ class Objective_Zip_Swift_Tests: XCTestCase {
     }
     
     func test01ZipAndUnzip() {
-        let documentsUrl = NSURL(fileURLWithPath:NSHomeDirectory(), isDirectory:true).URLByAppendingPathComponent("Documents")
+        let documentsUrl = NSURL(fileURLWithPath:NSHomeDirectory(), isDirectory:true).URLByAppendingPathComponent("Documents")!
         let fileUrl = documentsUrl.URLByAppendingPathComponent("test.zip")
-        let filePath = fileUrl.path!
+        let filePath = fileUrl!.path!
         
         do {
             try NSFileManager.defaultManager().removeItemAtPath(filePath)
@@ -309,9 +309,9 @@ class Objective_Zip_Swift_Tests: XCTestCase {
      */
     
     func test03UnzipMacZipFile() -> () {
-        let documentsUrl = NSURL(fileURLWithPath:NSHomeDirectory(), isDirectory:true).URLByAppendingPathComponent("Documents")
+        let documentsUrl = NSURL(fileURLWithPath:NSHomeDirectory(), isDirectory:true).URLByAppendingPathComponent("Documents")!
         let fileUrl = documentsUrl.URLByAppendingPathComponent("mac_test_file.zip")
-        let filePath = fileUrl.path!
+        let filePath = fileUrl!.path!
         
         do {
             try NSFileManager.defaultManager().removeItemAtPath(filePath)
@@ -367,9 +367,9 @@ class Objective_Zip_Swift_Tests: XCTestCase {
     }
     
     func test04UnzipWinZipFile() {
-        let documentsUrl = NSURL(fileURLWithPath:NSHomeDirectory(), isDirectory:true).URLByAppendingPathComponent("Documents")
+        let documentsUrl = NSURL(fileURLWithPath:NSHomeDirectory(), isDirectory:true).URLByAppendingPathComponent("Documents")!
         let fileUrl = documentsUrl.URLByAppendingPathComponent("win_test_file.zip")
-        let filePath = fileUrl.path!
+        let filePath = fileUrl!.path!
         
         do {
             try NSFileManager.defaultManager().removeItemAtPath(filePath)
