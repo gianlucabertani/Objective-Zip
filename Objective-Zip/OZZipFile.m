@@ -1,9 +1,9 @@
 //
 //  OZZipFile.m
-//  Objective-Zip v. 1.0.3
+//  Objective-Zip v. 1.0.4
 //
 //  Created by Gianluca Bertani on 25/12/09.
-//  Copyright 2009-2015 Gianluca Bertani. All rights reserved.
+//  Copyright 2009-2017 Gianluca Bertani. All rights reserved.
 //
 //  Redistribution and use in source and binary forms, with or without 
 //  modification, are permitted provided that the following conditions 
@@ -46,6 +46,7 @@
 #import "OZZipWriteStream+Internals.h"
 #import "OZFileInZipInfo.h"
 #import "OZFileInZipInfo+Internals.h"
+#import "NSDate+DOSDate.h"
 
 #include "zip.h"
 #include "unzip.h"
@@ -152,19 +153,10 @@
 	if (_mode == OZZipFileModeUnzip)
 		@throw [OZZipException zipExceptionWithReason:@"Operation not permitted in Unzip mode"];
 	
-	NSDate *now= [NSDate date];
-	NSCalendar *calendar= [NSCalendar currentCalendar];
-	NSDateComponents *date= [calendar components:(NSCalendarUnitSecond | NSCalendarUnitMinute | NSCalendarUnitHour | NSCalendarUnitDay | NSCalendarUnitMonth | NSCalendarUnitYear) fromDate:now];
 	zip_fileinfo zi;
-	zi.tmz_date.tm_sec= (uInt) [date second];
-	zi.tmz_date.tm_min= (uInt) [date minute];
-	zi.tmz_date.tm_hour= (uInt) [date hour];
-	zi.tmz_date.tm_mday= (uInt) [date day];
-	zi.tmz_date.tm_mon= (uInt) [date month] -1;
-	zi.tmz_date.tm_year= (uInt) [date year];
 	zi.internal_fa= 0;
 	zi.external_fa= 0;
-	zi.dosDate= 0;
+	zi.dos_date= [[NSDate date] dosDate];
 	
     // Support for legacy 32 bit mode: here we use the common version,
     // passing a flag to tell if it is a 32 or 64 bit file
@@ -188,18 +180,10 @@
 	if (_mode == OZZipFileModeUnzip)
 		@throw [OZZipException zipExceptionWithReason:@"Operation not permitted in Unzip mode"];
 	
-	NSCalendar *calendar= [NSCalendar currentCalendar];
-	NSDateComponents *date= [calendar components:(NSCalendarUnitSecond | NSCalendarUnitMinute | NSCalendarUnitHour | NSCalendarUnitDay | NSCalendarUnitMonth | NSCalendarUnitYear) fromDate:fileDate];
 	zip_fileinfo zi;
-	zi.tmz_date.tm_sec= (uInt) [date second];
-	zi.tmz_date.tm_min= (uInt) [date minute];
-	zi.tmz_date.tm_hour= (uInt) [date hour];
-	zi.tmz_date.tm_mday= (uInt) [date day];
-	zi.tmz_date.tm_mon= (uInt) [date month] -1;
-	zi.tmz_date.tm_year= (uInt) [date year];
 	zi.internal_fa= 0;
 	zi.external_fa= 0;
-	zi.dosDate= 0;
+    zi.dos_date= [fileDate dosDate];
 	
     // Support for legacy 32 bit mode: here we use the common version,
     // passing a flag to tell if it is a 32 or 64 bit file
@@ -219,22 +203,14 @@
 	return [[OZZipWriteStream alloc] initWithZipFileStruct:_zipFile fileNameInZip:fileNameInZip];
 }
 
-- (OZZipWriteStream *) writeFileInZipWithName:(NSString *)fileNameInZip fileDate:(NSDate *)fileDate compressionLevel:(OZZipCompressionLevel)compressionLevel password:(NSString *)password crc32:(NSUInteger)crc32 {
+- (OZZipWriteStream *) writeFileInZipWithName:(NSString *)fileNameInZip fileDate:(NSDate *)fileDate compressionLevel:(OZZipCompressionLevel)compressionLevel password:(NSString *)password crc32:(uint32_t)crc32 {
 	if (_mode == OZZipFileModeUnzip)
 		@throw [OZZipException zipExceptionWithReason:@"Operation not permitted in Unzip mode"];
 	
-	NSCalendar *calendar= [NSCalendar currentCalendar];
-	NSDateComponents *date= [calendar components:(NSCalendarUnitSecond | NSCalendarUnitMinute | NSCalendarUnitHour | NSCalendarUnitDay | NSCalendarUnitMonth | NSCalendarUnitYear) fromDate:fileDate];
 	zip_fileinfo zi;
-	zi.tmz_date.tm_sec= (uInt) [date second];
-	zi.tmz_date.tm_min= (uInt) [date minute];
-	zi.tmz_date.tm_hour= (uInt) [date hour];
-	zi.tmz_date.tm_mday= (uInt) [date day];
-	zi.tmz_date.tm_mon= (uInt) [date month] -1;
-	zi.tmz_date.tm_year= (uInt) [date year];
 	zi.internal_fa= 0;
 	zi.external_fa= 0;
-	zi.dosDate= 0;
+	zi.dos_date= [fileDate dosDate];
 	
     // Support for legacy 32 bit mode: here we use the common version,
     // passing a flag to tell if it is a 32 or 64 bit file
@@ -274,7 +250,7 @@
     } ERROR_WRAP_END_AND_RETURN(error, nil);
 }
 
-- (OZZipWriteStream *) writeFileInZipWithName:(NSString *)fileNameInZip fileDate:(NSDate *)fileDate compressionLevel:(OZZipCompressionLevel)compressionLevel password:(NSString *)password crc32:(NSUInteger)crc32 error:(NSError * __autoreleasing *)error {
+- (OZZipWriteStream *) writeFileInZipWithName:(NSString *)fileNameInZip fileDate:(NSDate *)fileDate compressionLevel:(OZZipCompressionLevel)compressionLevel password:(NSString *)password crc32:(uint32_t)crc32 error:(NSError * __autoreleasing *)error {
     ERROR_WRAP_BEGIN {
         
         return [self writeFileInZipWithName:fileNameInZip fileDate:fileDate compressionLevel:compressionLevel password:password crc32:crc32];
@@ -401,16 +377,7 @@
 	}
 	
 	BOOL crypted= ((file_info.flag & 1) != 0);
-	
-	NSDateComponents *components= [[NSDateComponents alloc] init];
-	[components setDay:file_info.tmu_date.tm_mday];
-	[components setMonth:file_info.tmu_date.tm_mon +1];
-	[components setYear:file_info.tmu_date.tm_year];
-	[components setHour:file_info.tmu_date.tm_hour];
-	[components setMinute:file_info.tmu_date.tm_min];
-	[components setSecond:file_info.tmu_date.tm_sec];
-	NSCalendar *calendar= [NSCalendar currentCalendar];
-	NSDate *date= [calendar dateFromComponents:components];
+	NSDate *date= [NSDate fromDosDate:file_info.dos_date];
 	
 	OZFileInZipInfo *info= [[OZFileInZipInfo alloc] initWithName:name
                                                           length:file_info.uncompressed_size

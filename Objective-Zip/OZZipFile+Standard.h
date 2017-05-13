@@ -1,9 +1,9 @@
 //
 //  OZZipFile+Standard.h
-//  Objective-Zip v. 1.0.3
+//  Objective-Zip v. 1.0.4
 //
 //  Created by Gianluca Bertani on 09/09/15.
-//  Copyright 2009-2015 Gianluca Bertani. All rights reserved.
+//  Copyright 2009-2017 Gianluca Bertani. All rights reserved.
 //
 //  Redistribution and use in source and binary forms, with or without
 //  modification, are permitted provided that the following conditions
@@ -167,7 +167,7 @@
  @throws OZZipException If the file stream can't be created due to an error or
  if the zip file has been opened in unzip mode.
  */
-- (nonnull OZZipWriteStream *) writeFileInZipWithName:(nonnull NSString *)fileNameInZip fileDate:(nonnull NSDate *)fileDate compressionLevel:(OZZipCompressionLevel)compressionLevel password:(nonnull NSString *)password crc32:(NSUInteger)crc32;
+- (nonnull OZZipWriteStream *) writeFileInZipWithName:(nonnull NSString *)fileNameInZip fileDate:(nonnull NSDate *)fileDate compressionLevel:(OZZipCompressionLevel)compressionLevel password:(nonnull NSString *)password crc32:(uint32_t)crc32;
 
 
 #pragma mark -

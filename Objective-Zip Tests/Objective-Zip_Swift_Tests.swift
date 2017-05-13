@@ -1,9 +1,9 @@
 //
 //  Objective-Zip_Swift_Tests.swift
-//  Objective-Zip
+//  Objective-Zip v. 1.0.4
 //
 //  Created by Gianluca Bertani on 20/09/15.
-//  Copyright 2009-2015 Gianluca Bertani. All rights reserved.
+//  Copyright 2009-2017 Gianluca Bertani. All rights reserved.
 //
 //  Redistribution and use in source and binary forms, with or without
 //  modification, are permitted provided that the following conditions
@@ -49,7 +49,7 @@ class Objective_Zip_Swift_Tests: XCTestCase {
         super.tearDown()
     }
     
-    func test01ZipAndUnzip() {
+    func test01_ZipAndUnzip() {
         let documentsUrl = URL(fileURLWithPath:NSHomeDirectory(), isDirectory:true).appendingPathComponent("Documents")
         let fileUrl = documentsUrl.appendingPathComponent("test.zip")
         let filePath = fileUrl.path
@@ -195,7 +195,7 @@ class Objective_Zip_Swift_Tests: XCTestCase {
     /* 
      * Uncomment to execute this test, but be careful: takes 5 minutes and consumes 5 GB of disk space
      *
-    func test02ZipAndUnzip5GB() {
+    func test02_ZipAndUnzip5GB() {
     
         let documentsUrl = NSURL(fileURLWithPath:NSHomeDirectory(), isDirectory:true).URLByAppendingPathComponent("Documents")
         let fileUrl = documentsUrl.URLByAppendingPathComponent("huge_test.zip")
@@ -308,7 +308,7 @@ class Objective_Zip_Swift_Tests: XCTestCase {
     }
      */
     
-    func test03UnzipMacZipFile() -> () {
+    func test03_UnzipMacZipFile() -> () {
         let documentsUrl = URL(fileURLWithPath:NSHomeDirectory(), isDirectory:true).appendingPathComponent("Documents")
         let fileUrl = documentsUrl.appendingPathComponent("mac_test_file.zip")
         let filePath = fileUrl.path
@@ -366,7 +366,7 @@ class Objective_Zip_Swift_Tests: XCTestCase {
         }
     }
     
-    func test04UnzipWinZipFile() {
+    func test04_UnzipWinZipFile() {
         let documentsUrl = URL(fileURLWithPath:NSHomeDirectory(), isDirectory:true).appendingPathComponent("Documents")
         let fileUrl = documentsUrl.appendingPathComponent("win_test_file.zip")
         let filePath = fileUrl.path
@@ -424,7 +424,7 @@ class Objective_Zip_Swift_Tests: XCTestCase {
         }
     }
     
-    func test05ErrorWrapping() {
+    func test05_ErrorWrapping() {
         let fileUrl = URL(fileURLWithPath:"/root.zip", isDirectory:false)
         let filePath = fileUrl.path
         

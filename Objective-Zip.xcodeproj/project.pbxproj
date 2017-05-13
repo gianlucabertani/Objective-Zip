@@ -7,6 +7,18 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8C33B2C11EC6F0CD00F49381 /* crypt.c in Sources */ = {isa = PBXBuildFile; fileRef = 8C33B2C01EC6F0CD00F49381 /* crypt.c */; };
+		8C33B2C21EC6F0DA00F49381 /* crypt.c in Sources */ = {isa = PBXBuildFile; fileRef = 8C33B2C01EC6F0CD00F49381 /* crypt.c */; };
+		8C33B2C51EC6F9AD00F49381 /* NSDate+DOSDate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C33B2C41EC6F9AD00F49381 /* NSDate+DOSDate.m */; };
+		8C33B2C61EC6F9AD00F49381 /* NSDate+DOSDate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C33B2C41EC6F9AD00F49381 /* NSDate+DOSDate.m */; };
+		8C33B2C71EC7058300F49381 /* NSDate+DOSDate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C33B2C41EC6F9AD00F49381 /* NSDate+DOSDate.m */; };
+		8C33B2C81EC7058300F49381 /* NSDate+DOSDate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C33B2C41EC6F9AD00F49381 /* NSDate+DOSDate.m */; };
+		8C33B2CB1EC7443200F49381 /* NSData+CRC32.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C33B2CA1EC7443200F49381 /* NSData+CRC32.m */; };
+		8C33B2CC1EC7443200F49381 /* NSData+CRC32.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C33B2CA1EC7443200F49381 /* NSData+CRC32.m */; };
+		8C33B2CD1EC7443200F49381 /* NSData+CRC32.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C33B2CA1EC7443200F49381 /* NSData+CRC32.m */; };
+		8C33B2CE1EC7443200F49381 /* NSData+CRC32.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C33B2CA1EC7443200F49381 /* NSData+CRC32.m */; };
+		8C33B2CF1EC747A100F49381 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8C14E8181773A09F00B84597 /* Security.framework */; };
+		8C33B2D11EC747A800F49381 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8C33B2D01EC747A800F49381 /* Security.framework */; };
 		8C59F3821BAEE3BC00DBB3D0 /* Objective-Zip_Swift_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C59F3811BAEE3BC00DBB3D0 /* Objective-Zip_Swift_Tests.swift */; };
 		8C59F3831BAEE3BC00DBB3D0 /* Objective-Zip_Swift_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C59F3811BAEE3BC00DBB3D0 /* Objective-Zip_Swift_Tests.swift */; };
 		8C59F39E1BAEE48600DBB3D0 /* adler32.c in Sources */ = {isa = PBXBuildFile; fileRef = 8C59F3841BAEE48600DBB3D0 /* adler32.c */; };
@@ -128,6 +140,12 @@
 		1D30AB110D05D00D00671497 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		8C14E8181773A09F00B84597 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		8C1D598C1771057D006D69C3 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
+		8C33B2C01EC6F0CD00F49381 /* crypt.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = crypt.c; sourceTree = "<group>"; };
+		8C33B2C31EC6F50400F49381 /* NSDate+DOSDate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSDate+DOSDate.h"; sourceTree = "<group>"; };
+		8C33B2C41EC6F9AD00F49381 /* NSDate+DOSDate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+DOSDate.m"; sourceTree = "<group>"; };
+		8C33B2C91EC7441A00F49381 /* NSData+CRC32.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSData+CRC32.h"; sourceTree = "<group>"; };
+		8C33B2CA1EC7443200F49381 /* NSData+CRC32.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+CRC32.m"; sourceTree = "<group>"; };
+		8C33B2D01EC747A800F49381 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.12.sdk/System/Library/Frameworks/Security.framework; sourceTree = DEVELOPER_DIR; };
 		8C59F37F1BAEE3BB00DBB3D0 /* Objective-Zip Tests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Objective-Zip Tests-Bridging-Header.h"; sourceTree = "<group>"; };
 		8C59F3801BAEE3BB00DBB3D0 /* Objective-Zip OS X Tests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Objective-Zip OS X Tests-Bridging-Header.h"; sourceTree = "<group>"; };
 		8C59F3811BAEE3BC00DBB3D0 /* Objective-Zip_Swift_Tests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Objective-Zip_Swift_Tests.swift"; sourceTree = "<group>"; };
@@ -208,6 +226,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8C33B2CF1EC747A100F49381 /* Security.framework in Frameworks */,
 				8CC2FC631B91E63E00D5E05F /* libObjective-Zip.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -223,6 +242,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8C33B2D11EC747A800F49381 /* Security.framework in Frameworks */,
 				8CC2FC7E1B91E65200D5E05F /* libObjective-Zip_OS_X.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -258,6 +278,7 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				8C33B2D01EC747A800F49381 /* Security.framework */,
 				8C14E8181773A09F00B84597 /* Security.framework */,
 				1D30AB110D05D00D00671497 /* Foundation.framework */,
 			);
@@ -267,6 +288,7 @@
 		8C6D350110E56A4B00B63EFA /* MiniZip */ = {
 			isa = PBXGroup;
 			children = (
+				8C33B2C01EC6F0CD00F49381 /* crypt.c */,
 				8C59F3C71BAEE49400DBB3D0 /* crypt.h */,
 				8C59F3C81BAEE49400DBB3D0 /* ioapi.c */,
 				8C59F3C91BAEE49400DBB3D0 /* ioapi.h */,
@@ -305,6 +327,10 @@
 				8C59F3DE1BAEE4A100DBB3D0 /* OZZipException.h */,
 				8C59F3DF1BAEE4A100DBB3D0 /* OZZipException.m */,
 				8C59F3E01BAEE4A100DBB3D0 /* OZZipException+Internals.h */,
+				8C33B2C31EC6F50400F49381 /* NSDate+DOSDate.h */,
+				8C33B2C41EC6F9AD00F49381 /* NSDate+DOSDate.m */,
+				8C33B2C91EC7441A00F49381 /* NSData+CRC32.h */,
+				8C33B2CA1EC7443200F49381 /* NSData+CRC32.m */,
 			);
 			path = "Objective-Zip";
 			sourceTree = SOURCE_ROOT;
@@ -581,10 +607,13 @@
 				8C59F3A21BAEE48600DBB3D0 /* crc32.c in Sources */,
 				8C59F3A51BAEE48600DBB3D0 /* deflate.c in Sources */,
 				8C59F3D21BAEE49400DBB3D0 /* unzip.c in Sources */,
+				8C33B2CB1EC7443200F49381 /* NSData+CRC32.m in Sources */,
 				8C59F3BD1BAEE48600DBB3D0 /* trees.c in Sources */,
 				8C59F3B71BAEE48600DBB3D0 /* inflate.c in Sources */,
 				8C59F3F81BAEE4A100DBB3D0 /* OZZipException.m in Sources */,
 				8C59F3BA1BAEE48600DBB3D0 /* inftrees.c in Sources */,
+				8C33B2C51EC6F9AD00F49381 /* NSDate+DOSDate.m in Sources */,
+				8C33B2C11EC6F0CD00F49381 /* crypt.c in Sources */,
 				8C59F3D51BAEE49400DBB3D0 /* zip.c in Sources */,
 				8C59F4021BAEE4A100DBB3D0 /* OZZipReadStream.m in Sources */,
 				8C59F3B11BAEE48600DBB3D0 /* infback.c in Sources */,
@@ -597,6 +626,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8C33B2CC1EC7443200F49381 /* NSData+CRC32.m in Sources */,
+				8C33B2C71EC7058300F49381 /* NSDate+DOSDate.m in Sources */,
 				8CC2FCB91B91EB3500D5E05F /* ObjectiveZip_Tests.m in Sources */,
 				8C59F3821BAEE3BC00DBB3D0 /* Objective-Zip_Swift_Tests.swift in Sources */,
 			);
@@ -620,10 +651,13 @@
 				8C59F3A31BAEE48600DBB3D0 /* crc32.c in Sources */,
 				8C59F3A61BAEE48600DBB3D0 /* deflate.c in Sources */,
 				8C59F3D31BAEE49400DBB3D0 /* unzip.c in Sources */,
+				8C33B2CD1EC7443200F49381 /* NSData+CRC32.m in Sources */,
 				8C59F3BE1BAEE48600DBB3D0 /* trees.c in Sources */,
 				8C59F3B81BAEE48600DBB3D0 /* inflate.c in Sources */,
 				8C59F3F91BAEE4A100DBB3D0 /* OZZipException.m in Sources */,
 				8C59F3BB1BAEE48600DBB3D0 /* inftrees.c in Sources */,
+				8C33B2C61EC6F9AD00F49381 /* NSDate+DOSDate.m in Sources */,
+				8C33B2C21EC6F0DA00F49381 /* crypt.c in Sources */,
 				8C59F3D61BAEE49400DBB3D0 /* zip.c in Sources */,
 				8C59F4031BAEE4A100DBB3D0 /* OZZipReadStream.m in Sources */,
 				8C59F3B21BAEE48600DBB3D0 /* infback.c in Sources */,
@@ -636,6 +670,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8C33B2CE1EC7443200F49381 /* NSData+CRC32.m in Sources */,
+				8C33B2C81EC7058300F49381 /* NSDate+DOSDate.m in Sources */,
 				8CC2FCBA1B91EB3500D5E05F /* ObjectiveZip_Tests.m in Sources */,
 				8C59F3831BAEE3BC00DBB3D0 /* Objective-Zip_Swift_Tests.swift in Sources */,
 			);
@@ -690,7 +726,6 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				GCC_WARN_UNUSED_FUNCTION = YES;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -725,7 +760,6 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				GCC_WARN_UNUSED_FUNCTION = YES;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -772,7 +806,6 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				GCC_WARN_UNUSED_FUNCTION = YES;
 				INFOPLIST_FILE = "Objective-Zip Tests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = YES;
@@ -816,7 +849,6 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				GCC_WARN_UNUSED_FUNCTION = YES;
 				INFOPLIST_FILE = "Objective-Zip Tests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = NO;
@@ -863,7 +895,6 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				GCC_WARN_UNUSED_FUNCTION = YES;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "Objective-Zip_OS_X";
@@ -900,7 +931,6 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				GCC_WARN_UNUSED_FUNCTION = YES;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "Objective-Zip_OS_X";
@@ -946,7 +976,6 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				GCC_WARN_UNUSED_FUNCTION = YES;
 				INFOPLIST_FILE = "Objective-Zip Tests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
@@ -992,7 +1021,6 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				GCC_WARN_UNUSED_FUNCTION = YES;
 				INFOPLIST_FILE = "Objective-Zip Tests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
@@ -1026,7 +1054,6 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
@@ -1055,7 +1082,6 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MACOSX_DEPLOYMENT_TARGET = 10.7;

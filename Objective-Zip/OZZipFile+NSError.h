@@ -1,9 +1,9 @@
 //
 //  OZZipFile+NSError.h
-//  Objective-Zip v. 1.0.3
+//  Objective-Zip v. 1.0.4
 //
 //  Created by Gianluca Bertani on 09/09/15.
-//  Copyright 2009-2015 Gianluca Bertani. All rights reserved.
+//  Copyright 2009-2017 Gianluca Bertani. All rights reserved.
 //
 //  Redistribution and use in source and binary forms, with or without
 //  modification, are permitted provided that the following conditions
@@ -183,7 +183,7 @@ static const NSInteger OZLocateFileResultFound= 1;
  file content, or <code>nil</code> if an error occurs.
  @throws OZZipException If the zip file has been opened in unzip mode.
  */
-- (nullable OZZipWriteStream *) writeFileInZipWithName:(nonnull NSString *)fileNameInZip fileDate:(nonnull NSDate *)fileDate compressionLevel:(OZZipCompressionLevel)compressionLevel password:(nonnull NSString *)password crc32:(NSUInteger)crc32 error:(NSError * __autoreleasing __nullable * __nullable)error;
+- (nullable OZZipWriteStream *) writeFileInZipWithName:(nonnull NSString *)fileNameInZip fileDate:(nonnull NSDate *)fileDate compressionLevel:(OZZipCompressionLevel)compressionLevel password:(nonnull NSString *)password crc32:(uint32_t)crc32 error:(NSError * __autoreleasing __nullable * __nullable)error;
 
 
 #pragma mark -

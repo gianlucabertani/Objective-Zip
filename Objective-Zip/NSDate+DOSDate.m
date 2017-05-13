@@ -1,8 +1,8 @@
 //
-//  OZZipReadStream+Internals.h
+//  NSDate+DOSDate.m
 //  Objective-Zip v. 1.0.4
 //
-//  Created by Gianluca Bertani on 27/08/15.
+//  Created by Gianluca Bertani on 13/05/2017.
 //  Copyright 2009-2017 Gianluca Bertani. All rights reserved.
 //
 //  Redistribution and use in source and binary forms, with or without
@@ -31,18 +31,39 @@
 //  POSSIBILITY OF SUCH DAMAGE.
 //
 
-#import "OZZipReadStream.h"
+#import <Foundation/Foundation.h>
 
-#include "unzip.h"
+#import "NSDate+DOSDate.h"
 
 
-@interface OZZipReadStream (Internals)
+@implementation NSDate (DOSDate)
 
 
 #pragma mark -
-#pragma mark Initialization
+#pragma mark Conversion to/from 32 bit DOS date format
 
-- (nonnull instancetype) initWithUnzFileStruct:(nonnull unzFile)unzFile fileNameInZip:(nonnull NSString *)fileNameInZip;
+- (uint32_t) dosDate {
+    NSCalendar *calendar= [NSCalendar currentCalendar];
+    NSDateComponents *date= [calendar components:(NSCalendarUnitSecond | NSCalendarUnitMinute | NSCalendarUnitHour | NSCalendarUnitDay | NSCalendarUnitMonth | NSCalendarUnitYear) fromDate:self];
+    
+    return (((uint32_t)[date day] + (32 * (uint32_t)[date month]) + (512 * ((uint32_t)[date year] - 1980))) << 16) |
+        (((uint32_t)[date second] / 2) + (32 * (uint32_t)[date minute]) + (2048 * (uint32_t)[date hour]));
+}
+
++ (NSDate *) fromDosDate:(uint32_t)dosDate {
+    uint64_t date= (uint64_t)(dosDate >> 16);
+    
+    NSDateComponents *components= [[NSDateComponents alloc] init];
+    [components setDay:date & 0x1f];
+    [components setMonth:(date & 0x1E0) / 0x20];
+    [components setYear:((date & 0x0FE00) / 0x0200) + 1980];
+    [components setHour:(dosDate & 0xF800) / 0x800];
+    [components setMinute:(dosDate & 0x7E0) / 0x20];
+    [components setSecond:2 * (dosDate & 0x1f)];
+    
+    NSCalendar *calendar= [NSCalendar currentCalendar];
+    return [calendar dateFromComponents:components];
+}
 
 
 @end

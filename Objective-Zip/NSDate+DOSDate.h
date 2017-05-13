@@ -1,8 +1,8 @@
 //
-//  OZZipReadStream+Internals.h
+//  NSDate+DOSDate.h
 //  Objective-Zip v. 1.0.4
 //
-//  Created by Gianluca Bertani on 27/08/15.
+//  Created by Gianluca Bertani on 13/05/2017.
 //  Copyright 2009-2017 Gianluca Bertani. All rights reserved.
 //
 //  Redistribution and use in source and binary forms, with or without
@@ -31,18 +31,18 @@
 //  POSSIBILITY OF SUCH DAMAGE.
 //
 
-#import "OZZipReadStream.h"
-
-#include "unzip.h"
+#import <Foundation/Foundation.h>
 
 
-@interface OZZipReadStream (Internals)
+@interface NSDate (DOSDate)
 
 
 #pragma mark -
-#pragma mark Initialization
+#pragma mark Conversion to/from 32 bit DOS date format
 
-- (nonnull instancetype) initWithUnzFileStruct:(nonnull unzFile)unzFile fileNameInZip:(nonnull NSString *)fileNameInZip;
+- (uint32_t) dosDate;
++ (NSDate *) fromDosDate:(uint32_t)dosDate;
 
 
 @end
+

@@ -1,8 +1,8 @@
 //
-//  OZZipReadStream+Internals.h
+//  NSData+CRC32.m
 //  Objective-Zip v. 1.0.4
 //
-//  Created by Gianluca Bertani on 27/08/15.
+//  Created by Gianluca Bertani on 13/05/2017.
 //  Copyright 2009-2017 Gianluca Bertani. All rights reserved.
 //
 //  Redistribution and use in source and binary forms, with or without
@@ -31,18 +31,24 @@
 //  POSSIBILITY OF SUCH DAMAGE.
 //
 
-#import "OZZipReadStream.h"
+#import <Foundation/Foundation.h>
 
-#include "unzip.h"
+#import "NSData+CRC32.h"
 
 
-@interface OZZipReadStream (Internals)
+// Part of ZLib, see crc32.c
+unsigned long crc32(unsigned long crc, const unsigned char *buf, unsigned int len);
+
+
+@implementation NSData (CRC32)
 
 
 #pragma mark -
-#pragma mark Initialization
+#pragma mark Handy CRC32 computation
 
-- (nonnull instancetype) initWithUnzFileStruct:(nonnull unzFile)unzFile fileNameInZip:(nonnull NSString *)fileNameInZip;
+- (uint32_t) crc32 {
+    return (uint32_t) crc32(0, [self bytes], (unsigned int) [self length]);
+}
 
 
 @end

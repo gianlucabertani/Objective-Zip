@@ -1,9 +1,9 @@
 //
 //  Objective-Zip.h
-//  Objective-Zip v. 1.0.3
+//  Objective-Zip v. 1.0.4
 //
 //  Created by Gianluca Bertani on 27/08/15.
-//  Copyright 2009-2015 Gianluca Bertani. All rights reserved.
+//  Copyright 2009-2017 Gianluca Bertani. All rights reserved.
 //
 //  Redistribution and use in source and binary forms, with or without
 //  modification, are permitted provided that the following conditions
@@ -41,3 +41,5 @@
 #import "OZZipReadStream.h"
 #import "OZZipReadStream+Standard.h"
 #import "OZFileInZipInfo.h"
+#import "NSDate+DOSDate.h"
+#import "NSData+CRC32.h"

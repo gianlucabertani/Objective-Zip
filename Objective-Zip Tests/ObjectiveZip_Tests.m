@@ -1,9 +1,9 @@
 //
 //  ObjectiveZip_Tests.m
-//  Objective-Zip
+//  Objective-Zip v. 1.0.4
 //
 //  Created by Gianluca Bertani on 29/08/15.
-//  Copyright 2009-2015 Gianluca Bertani. All rights reserved.
+//  Copyright 2009-2017 Gianluca Bertani. All rights reserved.
 //
 //  Redistribution and use in source and binary forms, with or without
 //  modification, are permitted provided that the following conditions
@@ -35,6 +35,7 @@
 
 #import "Objective-Zip.h"
 #import "Objective-Zip+NSError.h"
+
 
 #define HUGE_TEST_BLOCK_LENGTH             (50000LL)
 #define HUGE_TEST_NUMBER_OF_BLOCKS        (100000LL)
@@ -71,7 +72,37 @@
 #pragma mark -
 #pragma mark Tests
 
-- (void) test01ZipAndUnzip {
+- (void) test00_DOSDate {
+    
+    // NSDate to DOS date
+    NSDateComponents *components= [[NSDateComponents alloc] init];
+    [components setDay:25];
+    [components setMonth:1];
+    [components setYear:2016];
+    [components setHour:17];
+    [components setMinute:33];
+    [components setSecond:4];
+    
+    NSCalendar *calendar= [NSCalendar currentCalendar];
+    NSDate *date= [calendar dateFromComponents:components];
+    
+    uint32_t dosDate= [date dosDate];
+    
+    XCTAssertEqual(1211730978, dosDate);
+    
+    // DOS date to NSDate
+    NSDate *date2= [NSDate fromDosDate:dosDate];
+    NSDateComponents *components2= [calendar components:(NSCalendarUnitSecond | NSCalendarUnitMinute | NSCalendarUnitHour | NSCalendarUnitDay | NSCalendarUnitMonth | NSCalendarUnitYear) fromDate:date2];
+    
+    XCTAssertEqual(25, [components2 day]);
+    XCTAssertEqual(1, [components2 month]);
+    XCTAssertEqual(2016, [components2 year]);
+    XCTAssertEqual(17, [components2 hour]);
+    XCTAssertEqual(33, [components2 minute]);
+    XCTAssertEqual(4, [components2 second]);
+}
+
+- (void) test01_ZipAndUnzip {
     NSString *documentsDir= [NSHomeDirectory() stringByAppendingPathComponent:@"Documents"];
     NSString *filePath= [documentsDir stringByAppendingPathComponent:@"test.zip"];
     
@@ -211,7 +242,7 @@
 /* 
  * Uncomment to execute this test, but be careful: takes 5 minutes and consumes 5 GB of disk space
  *
-- (void) test02ZipAndUnzip5GB {
+- (void) test02_ZipAndUnzip5GB {
  
     NSString *documentsDir= [NSHomeDirectory() stringByAppendingPathComponent:@"Documents"];
     NSString *filePath= [documentsDir stringByAppendingPathComponent:@"huge_test.zip"];
@@ -321,7 +352,7 @@
 }
  */
 
-- (void) test03UnzipMacZipFile {
+- (void) test03_UnzipMacZipFile {
     NSString *documentsDir= [NSHomeDirectory() stringByAppendingPathComponent:@"Documents"];
     NSString *filePath= [documentsDir stringByAppendingPathComponent:@"mac_test_file.zip"];
     
@@ -377,7 +408,7 @@
     }
 }
 
-- (void) test04UnzipWinZipFile {
+- (void) test04_UnzipWinZipFile {
     NSString *documentsDir= [NSHomeDirectory() stringByAppendingPathComponent:@"Documents"];
     NSString *filePath= [documentsDir stringByAppendingPathComponent:@"win_test_file.zip"];
 
@@ -433,7 +464,7 @@
     }
 }
 
-- (void) test05ErrorWrapping {
+- (void) test05_ErrorWrapping {
     NSString *filePath= @"/root.zip";
     
     @try {
@@ -476,6 +507,584 @@
         
     } @catch (NSException *e) {
         NSLog(@"Test 5: generic exception caught: %@ - %@", [[e class] description], [e description]);
+        
+        XCTFail(@"Generic exception caught: %@ - %@", [[e class] description], [e description]);
+        
+    } @finally {
+        [[NSFileManager defaultManager] removeItemAtPath:filePath error:NULL];
+    }
+}
+
+- (void) test06_Zip32AndUnzip64 {
+    NSString *documentsDir= [NSHomeDirectory() stringByAppendingPathComponent:@"Documents"];
+    NSString *filePath= [documentsDir stringByAppendingPathComponent:@"test32_64.zip"];
+    
+    @try {
+        [[NSFileManager defaultManager] removeItemAtPath:filePath error:NULL];
+        
+        NSLog(@"Test 6: opening zip file for writing in 32 bit mode...");
+        
+        OZZipFile *zipFile32= [[OZZipFile alloc] initWithFileName:filePath mode:OZZipFileModeCreate legacy32BitMode:YES];
+        
+        XCTAssertNotNil(zipFile32);
+        
+        NSLog(@"Test 6: adding file...");
+        
+        OZZipWriteStream *stream= [zipFile32 writeFileInZipWithName:@"abc.txt" fileDate:[NSDate dateWithTimeIntervalSinceNow:-86400.0] compressionLevel:OZZipCompressionLevelDefault];
+        
+        XCTAssertNotNil(stream);
+        
+        NSLog(@"Test 6: writing to file's stream...");
+        
+        NSMutableData *writeData= [NSMutableData dataWithLength:4096];
+        int result= SecRandomCopyBytes(kSecRandomDefault, [writeData length], [writeData mutableBytes]);
+        
+        XCTAssertEqual(0, result);
+        
+        [stream writeData:writeData];
+        
+        NSLog(@"Test 6: closing file's stream...");
+        
+        [stream finishedWriting];
+        
+        NSLog(@"Test 6: closing zip file...");
+        
+        [zipFile32 close];
+        
+        NSLog(@"Test 6: opening zip file for reading in 64 bit mode...");
+        
+        OZZipFile *unzipFile64= [[OZZipFile alloc] initWithFileName:filePath mode:OZZipFileModeUnzip legacy32BitMode:NO];
+        
+        XCTAssertNotNil(unzipFile64);
+        
+        NSLog(@"Test 6: reading file infos...");
+        
+        NSArray *infos= [unzipFile64 listFileInZipInfos];
+        
+        XCTAssertEqual(1, infos.count);
+        
+        OZFileInZipInfo *info1= [infos objectAtIndex:0];
+        
+        XCTAssertEqualWithAccuracy([[NSDate date] timeIntervalSinceReferenceDate], [info1.date timeIntervalSinceReferenceDate] + 86400, 5.0);
+        
+        NSLog(@"Test 6: - %@ %@ %lu (%ld)", info1.name, info1.date, (unsigned long) info1.size, (long) info1.level);
+        
+        NSLog(@"Test 6: opening file...");
+        
+        [unzipFile64 goToFirstFileInZip];
+        OZZipReadStream *read= [unzipFile64 readCurrentFileInZip];
+        
+        XCTAssertNotNil(read);
+        
+        NSLog(@"Test 6: reading from file's stream...");
+        
+        NSMutableData *readData= [[NSMutableData alloc] initWithLength:10240];
+        NSUInteger bytesRead= [read readDataWithBuffer:readData];
+        [readData setLength:bytesRead];
+        
+        XCTAssertEqual(4096, bytesRead);
+        XCTAssertEqualObjects(writeData, readData);
+        
+        NSLog(@"Test 6: closing file's stream...");
+        
+        [read finishedReading];
+        
+        NSLog(@"Test 6: closing zip file...");
+        
+        [unzipFile64 close];
+        
+        NSLog(@"Test 6: test terminated succesfully");
+        
+    } @catch (OZZipException *ze) {
+        NSLog(@"Test 6: zip exception caught: %ld - %@", (long) ze.error, [ze reason]);
+        
+        XCTFail(@"Zip exception caught: %ld - %@", (long) ze.error, [ze reason]);
+        
+    } @catch (NSException *e) {
+        NSLog(@"Test 6: generic exception caught: %@ - %@", [[e class] description], [e description]);
+        
+        XCTFail(@"Generic exception caught: %@ - %@", [[e class] description], [e description]);
+        
+    } @finally {
+        [[NSFileManager defaultManager] removeItemAtPath:filePath error:NULL];
+    }
+}
+
+- (void) test07_Zip64AndUnzip32 {
+    NSString *documentsDir= [NSHomeDirectory() stringByAppendingPathComponent:@"Documents"];
+    NSString *filePath= [documentsDir stringByAppendingPathComponent:@"test64_32.zip"];
+    
+    @try {
+        [[NSFileManager defaultManager] removeItemAtPath:filePath error:NULL];
+        
+        NSLog(@"Test 7: opening zip file for writing in 64 bit mode...");
+        
+        OZZipFile *zipFile64= [[OZZipFile alloc] initWithFileName:filePath mode:OZZipFileModeCreate legacy32BitMode:NO];
+        
+        XCTAssertNotNil(zipFile64);
+        
+        NSLog(@"Test 7: adding file...");
+        
+        OZZipWriteStream *stream= [zipFile64 writeFileInZipWithName:@"abc.txt" fileDate:[NSDate dateWithTimeIntervalSinceNow:-86400.0] compressionLevel:OZZipCompressionLevelDefault];
+        
+        XCTAssertNotNil(stream);
+        
+        NSLog(@"Test 7: writing to file's stream...");
+        
+        NSMutableData *writeData= [NSMutableData dataWithLength:4096];
+        int result= SecRandomCopyBytes(kSecRandomDefault, [writeData length], [writeData mutableBytes]);
+        
+        XCTAssertEqual(0, result);
+        
+        [stream writeData:writeData];
+        
+        NSLog(@"Test 7: closing file's stream...");
+        
+        [stream finishedWriting];
+        
+        NSLog(@"Test 7: closing zip file...");
+        
+        [zipFile64 close];
+        
+        NSLog(@"Test 7: opening zip file for reading in 32 bit mode...");
+        
+        OZZipFile *unzipFile32= [[OZZipFile alloc] initWithFileName:filePath mode:OZZipFileModeUnzip legacy32BitMode:YES];
+        
+        XCTAssertNotNil(unzipFile32);
+        
+        NSLog(@"Test 7: reading file infos...");
+        
+        NSArray *infos= [unzipFile32 listFileInZipInfos];
+        
+        XCTAssertEqual(1, infos.count);
+        
+        OZFileInZipInfo *info1= [infos objectAtIndex:0];
+        
+        XCTAssertEqualWithAccuracy([[NSDate date] timeIntervalSinceReferenceDate], [info1.date timeIntervalSinceReferenceDate] + 86400, 5.0);
+        
+        NSLog(@"Test 7: - %@ %@ %lu (%ld)", info1.name, info1.date, (unsigned long) info1.size, (long) info1.level);
+        
+        NSLog(@"Test 7: opening file...");
+        
+        [unzipFile32 goToFirstFileInZip];
+        OZZipReadStream *read= [unzipFile32 readCurrentFileInZip];
+        
+        XCTAssertNotNil(read);
+        
+        NSLog(@"Test 7: reading from file's stream...");
+        
+        NSMutableData *readData= [[NSMutableData alloc] initWithLength:10240];
+        NSUInteger bytesRead= [read readDataWithBuffer:readData];
+        [readData setLength:bytesRead];
+        
+        XCTAssertEqual(4096, bytesRead);
+        XCTAssertEqualObjects(writeData, readData);
+        
+        NSLog(@"Test 7: closing file's stream...");
+        
+        [read finishedReading];
+        
+        NSLog(@"Test 7: closing zip file...");
+        
+        [unzipFile32 close];
+        
+        NSLog(@"Test 7: test terminated succesfully");
+        
+    } @catch (OZZipException *ze) {
+        NSLog(@"Test 7: zip exception caught: %ld - %@", (long) ze.error, [ze reason]);
+        
+        XCTFail(@"Zip exception caught: %ld - %@", (long) ze.error, [ze reason]);
+        
+    } @catch (NSException *e) {
+        NSLog(@"Test 7: generic exception caught: %@ - %@", [[e class] description], [e description]);
+        
+        XCTFail(@"Generic exception caught: %@ - %@", [[e class] description], [e description]);
+        
+    } @finally {
+        [[NSFileManager defaultManager] removeItemAtPath:filePath error:NULL];
+    }
+}
+
+- (void) test08_ZipAndUnzip32WithPassword {
+    NSString *documentsDir= [NSHomeDirectory() stringByAppendingPathComponent:@"Documents"];
+    NSString *filePath= [documentsDir stringByAppendingPathComponent:@"test32_password.zip"];
+    
+    @try {
+        [[NSFileManager defaultManager] removeItemAtPath:filePath error:NULL];
+        
+        NSLog(@"Test 8: opening zip file for writing in 32 bit mode...");
+        
+        OZZipFile *zipFile32= [[OZZipFile alloc] initWithFileName:filePath mode:OZZipFileModeCreate legacy32BitMode:YES];
+        
+        XCTAssertNotNil(zipFile32);
+        
+        NSLog(@"Test 8: adding file...");
+        
+        NSMutableData *writeData= [NSMutableData dataWithLength:4096];
+        int result= SecRandomCopyBytes(kSecRandomDefault, [writeData length], [writeData mutableBytes]);
+        
+        XCTAssertEqual(0, result);
+
+        uint32_t crc= [writeData crc32];
+
+        OZZipWriteStream *stream= [zipFile32 writeFileInZipWithName:@"abc.txt" fileDate:[NSDate dateWithTimeIntervalSinceNow:-86400.0] compressionLevel:OZZipCompressionLevelDefault password:@"password" crc32:crc];
+        
+        XCTAssertNotNil(stream);
+        
+        NSLog(@"Test 8: writing to file's stream with password...");
+        
+        [stream writeData:writeData];
+        
+        NSLog(@"Test 8: closing file's stream...");
+        
+        [stream finishedWriting];
+        
+        NSLog(@"Test 8: closing zip file...");
+        
+        [zipFile32 close];
+        
+        NSLog(@"Test 8: opening zip file for reading in 32 bit mode...");
+        
+        OZZipFile *unzipFile32= [[OZZipFile alloc] initWithFileName:filePath mode:OZZipFileModeUnzip legacy32BitMode:YES];
+        
+        XCTAssertNotNil(unzipFile32);
+        
+        NSLog(@"Test 8: reading file infos...");
+        
+        NSArray *infos= [unzipFile32 listFileInZipInfos];
+        
+        XCTAssertEqual(1, infos.count);
+        
+        OZFileInZipInfo *info1= [infos objectAtIndex:0];
+        
+        XCTAssertEqualWithAccuracy([[NSDate date] timeIntervalSinceReferenceDate], [info1.date timeIntervalSinceReferenceDate] + 86400, 5.0);
+        
+        NSLog(@"Test 8: - %@ %@ %lu (%ld)", info1.name, info1.date, (unsigned long) info1.size, (long) info1.level);
+        
+        NSLog(@"Test 8: opening file...");
+        
+        [unzipFile32 goToFirstFileInZip];
+        OZZipReadStream *read= [unzipFile32 readCurrentFileInZipWithPassword:@"password"];
+        
+        XCTAssertNotNil(read);
+        
+        NSLog(@"Test 8: reading from file's stream with password...");
+        
+        NSMutableData *readData= [[NSMutableData alloc] initWithLength:10240];
+        NSUInteger bytesRead= [read readDataWithBuffer:readData];
+        [readData setLength:bytesRead];
+        
+        XCTAssertEqual(4096, bytesRead);
+        XCTAssertEqualObjects(writeData, readData);
+        
+        NSLog(@"Test 8: closing file's stream...");
+        
+        [read finishedReading];
+        
+        NSLog(@"Test 8: closing zip file...");
+        
+        [unzipFile32 close];
+        
+        NSLog(@"Test 8: test terminated succesfully");
+        
+    } @catch (OZZipException *ze) {
+        NSLog(@"Test 8: zip exception caught: %ld - %@", (long) ze.error, [ze reason]);
+        
+        XCTFail(@"Zip exception caught: %ld - %@", (long) ze.error, [ze reason]);
+        
+    } @catch (NSException *e) {
+        NSLog(@"Test 8: generic exception caught: %@ - %@", [[e class] description], [e description]);
+        
+        XCTFail(@"Generic exception caught: %@ - %@", [[e class] description], [e description]);
+        
+    } @finally {
+        [[NSFileManager defaultManager] removeItemAtPath:filePath error:NULL];
+    }
+}
+
+- (void) test09_ZipAndUnzip64WithPassword {
+    NSString *documentsDir= [NSHomeDirectory() stringByAppendingPathComponent:@"Documents"];
+    NSString *filePath= [documentsDir stringByAppendingPathComponent:@"test64_password.zip"];
+    
+    @try {
+        [[NSFileManager defaultManager] removeItemAtPath:filePath error:NULL];
+        
+        NSLog(@"Test 9: opening zip file for writing in 64 bit mode...");
+        
+        OZZipFile *zipFile64= [[OZZipFile alloc] initWithFileName:filePath mode:OZZipFileModeCreate legacy32BitMode:NO];
+        
+        XCTAssertNotNil(zipFile64);
+        
+        NSLog(@"Test 9: adding file...");
+        
+        NSMutableData *writeData= [NSMutableData dataWithLength:4096];
+        int result= SecRandomCopyBytes(kSecRandomDefault, [writeData length], [writeData mutableBytes]);
+        
+        XCTAssertEqual(0, result);
+        
+        uint32_t crc= [writeData crc32];
+
+        OZZipWriteStream *stream= [zipFile64 writeFileInZipWithName:@"abc.txt" fileDate:[NSDate dateWithTimeIntervalSinceNow:-86400.0] compressionLevel:OZZipCompressionLevelDefault password:@"password" crc32:crc];
+        
+        XCTAssertNotNil(stream);
+        
+        NSLog(@"Test 9: writing to file's stream with password...");
+        
+        [stream writeData:writeData];
+        
+        NSLog(@"Test 9: closing file's stream...");
+        
+        [stream finishedWriting];
+        
+        NSLog(@"Test 9: closing zip file...");
+        
+        [zipFile64 close];
+        
+        NSLog(@"Test 9: opening zip file for reading in 64 bit mode...");
+        
+        OZZipFile *unzipFile64= [[OZZipFile alloc] initWithFileName:filePath mode:OZZipFileModeUnzip legacy32BitMode:NO];
+        
+        XCTAssertNotNil(unzipFile64);
+        
+        NSLog(@"Test 9: reading file infos...");
+        
+        NSArray *infos= [unzipFile64 listFileInZipInfos];
+        
+        XCTAssertEqual(1, infos.count);
+        
+        OZFileInZipInfo *info1= [infos objectAtIndex:0];
+        
+        XCTAssertEqualWithAccuracy([[NSDate date] timeIntervalSinceReferenceDate], [info1.date timeIntervalSinceReferenceDate] + 86400, 5.0);
+        
+        NSLog(@"Test 9: - %@ %@ %lu (%ld)", info1.name, info1.date, (unsigned long) info1.size, (long) info1.level);
+        
+        NSLog(@"Test 9: opening file...");
+        
+        [unzipFile64 goToFirstFileInZip];
+        OZZipReadStream *read= [unzipFile64 readCurrentFileInZipWithPassword:@"password"];
+        
+        XCTAssertNotNil(read);
+        
+        NSLog(@"Test 9: reading from file's stream with password...");
+        
+        NSMutableData *readData= [[NSMutableData alloc] initWithLength:10240];
+        NSUInteger bytesRead= [read readDataWithBuffer:readData];
+        [readData setLength:bytesRead];
+        
+        XCTAssertEqual(4096, bytesRead);
+        XCTAssertEqualObjects(writeData, readData);
+        
+        NSLog(@"Test 9: closing file's stream...");
+        
+        [read finishedReading];
+        
+        NSLog(@"Test 9: closing zip file...");
+        
+        [unzipFile64 close];
+        
+        NSLog(@"Test 9: test terminated succesfully");
+        
+    } @catch (OZZipException *ze) {
+        NSLog(@"Test 9: zip exception caught: %ld - %@", (long) ze.error, [ze reason]);
+        
+        XCTFail(@"Zip exception caught: %ld - %@", (long) ze.error, [ze reason]);
+        
+    } @catch (NSException *e) {
+        NSLog(@"Test 9: generic exception caught: %@ - %@", [[e class] description], [e description]);
+        
+        XCTFail(@"Generic exception caught: %@ - %@", [[e class] description], [e description]);
+        
+    } @finally {
+        [[NSFileManager defaultManager] removeItemAtPath:filePath error:NULL];
+    }
+}
+
+- (void) test10_Zip32AndUnzip64WithPassword {
+    NSString *documentsDir= [NSHomeDirectory() stringByAppendingPathComponent:@"Documents"];
+    NSString *filePath= [documentsDir stringByAppendingPathComponent:@"test32_64_password.zip"];
+    
+    @try {
+        [[NSFileManager defaultManager] removeItemAtPath:filePath error:NULL];
+        
+        NSLog(@"Test 10: opening zip file for writing in 32 bit mode...");
+        
+        OZZipFile *zipFile32= [[OZZipFile alloc] initWithFileName:filePath mode:OZZipFileModeCreate legacy32BitMode:YES];
+        
+        XCTAssertNotNil(zipFile32);
+        
+        NSLog(@"Test 10: adding file...");
+        
+        NSMutableData *writeData= [NSMutableData dataWithLength:4096];
+        int result= SecRandomCopyBytes(kSecRandomDefault, [writeData length], [writeData mutableBytes]);
+        
+        XCTAssertEqual(0, result);
+        
+        uint32_t crc= [writeData crc32];
+        
+        OZZipWriteStream *stream= [zipFile32 writeFileInZipWithName:@"abc.txt" fileDate:[NSDate dateWithTimeIntervalSinceNow:-86400.0] compressionLevel:OZZipCompressionLevelDefault password:@"password" crc32:crc];
+        
+        XCTAssertNotNil(stream);
+        
+        NSLog(@"Test 10: writing to file's stream with password...");
+        
+        [stream writeData:writeData];
+        
+        NSLog(@"Test 10: closing file's stream...");
+        
+        [stream finishedWriting];
+        
+        NSLog(@"Test 10: closing zip file...");
+        
+        [zipFile32 close];
+        
+        NSLog(@"Test 10: opening zip file for reading in 64 bit mode...");
+        
+        OZZipFile *unzipFile64= [[OZZipFile alloc] initWithFileName:filePath mode:OZZipFileModeUnzip legacy32BitMode:NO];
+        
+        XCTAssertNotNil(unzipFile64);
+        
+        NSLog(@"Test 10: reading file infos...");
+        
+        NSArray *infos= [unzipFile64 listFileInZipInfos];
+        
+        XCTAssertEqual(1, infos.count);
+        
+        OZFileInZipInfo *info1= [infos objectAtIndex:0];
+        
+        XCTAssertEqualWithAccuracy([[NSDate date] timeIntervalSinceReferenceDate], [info1.date timeIntervalSinceReferenceDate] + 86400, 5.0);
+        
+        NSLog(@"Test 10: - %@ %@ %lu (%ld)", info1.name, info1.date, (unsigned long) info1.size, (long) info1.level);
+        
+        NSLog(@"Test 10: opening file...");
+        
+        [unzipFile64 goToFirstFileInZip];
+        OZZipReadStream *read= [unzipFile64 readCurrentFileInZipWithPassword:@"password"];
+        
+        XCTAssertNotNil(read);
+        
+        NSLog(@"Test 10: reading from file's stream with password...");
+        
+        NSMutableData *readData= [[NSMutableData alloc] initWithLength:10240];
+        NSUInteger bytesRead= [read readDataWithBuffer:readData];
+        [readData setLength:bytesRead];
+        
+        XCTAssertEqual(4096, bytesRead);
+        XCTAssertEqualObjects(writeData, readData);
+        
+        NSLog(@"Test 10: closing file's stream...");
+        
+        [read finishedReading];
+        
+        NSLog(@"Test 10: closing zip file...");
+        
+        [unzipFile64 close];
+        
+        NSLog(@"Test 10: test terminated succesfully");
+        
+    } @catch (OZZipException *ze) {
+        NSLog(@"Test 10: zip exception caught: %ld - %@", (long) ze.error, [ze reason]);
+        
+        XCTFail(@"Zip exception caught: %ld - %@", (long) ze.error, [ze reason]);
+        
+    } @catch (NSException *e) {
+        NSLog(@"Test 10: generic exception caught: %@ - %@", [[e class] description], [e description]);
+        
+        XCTFail(@"Generic exception caught: %@ - %@", [[e class] description], [e description]);
+        
+    } @finally {
+        [[NSFileManager defaultManager] removeItemAtPath:filePath error:NULL];
+    }
+}
+
+- (void) test11_Zip64AndUnzip32WithPassword {
+    NSString *documentsDir= [NSHomeDirectory() stringByAppendingPathComponent:@"Documents"];
+    NSString *filePath= [documentsDir stringByAppendingPathComponent:@"test64_32_password.zip"];
+    
+    @try {
+        [[NSFileManager defaultManager] removeItemAtPath:filePath error:NULL];
+        
+        NSLog(@"Test 11: opening zip file for writing in 64 bit mode...");
+        
+        OZZipFile *zipFile64= [[OZZipFile alloc] initWithFileName:filePath mode:OZZipFileModeCreate legacy32BitMode:NO];
+        
+        XCTAssertNotNil(zipFile64);
+        
+        NSLog(@"Test 11: adding file...");
+        
+        NSMutableData *writeData= [NSMutableData dataWithLength:4096];
+        int result= SecRandomCopyBytes(kSecRandomDefault, [writeData length], [writeData mutableBytes]);
+        
+        XCTAssertEqual(0, result);
+        
+        uint32_t crc= [writeData crc32];
+
+        OZZipWriteStream *stream= [zipFile64 writeFileInZipWithName:@"abc.txt" fileDate:[NSDate dateWithTimeIntervalSinceNow:-86400.0] compressionLevel:OZZipCompressionLevelDefault password:@"password" crc32:crc];
+        
+        XCTAssertNotNil(stream);
+        
+        NSLog(@"Test 11: writing to file's stream with password...");
+        
+        [stream writeData:writeData];
+        
+        NSLog(@"Test 11: closing file's stream...");
+        
+        [stream finishedWriting];
+        
+        NSLog(@"Test 11: closing zip file...");
+        
+        [zipFile64 close];
+        
+        NSLog(@"Test 11: opening zip file for reading in 32 bit mode...");
+        
+        OZZipFile *unzipFile32= [[OZZipFile alloc] initWithFileName:filePath mode:OZZipFileModeUnzip legacy32BitMode:YES];
+        
+        XCTAssertNotNil(unzipFile32);
+        
+        NSLog(@"Test 11: reading file infos...");
+        
+        NSArray *infos= [unzipFile32 listFileInZipInfos];
+        
+        XCTAssertEqual(1, infos.count);
+        
+        OZFileInZipInfo *info1= [infos objectAtIndex:0];
+        
+        XCTAssertEqualWithAccuracy([[NSDate date] timeIntervalSinceReferenceDate], [info1.date timeIntervalSinceReferenceDate] + 86400, 5.0);
+        
+        NSLog(@"Test 11: - %@ %@ %lu (%ld)", info1.name, info1.date, (unsigned long) info1.size, (long) info1.level);
+        
+        NSLog(@"Test 11: opening file...");
+        
+        [unzipFile32 goToFirstFileInZip];
+        OZZipReadStream *read= [unzipFile32 readCurrentFileInZipWithPassword:@"password"];
+        
+        XCTAssertNotNil(read);
+        
+        NSLog(@"Test 11: reading from file's stream with password...");
+        
+        NSMutableData *readData= [[NSMutableData alloc] initWithLength:10240];
+        NSUInteger bytesRead= [read readDataWithBuffer:readData];
+        [readData setLength:bytesRead];
+        
+        XCTAssertEqual(4096, bytesRead);
+        XCTAssertEqualObjects(writeData, readData);
+        
+        NSLog(@"Test 7: closing file's stream...");
+        
+        [read finishedReading];
+        
+        NSLog(@"Test 7: closing zip file...");
+        
+        [unzipFile32 close];
+        
+        NSLog(@"Test 7: test terminated succesfully");
+        
+    } @catch (OZZipException *ze) {
+        NSLog(@"Test 7: zip exception caught: %ld - %@", (long) ze.error, [ze reason]);
+        
+        XCTFail(@"Zip exception caught: %ld - %@", (long) ze.error, [ze reason]);
+        
+    } @catch (NSException *e) {
+        NSLog(@"Test 7: generic exception caught: %@ - %@", [[e class] description], [e description]);
         
         XCTFail(@"Generic exception caught: %@ - %@", [[e class] description], [e description]);
         

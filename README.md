@@ -18,7 +18,7 @@ The source repository contains full sources for ZLib, MiniZip and
 Objective-Zip, together with some unit tests. The versions included are:
 
 - 1.2.8 for [ZLib](http://zlib.net).
-- 1.1 for [MiniZip](https://github.com/nmoinvaz/minizip).
+- 1.1 (as of 13/5/2017) for [MiniZip](https://github.com/nmoinvaz/minizip).
 - latest version for Objective-Zip.
 
 Please note that ZLib and MiniZip are included here only to provide a
@@ -122,16 +122,16 @@ NSMutableData *data= [[NSMutableData alloc] initWithLength:BUFFER_SIZE];
 do {
 
     // Reset buffer length
-    [buffer setLength:BUFFER_SIZE];
+    [data setLength:BUFFER_SIZE];
 
     // Read bytes and check for end of file
     int bytesRead= [read readDataWithBuffer:data];
     if (bytesRead <= 0)
         break;
 
-    [buffer setLength:bytesRead];
+    [data setLength:bytesRead];
 
-    // Do something with buffer
+    // Do something with data
 
 } while (YES);
 
@@ -279,6 +279,12 @@ The library is distributed under the New BSD License.
 Version history
 ===============
 
+Version 1.0.4:
+
+- Updated to latest version of MiniZip (as of 13/5/2017)
+- Added unit tests for 32/64 cross compatibility
+- Added unit tests for encryption/decryption with password
+
 Version 1.0.3:
 
 - Fixed some memory leaks in MiniZip (contributed by @SheffieldKevin)
@@ -357,7 +363,7 @@ Version 0.7.0:
 Compatibility
 =============
 
-Version 1.0.3 has been tested with iOS up to 9.3 and OS X up to 10.11, but
-should be compatible with earlier versions too, down to iOS 5.1 and OS X 10.7.
+Version 1.0.3 has been tested with iOS up to 10.3 and OS X up to 10.12, but
+should be compatible with earlier versions too, down to iOS 8.9 and OS X 10.7.
 Le me know of any issues that should arise.
 
