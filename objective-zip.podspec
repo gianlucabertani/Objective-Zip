@@ -55,12 +55,14 @@ Pod::Spec.new do |s|
                            "Objective-Zip/OZZipWriteStream.h", "Objective-Zip/OZZipWriteStream+Standard.h",
                            "Objective-Zip/OZZipWriteStream+NSError.h", "Objective-Zip/OZZipReadStream.h",
                            "Objective-Zip/OZZipReadStream+Standard.h", "Objective-Zip/OZZipReadStream+NSError.h",
-                           "Objective-Zip/OZFileInZipInfo.h", "Objective-Zip/Objective-Zip.h", "Objective-Zip/Objective-Zip+NSError.h"]
+                           "Objective-Zip/OZFileInZipInfo.h", "Objective-Zip/Objective-Zip.h", "Objective-Zip/Objective-Zip+NSError.h",
+                           "Objective-Zip/NSDate+DOSDate.h", "Objective-Zip/NSData+CRC32.h"]
 
 
   # ――― Project Settings ――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
 
   s.requires_arc = true
-  s.xcconfig = { "OTHER_LDFLAGS" => "-ObjC" }
+  s.xcconfig = { "OTHER_LDFLAGS" => "-ObjC",
+                 "GCC_WARN_UNUSED_FUNCTION" => "NO" }
 
 end
