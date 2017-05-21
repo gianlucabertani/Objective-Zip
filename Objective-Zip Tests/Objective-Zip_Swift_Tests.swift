@@ -1,6 +1,6 @@
 //
 //  Objective-Zip_Swift_Tests.swift
-//  Objective-Zip v. 1.0.4
+//  Objective-Zip v. 1.0.5
 //
 //  Created by Gianluca Bertani on 20/09/15.
 //  Copyright 2009-2017 Gianluca Bertani. All rights reserved.

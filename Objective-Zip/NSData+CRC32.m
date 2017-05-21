@@ -1,6 +1,6 @@
 //
 //  NSData+CRC32.m
-//  Objective-Zip v. 1.0.4
+//  Objective-Zip v. 1.0.5
 //
 //  Created by Gianluca Bertani on 13/05/2017.
 //  Copyright 2009-2017 Gianluca Bertani. All rights reserved.
@@ -47,7 +47,11 @@ unsigned long crc32(unsigned long crc, const unsigned char *buf, unsigned int le
 #pragma mark Handy CRC32 computation
 
 - (uint32_t) crc32 {
-    return (uint32_t) crc32(0, [self bytes], (unsigned int) [self length]);
+    return [self crc32withInitialCrc32:0];
+}
+
+- (uint32_t) crc32withInitialCrc32:(uint32_t)initialCrc32 {
+    return (uint32_t) crc32(initialCrc32, [self bytes], (unsigned int) [self length]);
 }
 
 
