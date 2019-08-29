@@ -4,6 +4,11 @@ Objective-Zip
 =============
 
 
+## Deprecated
+
+**This library is deprecated.** If you are still using it, you are encouraged to find alternatives.
+
+
 Introduction
 ------------
 
@@ -105,11 +110,11 @@ Objective-Zip supports only traditional PKWare encryption, which is also the
 format most widely supported by common unzip utilities.
 
 To add a file with encryption, it is necessary to precompute a CRC32 of
-the file being added. This is needed by traditional PKWare encryption 
+the file being added. This is needed by traditional PKWare encryption
 to later verify that the password provided for decryption is correct.
 
-The library includes a handy crc32 method as an NSData category 
-(automatically imported under the umbrella header): 
+The library includes a handy crc32 method as an NSData category
+(automatically imported under the umbrella header):
 
 ```objective-c
 NSData *fileData= // Your file data
@@ -136,7 +141,7 @@ NSFileHandle *fileHandle= // Your file handle
 uint32_t crc= 0;
 do {
 
-    // Read a chunk of the file in data buffer 
+    // Read a chunk of the file in data buffer
     NSData *data= [fileHandle readDataOfLength:BUFFER_SIZE];
     if ([data length] == 0)
         break;
