@@ -39,7 +39,7 @@ extern const NSInteger OZ_ERROR_NO_SUCH_FILE;
 /**
  @brief OZZipException is a custom exception type to quickly discern between
  error originated during the zip/unzip process or elsewhere.
- </p>All exceptions thrown by Objective-Zip are of OZZipException type.</p>
+ <p>All exceptions thrown by Objective-Zip are of OZZipException type.</p>
  */
 @interface OZZipException : NSException 
 
