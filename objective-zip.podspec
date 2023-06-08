@@ -3,7 +3,7 @@ Pod::Spec.new do |s|
   # ―――  Spec Metadata  ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
 
   s.name         = "objective-zip"
-  s.version      = "1.0.2"
+  s.version      = "2.0.0"
   s.summary      = "An object-oriented friendly wrapper library for ZLib and MiniZip, in Objective-C for iOS and OS X"
 
   s.description  = <<-DESC
@@ -17,7 +17,7 @@ Pod::Spec.new do |s|
                    Objective-Zip includes sources of latest versions of ZLib and MiniZip.
                    DESC
 
-  s.homepage     = "https://github.com/gianlucabertani/Objective-Zip"
+  s.homepage     = "https://github.com/DivineDominion/Objective-Zip"
 
 
   # ―――  Spec License  ――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
@@ -33,8 +33,7 @@ Pod::Spec.new do |s|
 
   # ――― Platform Specifics ――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
 
-  s.ios.deployment_target = "5.1"
-  s.osx.deployment_target = "10.7"
+  s.osx.deployment_target = "10.13"
 
 
   # ――― Source Location ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
